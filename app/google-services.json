@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "103123683397",
+    "project_id": "stella-97a8f",
+    "storage_bucket": "stella-97a8f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:103123683397:android:c9511e63f5f3cd6264bb2c",
+        "android_client_info": {
+          "package_name": "com.example.stella"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0Lcpctn2JoivNNXFNJoIuKO6X-C3DwOs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,68 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="Theme.Stella" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#3c3f41</item>
+        <item name="colorPrimaryVariant">#1d1d1d</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/black</item>
+        <item name="colorSecondaryVariant">#656A6E</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="TextViewClaro" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">#FF000000</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+    <style name="TextViewClaroClick" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">#5dbbf0</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="DialogAnimationBottom">
+        <item name="android:windowEnterAnimation">@anim/slide_in_animation_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_animation_bottom</item>
+    </style>
+
+    <style name="DialogAnimationLeft">
+        <item name="android:windowEnterAnimation">@anim/slide_in_animation_left</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_animation_left</item>
+    </style>
+
+    <style name="DialogLeftTheme" parent="Theme.AppCompat.Light.Dialog">
+        <!-- Customize your theme here. -->
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="taskStyle">
+        <item name="android:fontFamily">sans-serif-black</item>
+        <item name="android:textColor">#FF000000</item>
+        <item name="android:textSize">32dp</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="cardview" parent="CardView">
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+    </style>
+
+
+</resources>

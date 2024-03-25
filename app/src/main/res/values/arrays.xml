@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="languague_array">
+        <item>Spanish</item>
+        <item>English</item>
+    </array>
+    <array name="themes_array">
+        <item>Light</item>
+        <item>Dark</item>
+    </array>
+    <array name="types_array">
+        <item>@string/work</item>
+        <item>@string/domestic</item>
+        <item>@string/study</item>
+        <item>@string/leisure</item>
+    </array>
+    <array name="taskOptions_array">
+        <item>@string/edit</item>
+        <item>@string/delete</item>
+    </array>
+    <array name="previous_records_options">
+        <item>@string/fullDate</item>
+        <item>@string/month</item>
+        <item>@string/year</item>
+    </array>
+</resources>

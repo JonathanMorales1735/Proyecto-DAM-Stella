@@ -1,0 +1,81 @@
+<resources>
+    <string name="app_name">Stella</string>
+    <string name="btn_logIn">Iniciar sesión</string>
+    <string name="txt_noAccount1">¿No tienes una cuenta?</string>
+    <string name="txt_noAccount2">Click aquí</string>
+    <string name="configuration">Configuración</string>
+    <string name="language">Idioma:</string>
+    <string name="theme">Tema:</string>
+    <string name="email">Email</string>
+    <string name="user">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="repeatpassword">Repetir contraseña</string>
+    <string name="register">Registrarte</string>
+    <string name="registration">Registrar cuenta</string>
+    <string name="task">Tareas</string>
+    <string name="completed">Completadas</string>
+    <string name="myrecord">Mi registro</string>
+    <string name="myweek">Mi semana</string>
+    <string name="disconnect">Cerrar sesión</string>
+    <string name="newtask">Nueva tarea</string>
+    <string name="name">Nombre</string>
+    <string name="name2">Nombre:</string>
+    <string name="description">Descripción</string>
+    <string name="description2">Descripción:</string>
+    <string name="type">Tipo:</string>
+    <string name="warning">Aviso:</string>
+    <string name="time">Hora:</string>
+    <string name="change">Cambiar</string>
+    <string name="repeat">Repetir:</string>
+    <string name="createtask">Crear tarea</string>
+    <string name="newtaskcreatedsuccessfully">Nueva tarea creada con éxito</string>
+    <string name="consultpreviousrecords">Consultar registros anteriores</string>
+    <string name="filter_by">Filtrar por:</string>
+    <string name="yourpreviousrecords">Tus registros anteriores</string>
+    <string name="apply">Aplicar</string>
+    <string name="monday">Lunes</string>
+    <string name="tuesday">Martes</string>
+    <string name="wednesday">Miércoles</string>
+    <string name="thursday">Jueves</string>
+    <string name="friday">Viernes</string>
+    <string name="saturday">Sábado</string>
+    <string name="sunday">Domingo</string>
+    <string name="edittask">Editar tarea</string>
+    <string name="any">Cualquiera</string>
+    <string name="newaccountcreated">Verifica tu email para poder acceder.</string>
+    <string name="success">Éxito</string>
+    <string name="close">Cerrar</string>
+
+    <string name="work">Trabajo</string>
+    <string name="study">Estudio</string>
+    <string name="domestic">Doméstico</string>
+    <string name="leisure">Ocio</string>
+
+    <string name="emailEmpty">Introduce un email válido.</string>
+    <string name="emailErr">*Introduce un email válido.</string>
+    <string name="userEmpty">Introduce un usuario válido.</string>
+    <string name="userErr">*Introduce un usuario válido.</string>
+    <string name="passwordEmpty">Introduce una contraseña válida.</string>
+    <string name="passwordErr">*Introduce una contraseña válida.</string>
+    <string name="repeatPasswordErr">*La contraseña no coincide.</string>
+
+    <string name="nameEmpty">Se requiere un nombre</string>
+
+    <string name="edit">Editar</string>
+    <string name="delete">Eliminar</string>
+
+    <string name="never">Nunca></string>
+
+    <string name="fullDate">Fecha completa</string>
+    <string name="month">Mes</string>
+    <string name="year">Año</string>
+    <string name="date">Fecha:</string>
+
+    <string name="filter">Filtrar</string>
+    <string name="filterFullDate">Fecha completa</string>
+    <string name="filterMonth">Mes</string>
+    <string name="filterYear">Año</string>
+    <string name="none">Ninguna></string>
+
+
+</resources>

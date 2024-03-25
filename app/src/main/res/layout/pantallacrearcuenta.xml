@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="visible">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="31dp" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="77dp"
+                android:layout_height="69dp"
+                app:srcCompat="@drawable/logo2" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="31dp" />
+
+            <TextView
+                android:id="@+id/textView5"
+                style="@style/TextViewClaro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/registration"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="33dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="?attr/colorPrimaryVariant"
+                android:paddingTop="100dp"
+                android:paddingBottom="100dp"
+                app:cardCornerRadius="50dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingLeft="50dp"
+                    android:paddingTop="60dp"
+                    android:paddingRight="50dp"
+                    android:paddingBottom="60dp">
+
+                    <EditText
+                        android:id="@+id/emailEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:ems="10"
+                        android:hint="@string/email"
+                        android:inputType="textEmailAddress" />
+
+                    <TextView
+                        android:id="@+id/emailErrText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="@string/emailErr"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="12sp"
+                        android:visibility="invisible" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="28dp" />
+
+                    <EditText
+                        android:id="@+id/userNameEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:ems="10"
+                        android:hint="@string/user"
+                        android:inputType="textPersonName" />
+
+                    <TextView
+                        android:id="@+id/userErrText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="@string/userErr"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="12sp"
+                        android:visibility="invisible" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="28dp" />
+
+                    <EditText
+                        android:id="@+id/passwordEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:ems="10"
+                        android:hint="@string/password"
+                        android:inputType="textPassword" />
+
+                    <TextView
+                        android:id="@+id/passwordErrText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="@string/passwordErr"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="12sp"
+                        android:visibility="invisible" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="28dp" />
+
+                    <EditText
+                        android:id="@+id/passwordRepeatEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:ems="10"
+                        android:hint="@string/repeatpassword"
+                        android:inputType="textPassword" />
+
+                    <TextView
+                        android:id="@+id/repeatPasswordErrText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="@string/repeatPasswordErr"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="12sp"
+                        android:visibility="invisible" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="34dp" />
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="register"
+                android:text="@string/register" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
