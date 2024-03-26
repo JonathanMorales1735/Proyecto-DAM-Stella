@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -133,6 +134,31 @@ public class dbLogic {
 
     }
 
+    //=============================================================================
+    // SELECT METHODS
+    //=============================================================================
 
+
+    public boolean checkTaskInTable(int id, String tableName){
+        DbHelper dbH = new DbHelper(context);
+        SQLiteDatabase db = dbH.getReadableDatabase();
+
+        String query = "Select * from " + tableName + " where id = " + id + "";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        Boolean check = cursor.moveToFirst();
+
+        try {
+            db.close();
+            cursor.close();
+            dbH.close();
+            Log.i(TAG, "checkTaskInTable: DBH cerrado.");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return check;
+    }
 
 }

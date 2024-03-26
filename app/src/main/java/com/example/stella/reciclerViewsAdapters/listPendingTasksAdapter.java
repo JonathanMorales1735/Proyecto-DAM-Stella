@@ -44,6 +44,7 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
     private Dialog dialogInfo = null;
     listCompletedTasksAdapter completedTasksAdapter;
     Alarm alarm;
+    adaptersLogic adaptersLogic;
 
 
     public listPendingTasksAdapter( Context context){
@@ -51,6 +52,7 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
         this.context = context;
         alarm = new Alarm(context);
         fillPendingTasks();
+        adaptersLogic = new adaptersLogic(context);
 
     }
 
@@ -100,7 +102,7 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
                             switch (menuItem.getItemId()){
                                 case R.id.optionEdit:
                                     Intent intent = new Intent(context, pantallaEditarTarea.class);
-                                    taskElement auxItem= auxGetTaskFullInfo(item.getId());
+                                    taskElement auxItem= adaptersLogic.getTaskFullInfo(item.getId(), "pendingtasks");
                                     intent.putExtra("id", auxItem.getId());
                                     intent.putExtra("name", auxItem.getName());
                                     intent.putExtra("description", auxItem.getDescription());
@@ -140,7 +142,7 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
             name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showInfoDialog(item.getId());
+                    adaptersLogic.showTaskInfo(item.getId(), "pendingtasks");
                 }
             });
         }

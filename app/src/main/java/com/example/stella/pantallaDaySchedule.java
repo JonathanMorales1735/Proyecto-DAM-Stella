@@ -20,7 +20,7 @@ public class pantallaDaySchedule extends AppCompatActivity {
         setContentView(R.layout.pantalladiadelasemana);
 
         recyclerView = findViewById(R.id.recyclerWeeklyTasks);
-        adapter = new listWeeklyTasksAdapter(this);
+        adapter = new listWeeklyTasksAdapter(this, this.getWindow());
 
         setRecyclerViewCompleted();
 

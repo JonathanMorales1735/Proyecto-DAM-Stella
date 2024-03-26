@@ -92,7 +92,7 @@
 
                         <TextView
                             android:id="@+id/textView12"
-                            android:layout_width="wrap_content"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:text="@string/type"
                             android:textColor="?attr/colorOnPrimary"
@@ -118,16 +118,12 @@
 
                         <TextView
                             android:id="@+id/textView13"
-                            android:layout_width="wrap_content"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:text="@string/warning"
                             android:textColor="?attr/colorOnPrimary"
                             android:textSize="20sp"
                             android:textStyle="bold" />
-
-                        <Space
-                            android:layout_width="22dp"
-                            android:layout_height="37dp" />
 
                         <CheckBox
                             android:id="@+id/editNotifyCheckBox"
@@ -146,7 +142,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center|left"
                         android:orientation="horizontal"
-                        android:paddingRight="40dp">
+                        android:paddingRight="50dp">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -156,9 +152,8 @@
                                 android:id="@+id/textSelectedTime"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="32dp"
                                 android:text="@string/never"
-                                android:textColor="?attr/colorOnPrimary"
+                                android:textColor="#CFCDCD"
                                 android:textSize="18sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toEndOf="@+id/textView14"
@@ -169,17 +164,16 @@
                                 style="@style/TextViewClaroClick"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="5dp"
                                 android:layout_weight="1"
-                                android:onClick="timePickerDialog"
-                                android:text="@string/change"
+                                android:onClick="resetTime"
+                                android:text="@string/reset"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
                                 android:id="@+id/textView14"
-                                android:layout_width="wrap_content"
+                                android:layout_width="100dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/time"
                                 android:textColor="?attr/colorOnPrimary"
@@ -209,26 +203,12 @@
                             android:layout_height="wrap_content">
 
                             <TextView
-                                android:id="@+id/btn_changeDays"
-                                style="@style/TextViewClaroClick"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="5dp"
-                                android:layout_weight="1"
-                                android:onClick="dayPickerDialog"
-                                android:text="@string/change"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
                                 android:id="@+id/textSelectedDays"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
-                                android:layout_marginStart="10dp"
                                 android:layout_marginTop="3dp"
                                 android:text="@string/never"
-                                android:textColor="?attr/colorOnPrimary"
+                                android:textColor="#CFCDCD"
                                 android:textSize="18sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toEndOf="@+id/textView15"
@@ -237,7 +217,7 @@
 
                             <TextView
                                 android:id="@+id/textView15"
-                                android:layout_width="wrap_content"
+                                android:layout_width="100dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/repeat"
                                 android:textColor="?attr/colorOnPrimary"

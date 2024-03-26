@@ -36,10 +36,12 @@ public class listWeeklyTasksAdapter extends RecyclerView.Adapter<listWeeklyTasks
     private LayoutInflater mInflater;
     private Context context;
     private Dialog dialogInfo = null;
+    private adaptersLogic adapterLogic;
 
-    public listWeeklyTasksAdapter(Context context){
+    public listWeeklyTasksAdapter(Context context, Window w){
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
+        adapterLogic = new adaptersLogic(context);
     }
 
 
@@ -85,10 +87,18 @@ public class listWeeklyTasksAdapter extends RecyclerView.Adapter<listWeeklyTasks
                             switch (menuItem.getItemId()){
                                 case R.id.optionEdit:
                                     Intent intent = new Intent(context, pantallaEditarTarea.class);
+                                    taskElement auxItem= adapterLogic.getTaskFullInfo(item.getId(), "weeklytasks");
+                                    intent.putExtra("id", auxItem.getId());
+                                    intent.putExtra("name", auxItem.getName());
+                                    intent.putExtra("description", auxItem.getDescription());
+                                    intent.putExtra("type", auxItem.getType());
+                                    intent.putExtra("notify", auxItem.isNotify());
+                                    intent.putExtra("time", auxItem.getTime());
+                                    intent.putExtra("table", "pendingtasks");
                                     context.startActivity(intent);
                                     break;
                                 case R.id.optionDelete:
-                                    //deleteItem(item.getId());
+                                    adapterLogic.deleteTaskInWeeklyTasks(item.getId());
                                     //fillPendingTasks();
                                     break;
                                 default:
@@ -105,7 +115,7 @@ public class listWeeklyTasksAdapter extends RecyclerView.Adapter<listWeeklyTasks
             name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showInfoDialog(item.getId());
+                    adapterLogic.showTaskInfo(item.getId(), "weeklytasks");
                 }
             });
         }
@@ -134,70 +144,7 @@ public class listWeeklyTasksAdapter extends RecyclerView.Adapter<listWeeklyTasks
         notifyDataSetChanged();
     }
 
-    private void showInfoDialog(int id){
-        if((dialogInfo == null) || !dialogInfo.isShowing()){
-            dialogInfo = new Dialog(context);
-            dialogInfo.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialogInfo.setContentView(R.layout.pantallainfo);
-
-            TextView name = dialogInfo.findViewById(R.id.textName);
-            TextView description = dialogInfo.findViewById(R.id.textDescription);
-            TextView type = dialogInfo.findViewById(R.id.textType);
-            TextView time = dialogInfo.findViewById(R.id.textTime);
-            TextView days = dialogInfo.findViewById(R.id.textDays);
-
-            taskElement item = auxGetTaskFullInfo(id);
-
-            //Debido a que la app tiene mas de un idioma, se consigue el nombre del tipo de tarea (la cual se introduce en inglés para que coincida con su id en strings.xml)
-            //y se muestra en el idioma seleccionado por el usuario.
-            int typeIdName = context.getResources().getIdentifier(item.getType(), "string", context.getPackageName());
-            String typeName = context.getResources().getString(typeIdName);
-
-            name.setText(item.getName());
-            description.setText(item.getDescription());
-            type.setText(typeName);
-            time.setText(item.getTime());
 
 
-            dialogInfo.show();
-            dialogInfo.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            dialogInfo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            dialogInfo.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationLeft;
-            dialogInfo.getWindow().setGravity(Gravity.LEFT);
 
-            ImageButton button = dialogInfo.findViewById(R.id.btn_close);
-            button.setOnClickListener(new View.OnClickListener(){
-                public void onClick(View view) {
-                    dialogInfo.hide();
-                    dialogInfo.dismiss();
-                }
-            });
-        }
-    }
-
-    private taskElement auxGetTaskFullInfo(int id){
-        DbHelper dbHelper = new DbHelper(context);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        taskElement task = null;
-
-        Cursor cursor = db.rawQuery("Select * from weeklytasks where id = " + id, null);
-
-        while(cursor.moveToNext()){
-            task = new taskElement();
-            task.setId(cursor.getInt(0));
-            task.setName(cursor.getString(1));
-            task.setDescription(cursor.getString(2));
-            task.setType(cursor.getString(3));
-            task.setNotify(cursor.getInt(4));
-            task.setTime(cursor.getString(5));
-        }
-        try{
-            db.close();
-            cursor.close();
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        return task;
-    }
 }

@@ -80,5 +80,7 @@
     <string name="spanish">Español</string>
     <string name="english">Inglés</string>
 
+    <string name="reset">Resetear</string>
+
 
 </resources>

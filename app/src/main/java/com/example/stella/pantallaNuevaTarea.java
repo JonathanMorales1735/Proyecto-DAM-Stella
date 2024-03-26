@@ -35,6 +35,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.stella.db.DbHelper;
+import com.example.stella.dialogs.dayPickerDialog;
+import com.example.stella.dialogs.timePickerDialog;
 import com.example.stella.utils.Alarm;
 
 import java.time.LocalDate;
@@ -79,7 +81,19 @@ public class pantallaNuevaTarea extends AppCompatActivity {
         layer_horario.setVisibility(View.GONE); // GONE para quitarlo, VISIBLE para ponerlo
         layer_dias.setVisibility(View.GONE);
 
+        textSelectedTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showTimePickerDialog();
+            }
+        });
 
+        textSelectedDays.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDayPickerDialog();
+            }
+        });
 
 
         notifyCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
@@ -268,116 +282,23 @@ public class pantallaNuevaTarea extends AppCompatActivity {
         if(notifyCheckBox.isChecked()) notifyCheckBox.setChecked(false);
     }
 
-    public void dayPickerDialog(View view){
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_daypicker);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.setCancelable(false);
-
-        CheckBox chkMonday, chkTuesday, chkWednesday, chkThursday, chkFriday, chkSaturday, chkSunday;
-        Button btnApply;
-        ImageButton btnClose;
-
-
-        chkMonday = (CheckBox) dialog.findViewById(R.id.checkBoxMonday);
-        chkTuesday = (CheckBox) dialog.findViewById(R.id.checkBoxTuesday);
-        chkWednesday = (CheckBox) dialog.findViewById(R.id.checkBoxWednesday);
-        chkThursday = (CheckBox) dialog.findViewById(R.id.checkBoxThursday);
-        chkFriday = (CheckBox) dialog.findViewById(R.id.checkBoxFriday);
-        chkSaturday = (CheckBox) dialog.findViewById(R.id.checkBoxSaturday);
-        chkSunday = (CheckBox) dialog.findViewById(R.id.checkBoxSunday);
-        btnApply = (Button) dialog.findViewById(R.id.applyBtnDayPicker);
-        btnClose = (ImageButton) dialog.findViewById(R.id.closeBtnDayPicker);
-
-        btnApply.setOnClickListener(new View.OnClickListener() {
+    private void showDayPickerDialog(){
+        dayPickerDialog dialog = new dayPickerDialog(this, new dayPickerDialog.OnDaySetListener() {
             @Override
-            public void onClick(View view) {
-                dayList.clear();
-                List<String> auxList = new ArrayList<>();
-                if(chkMonday.isChecked()){
-                    auxList.add(getResources().getString(R.string.monday));
-                    dayList.add("monday");
-                    Log.i(TAG, "Día añadido a la lista: " + getResources().getString(R.string.monday));
-                }
-                if(chkTuesday.isChecked()){
-                    auxList.add(getResources().getString(R.string.tuesday));
-                    dayList.add("tuesday");
-                    Log.i(TAG, "Día añadido a la lista: " + getResources().getString(R.string.tuesday));
-                }
-                if(chkWednesday.isChecked()){
-                    auxList.add(getResources().getString(R.string.wednesday));
-                    dayList.add("wednesday");
-                    Log.i(TAG, "Día añadido a la lista: " + getResources().getString(R.string.wednesday));
-                }
-                if(chkThursday.isChecked()){
-                    auxList.add(getResources().getString(R.string.thursday));
-                    dayList.add("thursday");
-                    Log.i(TAG, "Día añadido a la lista: " + getResources().getString(R.string.thursday));
-                }
-                if(chkFriday.isChecked()){
-                    auxList.add(getResources().getString(R.string.friday));
-                    dayList.add("friday");
-                    Log.i(TAG, "Día añadido a la lista: " + getResources().getString(R.string.friday));
-                }
-                if(chkSaturday.isChecked()){
-                    auxList.add(getResources().getString(R.string.saturday));
-                    dayList.add("saturday");
-                    Log.i(TAG, "Día añadido a la lista: " + getResources().getString(R.string.saturday));
-                }
-                if(chkSunday.isChecked()){
-                    auxList.add(getResources().getString(R.string.sunday));
-                    dayList.add("sunday");
-                    Log.i(TAG, "Día añadido a la lista: " + getResources().getString(R.string.sunday));
-                }
-
+            public void onDaySet(List<String> list, String daysSelection) {
+                dayList = list;
+                textSelectedDays.setText(daysSelection);
                 if(!dayList.isEmpty()){
                     daysCheck = true;
                 } else {
                     daysCheck = false;
                 }
-                auxSetDaysText(auxList);
-                dialog.hide();
-                dialog.dismiss();
-            }
-
-        });
-
-        btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.hide();
-                dialog.dismiss();
             }
         });
-
-
         dialog.show();
-
-
-
-
     }
-
-    private void auxSetDaysText(List<String> auxList){
-        String text = "";
-        if(!auxList.isEmpty()){
-            for(String s: auxList){
-                s = s.substring(0, 2);
-                text = text + "," + s;
-                Log.i(TAG, text);
-            }
-            text = text.substring(1, text.length());
-            Log.i(TAG, text);
-
-            this.textSelectedDays.setText(text);
-        } else {
-            this.textSelectedDays.setText(getResources().getString(R.string.never));
-        }
-
-    }
-
-    public void timePickerDialog(View view){
-        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+    private void showTimePickerDialog(){
+        timePickerDialog dialog = new timePickerDialog(this, hora, minuto, true, new timePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 hora = selectedHour;
@@ -387,15 +308,16 @@ public class pantallaNuevaTarea extends AppCompatActivity {
                 timeCalendar.set(Calendar.MINUTE, minuto);
                 timeCalendar.set(Calendar.SECOND, 00);
                 timeCheck = true;
-
             }
-        };
+        });
 
-        int style = AlertDialog.THEME_HOLO_DARK;
+        dialog.show();
+    }
 
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, style,  onTimeSetListener, hora, minuto, true);
-        timePickerDialog.setTitle("Seleccionar tiempo");
-        timePickerDialog.show();
+    public void resetTime(View view){
+        textSelectedTime.setText(getResources().getString(R.string.never));
+        timeCheck = false;
+        timeCalendar.clear();
     }
 
     private void fillTypesSpinner(Spinner spinner){

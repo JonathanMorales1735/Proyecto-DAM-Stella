@@ -39,7 +39,7 @@ public class pantallaEditarTarea extends AppCompatActivity {
     Spinner spinner;
     EditText name, description;
     CheckBox checkNotify;
-    TextView textSelectedTime, textSelectedDays, btn_changeTime, btn_changeDays;
+    TextView textSelectedTime, textSelectedDays;
 
     int taskId = 0;
     String table = "";
@@ -64,8 +64,6 @@ public class pantallaEditarTarea extends AppCompatActivity {
         checkNotify = findViewById(R.id.editNotifyCheckBox);
         textSelectedTime = findViewById(R.id.textSelectedTime);
         textSelectedDays = findViewById(R.id.textSelectedDays);
-        btn_changeDays = findViewById(R.id.btn_changeDays);
-        btn_changeTime = findViewById(R.id.btn_changeTime);
         dayList = new ArrayList<>();
         timeCalendar = Calendar.getInstance();
 
@@ -79,14 +77,14 @@ public class pantallaEditarTarea extends AppCompatActivity {
 
         fillAllSections(intent);
 
-        btn_changeDays.setOnClickListener(new View.OnClickListener() {
+        textSelectedDays.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDayPickerDialog();
             }
         });
 
-        btn_changeTime.setOnClickListener(new View.OnClickListener() {
+        textSelectedTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showTimePickerDialog();
@@ -223,6 +221,12 @@ public class pantallaEditarTarea extends AppCompatActivity {
         dialog.show();
     }
 
+    public void resetTime(View view){
+        textSelectedTime.setText(getResources().getString(R.string.never));
+        timeCheck = false;
+        timeCalendar.clear();
+    }
+
     private void auxSetDaysText(List<String> auxList){
         String text = "";
         if(!auxList.isEmpty()){
@@ -260,8 +264,6 @@ public class pantallaEditarTarea extends AppCompatActivity {
         }
         if(checkTaskInTable(tablePending)){
             updateTaskInPendingTasks();
-            //TODO: Una vez este todo, borrar dailyActionReceiver y sus declaraciones en el manifest
-            //TODO: Modificar el onFirstRun para que se haga lo que se tenga que hacer en el primer encendido y por supuesto insertar el "currentDay" para que workManager no haga tonterias ese dia
         }
         if(checkTaskInTable(tableWeekly) && !checkTaskInTable(tablePending) && auxCheckCurrentDay()){
             insertInPendingtasks();
@@ -472,7 +474,8 @@ public class pantallaEditarTarea extends AppCompatActivity {
         return type;
     }
 
-
+    // TODO: sigo teniendo checktaskintable aqui, teniendolo ya en dblogic
+    // TODO: al pulsar el boton reset de la pantalla de edicion y el de nueva tarea, me quita los dias
     private boolean checkTaskInTable(String tableName){
         DbHelper dbH = new DbHelper(this);
         SQLiteDatabase db = dbH.getReadableDatabase();

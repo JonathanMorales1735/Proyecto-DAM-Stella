@@ -26,6 +26,7 @@ public class dayPickerDialog extends Dialog {
     boolean timeCheck, daysCheck;
     String daysSelection = "";
     OnDaySetListener listener;
+    boolean isShowing;
 
     public dayPickerDialog(@NonNull Context context, OnDaySetListener listener) {
         super(context);
@@ -119,6 +120,20 @@ public class dayPickerDialog extends Dialog {
         });
 
 
+    }
+
+    @Override
+    public void show() {
+        if (!isShowing) {
+            super.show();
+            isShowing = true;
+        }
+    }
+
+    @Override
+    public void dismiss() {
+        super.dismiss();
+        isShowing = false;
     }
 
     public interface OnDaySetListener {
