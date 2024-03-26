@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="languague_array">
-        <item>Spanish</item>
-        <item>English</item>
+        <item>@string/spanish</item>
+        <item>@string/english</item>
     </array>
     <array name="themes_array">
         <item>Light</item>

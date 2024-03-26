@@ -2,8 +2,6 @@ package com.example.stella.broadcastReceiver;
 
 import static android.content.ContentValues.TAG;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +10,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.stella.Alarm;
+import com.example.stella.utils.Alarm;
 import com.example.stella.db.DbHelper;
 
 import java.util.Calendar;

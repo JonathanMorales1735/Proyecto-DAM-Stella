@@ -1,4 +1,4 @@
-package com.example.stella;
+package com.example.stella.utils;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieEntry;

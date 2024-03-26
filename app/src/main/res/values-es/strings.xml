@@ -1,7 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Stella</string>
-    <string name="btn_logIn">Iniciar sesión</string>
     <string name="txt_noAccount1">¿No tienes una cuenta?</string>
+    <string name="btn_logIn">Iniciar sesión</string>
     <string name="txt_noAccount2">Click aquí</string>
     <string name="configuration">Configuración</string>
     <string name="language">Idioma:</string>
@@ -45,12 +45,10 @@
     <string name="newaccountcreated">Verifica tu email para poder acceder.</string>
     <string name="success">Éxito</string>
     <string name="close">Cerrar</string>
-
     <string name="work">Trabajo</string>
     <string name="study">Estudio</string>
     <string name="domestic">Doméstico</string>
     <string name="leisure">Ocio</string>
-
     <string name="emailEmpty">Introduce un email válido.</string>
     <string name="emailErr">*Introduce un email válido.</string>
     <string name="userEmpty">Introduce un usuario válido.</string>
@@ -58,27 +56,19 @@
     <string name="passwordEmpty">Introduce una contraseña válida.</string>
     <string name="passwordErr">*Introduce una contraseña válida.</string>
     <string name="repeatPasswordErr">*La contraseña no coincide.</string>
-
     <string name="nameEmpty">Se requiere un nombre</string>
-
     <string name="edit">Editar</string>
     <string name="delete">Eliminar</string>
-
     <string name="never">Nunca></string>
-
     <string name="fullDate">Fecha completa</string>
     <string name="month">Mes</string>
     <string name="year">Año</string>
     <string name="date">Fecha:</string>
-
     <string name="filter">Filtrar</string>
     <string name="filterFullDate">Fecha completa</string>
     <string name="filterMonth">Mes</string>
     <string name="filterYear">Año</string>
     <string name="none">Ninguna></string>
-
     <string name="spanish">Español</string>
     <string name="english">Inglés</string>
-
-
 </resources>

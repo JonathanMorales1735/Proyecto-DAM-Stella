@@ -26,7 +26,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.stella.Alarm;
+import com.example.stella.utils.Alarm;
 import com.example.stella.R;
 import com.example.stella.db.DbHelper;
 import com.example.stella.pantallaEditarTarea;

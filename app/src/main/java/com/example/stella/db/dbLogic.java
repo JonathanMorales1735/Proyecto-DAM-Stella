@@ -4,12 +4,11 @@ import static android.content.ContentValues.TAG;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.stella.Alarm;
+import com.example.stella.utils.Alarm;
 
 import java.util.Calendar;
 

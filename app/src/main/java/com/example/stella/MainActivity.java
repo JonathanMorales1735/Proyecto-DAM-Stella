@@ -2,7 +2,6 @@ package com.example.stella;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
@@ -24,11 +23,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.stella.utils.loadSettings;
 import com.example.stella.workManager.scheduleDailyAction;
 import com.example.stella.db.DbHelper;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -39,10 +36,13 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Dialog bottomDialog = null;
     EditText email, password;
+    com.example.stella.utils.loadSettings loadSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadSettings = new loadSettings(this);
+        loadSettings.loadSettings();
         setContentView(R.layout.activity_main);
         //ActionBar toolbar = getSupportActionBar();
 
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         setDailyActionWork();
         onFirstRun();
 
+
     }
 
     @Override
@@ -68,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
             prueba();
         }
     }
+
+
 
     private void setDailyActionWork(){
         scheduleDailyAction scheduleDailyAction = new scheduleDailyAction(this);
@@ -88,11 +91,21 @@ public class MainActivity extends AppCompatActivity {
         mboolean = settings.getBoolean("FIRST_RUN_BOOL", false);
 
         if(!mboolean){
-            SharedPreferences settingLastDate = getSharedPreferences("lastDayDailyAction", 0);
             LocalDate localDate = LocalDate.now();
+
             String date = localDate.toString();
+            SharedPreferences settingLastDate = getSharedPreferences("lastDayDailyAction", 0);
+            SharedPreferences settingsGeneral = getSharedPreferences("generalSettings", 0);
+
             SharedPreferences.Editor editor = settingLastDate.edit();
+
+
             editor.putString("lastDailyAction", date);
+            editor.commit();
+
+            editor = settingsGeneral.edit();
+            editor.putInt("language", 0);
+            editor.putInt("appTheme", 0);
             editor.commit();
 
             editor = settings.edit();

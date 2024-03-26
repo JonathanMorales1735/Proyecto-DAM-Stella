@@ -1,4 +1,4 @@
-package com.example.stella;
+package com.example.stella.utils;
 
 import static android.content.ContentValues.TAG;
 

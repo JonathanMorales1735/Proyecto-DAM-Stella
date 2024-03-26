@@ -1,4 +1,4 @@
-package com.example.stella;
+package com.example.stella.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 
 import androidx.annotation.NonNull;
+
+import com.example.stella.R;
 
 import java.util.Calendar;
 

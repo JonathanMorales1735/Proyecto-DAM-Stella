@@ -1,31 +1,25 @@
 package com.example.stella;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.work.WorkManager;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.WorkSource;
 import android.util.Log;
 import android.view.View;
 
 import com.example.stella.db.DbHelper;
-import com.example.stella.db.dbLogic;
+import com.example.stella.utils.MyValueFormatter;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class pantallaRegistros extends AppCompatActivity {
 
