@@ -25,6 +25,7 @@ import com.example.stella.db.DbHelper;
 import com.example.stella.dialogs.MonthYearPickerDialog;
 import com.example.stella.dialogs.YearPickerDialog;
 import com.example.stella.utils.MyValueFormatter;
+import com.example.stella.utils.loadSettings;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -54,6 +55,8 @@ public class pantallaRegistrosAnteriores extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadSettings loadSettings = new loadSettings(this);
+        loadSettings.loadSettings(this);
         setContentView(R.layout.pantallaregistrosanteriores);
 
         txt_date = (TextView) findViewById(R.id.txt_date);
@@ -194,7 +197,6 @@ public class pantallaRegistrosAnteriores extends AppCompatActivity {
                     break;
                 case 1:
                     query = "Select sum(" + name + ") as total from PREVIOUSRECORDS where date BETWEEN '" + year + "-" + month + "-01' and '" +  year + "-" + month + "-31'" ;
-                    Log.i("Set Graph:", query);
                     break;
                 case 2:
                     query = "Select sum(" + name + ") as total from PREVIOUSRECORDS where date BETWEEN '" + year + "-01-01' and '" +  year + "-12-31'" ;
@@ -393,8 +395,8 @@ public class pantallaRegistrosAnteriores extends AppCompatActivity {
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            txt_date.setText(day + "/" + month + 1 + "/" + year);
-            fullDate = year + "-" + month + 1 + "-" +  String.format("%02d", day);;
+            txt_date.setText(String.format("%02d", day) + "/" + String.format("%02d", (month + 1)) + "/" + year);
+            fullDate = year + "-" +String.format("%02d", (month + 1)) + "-" +  String.format("%02d", day);
         }
 
     }

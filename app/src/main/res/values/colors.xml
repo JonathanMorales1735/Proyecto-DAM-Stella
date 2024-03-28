@@ -7,4 +7,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="ocher_background">#8e432e</color>
+    <color name="ocher_elements">#d69b3d</color>
 </resources>

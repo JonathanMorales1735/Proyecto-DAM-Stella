@@ -38,6 +38,7 @@ import com.example.stella.db.DbHelper;
 import com.example.stella.dialogs.dayPickerDialog;
 import com.example.stella.dialogs.timePickerDialog;
 import com.example.stella.utils.Alarm;
+import com.example.stella.utils.loadSettings;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -63,6 +64,8 @@ public class pantallaNuevaTarea extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadSettings loadSettings = new loadSettings(this);
+        loadSettings.loadSettings(this);
         setContentView(R.layout.pantallanuevatarea);
 
         textSelectedTime = (TextView) findViewById(R.id.textSelectedTime);

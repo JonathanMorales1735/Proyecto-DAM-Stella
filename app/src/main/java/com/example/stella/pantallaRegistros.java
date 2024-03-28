@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.example.stella.db.DbHelper;
 import com.example.stella.utils.MyValueFormatter;
+import com.example.stella.utils.loadSettings;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -28,6 +29,8 @@ public class pantallaRegistros extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadSettings loadSettings = new loadSettings(this);
+        loadSettings.loadSettings(this);
         setContentView(R.layout.pantallaregistros);
 
         summary = findViewById(R.id.summaryItem);

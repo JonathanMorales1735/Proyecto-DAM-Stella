@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="languague_array">
+    <array name="language_array">
         <item>@string/spanish</item>
         <item>@string/english</item>
     </array>
+
+    <array name="language_codes">
+        <item>es</item>
+        <item>en</item>
+    </array>
+
     <array name="themes_array">
-        <item>Light</item>
-        <item>Dark</item>
+        <item>@string/theme_Light</item>
+        <item>@string/theme_Dark</item>
+        <item>@string/theme_Ocher</item>
     </array>
     <array name="types_array">
         <item>@string/work</item>

@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadSettings = new loadSettings(this);
-        loadSettings.loadSettings();
+        loadSettings.loadSettings(this);
         setContentView(R.layout.activity_main);
         //ActionBar toolbar = getSupportActionBar();
 
@@ -175,11 +175,11 @@ public class MainActivity extends AppCompatActivity {
         if ((bottomDialog == null) || !bottomDialog.isShowing()){
             bottomDialog = new Dialog(this);
             bottomDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            bottomDialog.setContentView(R.layout.bottomsheet_tareas_layout);
+            bottomDialog.setContentView(R.layout.bottomsheet_settings_layout);
 
             // Se crea el adapter del spinner
             Spinner spinner = bottomDialog.findViewById(R.id.languageOptionsSpinner);
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.languague_array, android.R.layout.simple_spinner_item);
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.language_array, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
 

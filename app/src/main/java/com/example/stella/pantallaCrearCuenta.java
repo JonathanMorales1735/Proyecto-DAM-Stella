@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.stella.utils.loadSettings;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -43,6 +44,8 @@ public class pantallaCrearCuenta extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadSettings loadSettings = new loadSettings(this);
+        loadSettings.loadSettings(this);
         setContentView(R.layout.pantallacrearcuenta);
 
         mAuth = FirebaseAuth.getInstance();

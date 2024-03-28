@@ -1,19 +1,32 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="Theme.Stella" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Stella" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#3c3f41</item>
-        <item name="colorPrimaryVariant">#1d1d1d</item>
+        <item name="colorPrimary">@color/white</item> <!-- #3c3f41 -->
+        <item name="colorPrimaryVariant">#656A6E</item> <!-- #1d1d1d -->
+        <item name="colorOnPrimary">@color/black</item> <!-- @color/white -->
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#3c3f41</item> <!-- @color/black -->
+        <item name="colorSecondaryVariant">#1d1d1d</item> <!-- #656A6E-->
+        <item name="colorOnSecondary">@color/white</item> <!-- #@color/black -->
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSecondaryVariant</item> <!-- #3c3f41 -->
+        <!-- Customize your theme here. -->
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.ocher" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/ocher_background</item>
+        <item name="colorPrimaryVariant">@color/ocher_background</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/black</item>
-        <item name="colorSecondaryVariant">#656A6E</item>
+        <item name="colorSecondary">@color/ocher_elements</item>
+        <item name="colorSecondaryVariant">@color/ocher_elements</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="windowNoTitle">true</item>
     </style>
     <style name="TextViewClaro" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">#FF000000</item>
@@ -56,7 +69,8 @@
     </style>
 
     <style name="cardview" parent="CardView">
-        <item name="android:backgroundTint">?attr/colorPrimary</item>
+        <item name="android:backgroundTint">?attr/colorSecondary</item>
+        <item name="android:background">?attr/colorSecondary</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">5dp</item>

@@ -39,7 +39,7 @@
             android:exported="false" />
         <activity
             android:name=".pantallaTareas"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".pantallaCrearCuenta"
             android:exported="false" />

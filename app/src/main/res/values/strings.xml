@@ -82,5 +82,9 @@
 
     <string name="reset">Resetear</string>
 
+    <string name="theme_Light">Claro</string>
+    <string name="theme_Dark">Oscuro</string>
+    <string name="theme_Ocher">Ocre</string>
+
 
 </resources>

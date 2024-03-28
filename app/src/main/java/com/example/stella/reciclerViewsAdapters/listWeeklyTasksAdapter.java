@@ -94,7 +94,7 @@ public class listWeeklyTasksAdapter extends RecyclerView.Adapter<listWeeklyTasks
                                     intent.putExtra("type", auxItem.getType());
                                     intent.putExtra("notify", auxItem.isNotify());
                                     intent.putExtra("time", auxItem.getTime());
-                                    intent.putExtra("table", "pendingtasks");
+                                    intent.putExtra("table", "weeklytasks");
                                     context.startActivity(intent);
                                     break;
                                 case R.id.optionDelete:

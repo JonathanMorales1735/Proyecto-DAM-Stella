@@ -32,6 +32,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.stella.dialogs.settingsDialog;
 import com.example.stella.reciclerViewsAdapters.listCompletedTasksAdapter;
 import com.example.stella.reciclerViewsAdapters.listPendingTasksAdapter;
 import com.example.stella.utils.loadSettings;
@@ -48,7 +49,9 @@ public class pantallaTareas extends AppCompatActivity {
     listPendingTasksAdapter adapterPendingTasks;
     listCompletedTasksAdapter adapterCompletedTasks;
     private Dialog bottomDialog, leftDialog = null;
-    com.example.stella.utils.loadSettings loadSettings;
+    loadSettings loadSettings;
+    settingsDialog settingsDialog = null;
+    boolean settingsDialogChecker = false;
 
 
 
@@ -56,7 +59,7 @@ public class pantallaTareas extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadSettings = new loadSettings(this);
-        loadSettings.loadSettings();
+        loadSettings.loadSettings(this);
         setContentView(R.layout.pantallatareas);
 
         ActionBar actionBar = getSupportActionBar();
@@ -78,6 +81,7 @@ public class pantallaTareas extends AppCompatActivity {
 
         createNotificationChannel();
         setSupportActionBar(toolbar);
+
     }
 
     @Override
@@ -86,6 +90,27 @@ public class pantallaTareas extends AppCompatActivity {
         setRecyclerViewPending();
         setRecyclerViewCompleted();
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (settingsDialog != null && settingsDialog.isShowing()) {
+            settingsDialog.dismiss();
+            settingsDialogChecker = true;
+
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (settingsDialogChecker) {
+            settingsDialog.show();
+            settingsDialogChecker = false;
+        }
+    }
+
+
 
     private void createNotificationChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -148,84 +173,14 @@ public class pantallaTareas extends AppCompatActivity {
     }
 
     public void showBottomDialog(View view){
-
-        if ((bottomDialog == null) || !bottomDialog.isShowing()){
-            bottomDialog = new Dialog(this);
-            bottomDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            bottomDialog.setContentView(R.layout.bottomsheet_tareas_layout);
-
-            // Se crea el adapter del spinner
-            Spinner spinner = bottomDialog.findViewById(R.id.languageOptionsSpinner);
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.languague_array, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner.setAdapter(adapter);
-
-            Spinner spinnerTheme = bottomDialog.findViewById(R.id.themeOptionsSpinner);
-            ArrayAdapter<CharSequence> adapterTheme = ArrayAdapter.createFromResource(this, R.array.themes_array, android.R.layout.simple_spinner_item);
-            adapterTheme.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerTheme.setAdapter(adapterTheme);
-
-            SharedPreferences settingsGeneral = getSharedPreferences("generalSettings", 0);
-            int language = settingsGeneral.getInt("language", 0);
-            int appTheme = settingsGeneral.getInt("appTheme", 0);
-
-            spinner.setSelection(language,false);
             // TODO ARREGLAR ESTA MIERDA DEL SPINNER DEL IDIOMA.
-            SharedPreferences.Editor editor = settingsGeneral.edit();
-
-            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                        String itemName = spinner.getSelectedItem().toString();
-                        String nameSimplified = "";
-                        String spanish = getResources().getString(R.string.spanish);
-                        String english = getResources().getString(R.string.english);
-                        if(itemName.equals(spanish)){
-                            nameSimplified = "es";
-                            editor.putInt("language", 0);
-                            editor.commit();
-                        } else if(itemName.equals(english)){
-                            nameSimplified = "en";
-                            editor.putInt("language", 1);
-                            editor.commit();
-                        }
-
-                        setLocale(nameSimplified);
-
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                }
-            });
-
-
-            bottomDialog.show();
-
-
-            bottomDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            bottomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            bottomDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationBottom;
-            bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
+        if(settingsDialog == null || !settingsDialog.isShowing()){
+            settingsDialog = new settingsDialog(this);
+            settingsDialog.show();
         }
-    }
-
-
-    public void setLocale(String lang) {
-        Locale myLocale = new Locale(lang);
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf, dm);
-        /**Intent refresh = new Intent(this, pantallaTareas.class);
-        finish();
-        startActivity(refresh);*/
-        recreate();
 
     }
+
 
     public void showLeftDialog(View view){
 

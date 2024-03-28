@@ -27,6 +27,7 @@ import com.example.stella.db.DbHelper;
 import com.example.stella.db.dbLogic;
 import com.example.stella.dialogs.dayPickerDialog;
 import com.example.stella.dialogs.timePickerDialog;
+import com.example.stella.utils.loadSettings;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class pantallaEditarTarea extends AppCompatActivity {
     Spinner spinner;
     EditText name, description;
     CheckBox checkNotify;
-    TextView textSelectedTime, textSelectedDays;
+    TextView textSelectedTime, textSelectedDays, btn_reset;
 
     int taskId = 0;
     String table = "";
@@ -56,6 +57,8 @@ public class pantallaEditarTarea extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadSettings loadSettings = new loadSettings(this);
+        loadSettings.loadSettings(this);
         setContentView(R.layout.pantallaeditartarea);
 
         spinner = (Spinner) findViewById(R.id.spinnerTypesEdit);
@@ -64,6 +67,7 @@ public class pantallaEditarTarea extends AppCompatActivity {
         checkNotify = findViewById(R.id.editNotifyCheckBox);
         textSelectedTime = findViewById(R.id.textSelectedTime);
         textSelectedDays = findViewById(R.id.textSelectedDays);
+        btn_reset = findViewById(R.id.btn_reset);
         dayList = new ArrayList<>();
         timeCalendar = Calendar.getInstance();
 
@@ -90,6 +94,15 @@ public class pantallaEditarTarea extends AppCompatActivity {
                 showTimePickerDialog();
             }
         });
+
+        btn_reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetTime();
+            }
+        });
+
+
 
     }
 
@@ -150,13 +163,24 @@ public class pantallaEditarTarea extends AppCompatActivity {
 
 
                 List<String> list = new ArrayList<>();
-                list.add(getResources().getString(R.string.monday));
-                list.add(getResources().getString(R.string.tuesday));
-                list.add(getResources().getString(R.string.wednesday));
-                list.add(getResources().getString(R.string.thursday));
-                list.add(getResources().getString(R.string.friday));
-                list.add(getResources().getString(R.string.saturday));
-                list.add(getResources().getString(R.string.sunday));
+                list.add("Monday");
+                list.add("Tuesday");
+                list.add("Wednesday");
+                list.add("Thursday");
+                list.add("Friday");
+                list.add("Saturday");
+                list.add("Sunday");
+
+                List<String> daysListAppLanguage = new ArrayList<>();
+                daysListAppLanguage.add(getResources().getString(R.string.monday));
+                daysListAppLanguage.add(getResources().getString(R.string.tuesday));
+                daysListAppLanguage.add(getResources().getString(R.string.wednesday));
+                daysListAppLanguage.add(getResources().getString(R.string.thursday));
+                daysListAppLanguage.add(getResources().getString(R.string.friday));
+                daysListAppLanguage.add(getResources().getString(R.string.saturday));
+                daysListAppLanguage.add(getResources().getString(R.string.sunday));
+
+                List<String> listForText = new ArrayList<>();
 
                 int order = 0;
 
@@ -164,12 +188,14 @@ public class pantallaEditarTarea extends AppCompatActivity {
                     int getCursorInt = cursor.getInt(order);
                     if(getCursorInt == 1){
                         dayList.add(day);
+                        listForText.add(daysListAppLanguage.get(order));
+                        Log.i(TAG, "Dia cargado " + order + ": " + day);
                         dayCheck = true;
                     }
                     order++;
                 }
 
-                auxSetDaysText(dayList);
+                auxSetDaysText(listForText);
                 break;
 
             }
@@ -221,7 +247,7 @@ public class pantallaEditarTarea extends AppCompatActivity {
         dialog.show();
     }
 
-    public void resetTime(View view){
+    public void resetTime(){
         textSelectedTime.setText(getResources().getString(R.string.never));
         timeCheck = false;
         timeCalendar.clear();
@@ -275,6 +301,7 @@ public class pantallaEditarTarea extends AppCompatActivity {
 
     private void clearTimeAndDaysIfNeeded(){
         if(!checkNotify.isChecked()){
+            Log.i(TAG, "Se hace el clear");
             timeCheck = false;
             dayCheck = false;
             dayList.clear();
@@ -349,7 +376,7 @@ public class pantallaEditarTarea extends AppCompatActivity {
             return true;
         }
 
-       ContentValues task = getTaskForPendingTasks();
+        ContentValues task = getTaskForPendingTasks();
         boolean check = dbLogic.updateTask(taskId, timeCalendar, "pendingtasks", task);
 
         if (check){
@@ -373,7 +400,8 @@ public class pantallaEditarTarea extends AppCompatActivity {
         int monday = 0, tuesday = 0, wednesday = 0, thursday = 0, friday = 0, saturday = 0, sunday = 0;
 
         for(String day: dayList){
-            switch (day){
+            Log.i(TAG, "Dia del getTaskForWeeklytasks: " + day);
+            switch (day.toLowerCase()){
                 case "monday":
                     monday = 1;
                     break;
@@ -474,29 +502,9 @@ public class pantallaEditarTarea extends AppCompatActivity {
         return type;
     }
 
-    // TODO: sigo teniendo checktaskintable aqui, teniendolo ya en dblogic
-    // TODO: al pulsar el boton reset de la pantalla de edicion y el de nueva tarea, me quita los dias
     private boolean checkTaskInTable(String tableName){
-        DbHelper dbH = new DbHelper(this);
-        SQLiteDatabase db = dbH.getReadableDatabase();
-        Log.i(TAG, "checkTaskInTable: DBH abierto.");
-
-
-        String query = "Select * from " + tableName + " where id = " + taskId + "";
-
-        Cursor cursor = db.rawQuery(query, null);
-
-        Boolean check = cursor.moveToFirst();
-
-        try {
-            db.close();
-            cursor.close();
-            dbH.close();
-            Log.i(TAG, "checkTaskInTable: DBH cerrado.");
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-
+        dbLogic dbLogic = new dbLogic(this);
+        boolean check = dbLogic.checkTaskInTable(taskId, tableName);
         return check;
     }
 

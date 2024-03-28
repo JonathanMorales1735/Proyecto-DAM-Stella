@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.stella.db.DbHelper;
+import com.example.stella.utils.loadSettings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,8 @@ public class pantallaMiSemana extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadSettings loadSettings = new loadSettings(this);
+        loadSettings.loadSettings(this);
         setContentView(R.layout.pantallamisemana);
 
         mondayTasksAmount = findViewById(R.id.textMondayTasks);
