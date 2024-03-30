@@ -80,7 +80,7 @@ public class pantallaTareas extends AppCompatActivity {
         adapterCompletedTasks.auxSetListPendingTasksAdapter(adapterPendingTasks);
 
         createNotificationChannel();
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
 
     }
 
@@ -173,12 +173,10 @@ public class pantallaTareas extends AppCompatActivity {
     }
 
     public void showBottomDialog(View view){
-            // TODO ARREGLAR ESTA MIERDA DEL SPINNER DEL IDIOMA.
         if(settingsDialog == null || !settingsDialog.isShowing()){
             settingsDialog = new settingsDialog(this);
             settingsDialog.show();
         }
-
     }
 
 

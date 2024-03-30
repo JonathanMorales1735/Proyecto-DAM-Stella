@@ -35,7 +35,7 @@ public class settingsDialog extends Dialog {
             setOwnerActivity((Activity) context);
         }
     }
-    //   TODO: SOLO PERMITE CAMBIAR UNA DE LAS DOS COSAS, O LENGUAJE O THEME. SOLUCIONAR MANIN
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -118,12 +118,16 @@ public class settingsDialog extends Dialog {
             editor.commit();
         }
 
-        setLocale(nameSimplified);
+
 
         // Setting theme
         String light = getContext().getResources().getString(R.string.theme_Light);
         String dark = getContext().getResources().getString(R.string.theme_Dark);
         String ocher = getContext().getResources().getString(R.string.theme_Ocher);
+        String blue = getContext().getResources().getString(R.string.theme_blue);
+        String pink = getContext().getResources().getString(R.string.theme_pink);
+        String violet = getContext().getResources().getString(R.string.theme_violet);
+        String green = getContext().getResources().getString(R.string.theme_green);
 
         if(theme.equals(light)){
             editor.putInt("appTheme", 0);
@@ -137,9 +141,25 @@ public class settingsDialog extends Dialog {
             editor.putInt("appTheme", 2);
             editor.commit();
             getOwnerActivity().getApplicationContext().setTheme(R.style.Theme_ocher);
+        } else if (theme.equals(blue)) {
+            editor.putInt("appTheme", 3);
+            editor.commit();
+            getOwnerActivity().getApplicationContext().setTheme(R.style.Theme_blue);
+        }else if (theme.equals(pink)) {
+            editor.putInt("appTheme", 4);
+            editor.commit();
+            getOwnerActivity().getApplicationContext().setTheme(R.style.Theme_pink);
+        }else if (theme.equals(violet)) {
+            editor.putInt("appTheme", 5);
+            editor.commit();
+            getOwnerActivity().getApplicationContext().setTheme(R.style.Theme_violet);
+        }else if (theme.equals(green)) {
+            editor.putInt("appTheme", 6);
+            editor.commit();
+            getOwnerActivity().getApplicationContext().setTheme(R.style.Theme_green);
         }
 
-
+        setLocale(nameSimplified);
 
     }
 

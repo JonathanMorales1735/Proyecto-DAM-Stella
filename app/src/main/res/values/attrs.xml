@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Other values-->
+    <attr name="colorBackground" format="reference" />
+    <attr name="colorCard1" format="reference" />
+    <attr name="colorCard2" format="reference" />
+    <attr name="colorTextInCard1" format="reference" />
+    <attr name="colorTextInCard2" format="reference" />
+    <attr name="colorTextInBackground" format="reference" />
+    <attr name="colorButton1" format="reference" />
+    <attr name="colorButton2" format="reference" />
+    <attr name="colorEditText" format="reference" />
+
+</resources>

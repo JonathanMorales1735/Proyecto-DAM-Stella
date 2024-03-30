@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorPrimary"
+    android:background="?attr/colorBackground"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,6 +53,7 @@
                     android:layout_marginStart="5dp"
                     android:fontFamily="sans-serif-black"
                     android:text="@string/task"
+                    android:textColor="?attr/colorTextInBackground"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -74,6 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
+                    app:cardBackgroundColor="?attr/colorCard1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/recyclerPendingTasks">
 
@@ -97,7 +99,7 @@
                             android:layout_marginBottom="2dp"
                             android:layout_weight="1"
                             android:text="@string/completed"
-                            android:textColor="?attr/colorOnPrimary" />
+                            android:textColor="?attr/colorTextInCard1" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 

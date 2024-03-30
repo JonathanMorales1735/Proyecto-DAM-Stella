@@ -14,6 +14,10 @@
         <item>@string/theme_Light</item>
         <item>@string/theme_Dark</item>
         <item>@string/theme_Ocher</item>
+        <item>@string/theme_blue</item>
+        <item>@string/theme_pink</item>
+        <item>@string/theme_violet</item>
+        <item>@string/theme_green</item>
     </array>
     <array name="types_array">
         <item>@string/work</item>

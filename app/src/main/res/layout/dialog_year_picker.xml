@@ -15,6 +15,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Select" />
+        android:backgroundTint="?attr/colorCard1"
+        android:text="Select"
+        android:textColor="?attr/colorTextInCard1"
+        android:textStyle="bold" />
 
 </LinearLayout>

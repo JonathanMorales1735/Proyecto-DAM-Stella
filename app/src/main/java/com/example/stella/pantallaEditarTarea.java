@@ -123,7 +123,7 @@ public class pantallaEditarTarea extends AppCompatActivity {
         } else {
             checkNotify.setChecked(false);
         }
-
+        // TODO CUANDO QUIERES EDITAR UNA TAREA EN COMPLETEDTASK SE CIERRA LA APP
         switch (auxType){
             case "work":
                 spinner.setSelection(0);
@@ -283,6 +283,7 @@ public class pantallaEditarTarea extends AppCompatActivity {
 
         String tablePending = "pendingtasks";
         String tableWeekly = "weeklytasks";
+        String tableCompleted = "completedtasks";
 
 
         if(checkTaskInTable(tableWeekly)){
@@ -296,6 +297,9 @@ public class pantallaEditarTarea extends AppCompatActivity {
         }
         if(!checkTaskInTable(tableWeekly) && dayCheck){
             insertInWeeklytasks();
+        }
+        if(checkTaskInTable(tableCompleted)){
+            updateTaskInCompletedTasks();
         }
     }
 
@@ -322,7 +326,7 @@ public class pantallaEditarTarea extends AppCompatActivity {
     }
 
     private void insertInPendingtasks(){
-        ContentValues task = getTaskForPendingTasks();
+        ContentValues task = getTaskForPendingCompletedTasks();
         task.put("id", taskId);
         dbLogic dbLogic = new dbLogic(this);
         boolean insertSuccessfully = dbLogic.insertTask(timeCalendar, "pendingtasks", task);
@@ -376,7 +380,7 @@ public class pantallaEditarTarea extends AppCompatActivity {
             return true;
         }
 
-        ContentValues task = getTaskForPendingTasks();
+        ContentValues task = getTaskForPendingCompletedTasks();
         boolean check = dbLogic.updateTask(taskId, timeCalendar, "pendingtasks", task);
 
         if (check){
@@ -386,6 +390,18 @@ public class pantallaEditarTarea extends AppCompatActivity {
         }
 
 
+    }
+
+    private boolean updateTaskInCompletedTasks(){
+
+        dbLogic dbLogic = new dbLogic(this);
+        ContentValues task = getTaskForPendingCompletedTasks();
+        boolean check = dbLogic.updateTask(taskId, timeCalendar, "completedtasks", task);
+        if (check){
+            return true;
+        } else{
+            return false;
+        }
     }
 
 
@@ -444,7 +460,7 @@ public class pantallaEditarTarea extends AppCompatActivity {
     }
 
     @NonNull
-    private ContentValues getTaskForPendingTasks(){
+    private ContentValues getTaskForPendingCompletedTasks(){
         int taskNotify = checkNotify.isChecked() ? 1 : 0;
         String taskTime = null;
         if(timeCheck) {
@@ -454,7 +470,6 @@ public class pantallaEditarTarea extends AppCompatActivity {
 
         ContentValues task = new ContentValues();
         task.put("name", name.getText().toString());
-        Log.i(TAG, "El NAME ILLO:" + name.getText().toString());
         task.put("description", description.getText().toString());
         task.put("type", taskType);
         task.put("notify", taskNotify);

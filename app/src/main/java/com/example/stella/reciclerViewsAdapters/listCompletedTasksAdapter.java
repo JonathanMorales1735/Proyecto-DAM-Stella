@@ -39,11 +39,13 @@ public class listCompletedTasksAdapter extends RecyclerView.Adapter<listComplete
     private Context context;
     private Dialog dialogInfo = null;
     listPendingTasksAdapter pendingTasksAdapter;
+    private adaptersLogic adapterLogic;
 
     public listCompletedTasksAdapter(Context context){
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
         fillCompletedTasks();
+        adapterLogic = new adaptersLogic(context);
 
     }
 
@@ -93,6 +95,14 @@ public class listCompletedTasksAdapter extends RecyclerView.Adapter<listComplete
                             switch (menuItem.getItemId()){
                                 case R.id.optionEdit:
                                     Intent intent = new Intent(context, pantallaEditarTarea.class);
+                                    taskElement auxItem= adapterLogic.getTaskFullInfo(item.getId(), "completedtasks");
+                                    intent.putExtra("id", auxItem.getId());
+                                    intent.putExtra("name", auxItem.getName());
+                                    intent.putExtra("description", auxItem.getDescription());
+                                    intent.putExtra("type", auxItem.getType());
+                                    intent.putExtra("notify", auxItem.isNotify());
+                                    intent.putExtra("time", auxItem.getTime());
+                                    intent.putExtra("table", "weeklytasks");
                                     context.startActivity(intent);
                                     break;
                                 case R.id.optionDelete:

@@ -9,7 +9,7 @@
         android:id="@+id/cardView2"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:backgroundTint="?attr/colorPrimaryVariant"
+        android:backgroundTint="?attr/colorCard1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -126,7 +126,9 @@
         android:layout_width="100dp"
         android:layout_height="51dp"
         android:layout_marginTop="5dp"
+        android:backgroundTint="?attr/colorCard1"
         android:text="@string/apply"
+        android:textColor="?attr/colorTextInCard1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorBackground">
 
     <include
         android:id="@+id/toolbarPantallaTareas"
@@ -36,7 +37,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:text="@string/yourpreviousrecords" />
+                android:text="@string/yourpreviousrecords"
+                android:textColor="?attr/colorTextInBackground"
+                android:textStyle="bold" />
 
             <Space
                 android:layout_width="match_parent"
@@ -54,7 +57,9 @@
                     style="@style/TextViewClaro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/date" />
+                    android:text="@string/date"
+                    android:textColor="?attr/colorTextInBackground"
+                    android:textStyle="bold" />
 
                 <Space
                     android:layout_width="20dp"
@@ -78,8 +83,11 @@
                 android:id="@+id/btn_applyFilter"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:backgroundTint="?attr/colorCard1"
                 android:onClick="setGraph"
-                android:text="@string/apply" />
+                android:text="@string/apply"
+                android:textColor="?attr/colorTextInCard1"
+                android:textStyle="bold" />
 
             <Space
                 android:layout_width="match_parent"
@@ -89,12 +97,6 @@
                 android:id="@+id/summaryItem"
                 android:layout_width="match_parent"
                 android:layout_height="365dp" />
-
-            <TextView
-                android:id="@+id/textViewComprobante"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
 
         </LinearLayout>
     </ScrollView>

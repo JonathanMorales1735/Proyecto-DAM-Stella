@@ -19,7 +19,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:backgroundTint="?attr/colorPrimaryVariant"
+            android:backgroundTint="?attr/colorCard1"
             app:cardCornerRadius="50dp">
 
             <ScrollView
@@ -40,8 +40,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/name2"
-                        android:textColor="?attr/colorOnPrimary"
-                        android:textSize="20sp" />
+                        android:textColor="?attr/colorTextInCard1"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <Space
                         android:layout_width="match_parent"
@@ -50,7 +51,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="?attr/colorSecondaryVariant"
+                        android:backgroundTint="?attr/colorCard2"
                         app:cardCornerRadius="25dp">
 
                         <LinearLayout
@@ -69,7 +70,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Tarea de ejemplo 1"
-                                android:textColor="?attr/colorOnPrimary" />
+                                android:textColor="?attr/colorTextInCard2"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -82,8 +84,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/description2"
-                        android:textColor="?attr/colorOnPrimary"
-                        android:textSize="20sp" />
+                        android:textColor="?attr/colorTextInCard1"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <Space
                         android:layout_width="match_parent"
@@ -92,7 +95,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:backgroundTint="?attr/colorSecondaryVariant"
+                        android:backgroundTint="?attr/colorCard2"
                         app:cardCornerRadius="25dp">
 
                         <LinearLayout
@@ -111,7 +114,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Descripción larga de Tarea de ejemplo 1 en donde se puede visualizar una descripción con dos líneas"
-                                android:textColor="?attr/colorOnPrimary" />
+                                android:textColor="?attr/colorTextInCard2"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -124,8 +128,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/type"
-                        android:textColor="?attr/colorOnPrimary"
-                        android:textSize="20sp" />
+                        android:textColor="?attr/colorTextInCard1"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <Space
                         android:layout_width="match_parent"
@@ -134,7 +139,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:backgroundTint="?attr/colorSecondaryVariant"
+                        android:backgroundTint="?attr/colorCard2"
                         app:cardCornerRadius="25dp">
 
                         <LinearLayout
@@ -153,7 +158,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Trabajo"
-                                android:textColor="?attr/colorOnPrimary" />
+                                android:textColor="?attr/colorTextInCard2"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -166,8 +172,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/time"
-                        android:textColor="?attr/colorOnPrimary"
-                        android:textSize="20sp" />
+                        android:textColor="?attr/colorTextInCard1"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <Space
                         android:layout_width="match_parent"
@@ -176,7 +183,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:backgroundTint="?attr/colorSecondaryVariant"
+                        android:backgroundTint="?attr/colorCard2"
                         app:cardCornerRadius="25dp">
 
                         <LinearLayout
@@ -195,7 +202,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="16:20"
-                                android:textColor="?attr/colorOnPrimary" />
+                                android:textColor="?attr/colorTextInCard2"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -208,8 +216,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/repeat"
-                        android:textColor="?attr/colorOnPrimary"
-                        android:textSize="20sp" />
+                        android:textColor="?attr/colorTextInCard1"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <Space
                         android:layout_width="match_parent"
@@ -218,7 +227,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:backgroundTint="?attr/colorSecondaryVariant"
+                        android:backgroundTint="?attr/colorCard2"
                         app:cardCornerRadius="25dp">
 
                         <LinearLayout
@@ -237,7 +246,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="No"
-                                android:textColor="?attr/colorOnPrimary" />
+                                android:textColor="?attr/colorTextInCard2"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 

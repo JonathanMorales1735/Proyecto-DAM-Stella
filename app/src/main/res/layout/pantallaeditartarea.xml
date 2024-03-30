@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorBackground">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,7 +37,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="?attr/colorPrimaryVariant"
+                android:backgroundTint="?attr/colorCard1"
                 android:paddingTop="100dp"
                 android:paddingBottom="100dp"
                 app:cardCornerRadius="50dp">
@@ -60,7 +61,7 @@
                             android:id="@+id/editTextEditName"
                             android:layout_width="314dp"
                             android:layout_height="37dp"
-                            android:background="?attr/colorOnPrimary"
+                            android:background="?attr/colorEditText"
                             android:ems="10"
                             android:hint="@string/name"
                             android:inputType="textPersonName" />
@@ -73,7 +74,7 @@
                             android:id="@+id/editTextEditDescription"
                             android:layout_width="314dp"
                             android:layout_height="37dp"
-                            android:background="?attr/colorOnPrimary"
+                            android:background="?attr/colorEditText"
                             android:ems="10"
                             android:hint="@string/description"
                             android:inputType="textPersonName" />
@@ -94,8 +95,9 @@
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:text="@string/type"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="20sp" />
+                            android:textColor="?attr/colorTextInCard1"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
 
                         <Spinner
                             android:id="@+id/spinnerTypesEdit"
@@ -119,8 +121,9 @@
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:text="@string/warning"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="20sp" />
+                            android:textColor="?attr/colorTextInCard1"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
 
                         <CheckBox
                             android:id="@+id/editNotifyCheckBox"
@@ -172,7 +175,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/time"
-                                android:textColor="?attr/colorOnPrimary"
+                                android:textColor="?attr/colorTextInCard1"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -216,7 +219,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/repeat"
-                                android:textColor="?attr/colorOnPrimary"
+                                android:textColor="?attr/colorTextInCard1"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -238,8 +241,13 @@
                 android:id="@+id/btn_register2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="?attr/colorCard1"
                 android:onClick="editTask"
-                android:text="@string/edittask" />
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/edittask"
+                android:textColor="?attr/colorTextInCard1"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>

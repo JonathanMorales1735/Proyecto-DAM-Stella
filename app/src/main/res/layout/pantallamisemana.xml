@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorBackground">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -27,6 +28,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:text="@string/myweek"
+                android:textColor="?attr/colorTextInBackground"
                 android:textStyle="bold" />
 
             <Space
@@ -44,7 +46,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="180dp"
                     android:layout_height="180dp"
-                    android:backgroundTint="?attr/colorPrimaryVariant"
+                    android:backgroundTint="?attr/colorCard1"
                     app:cardCornerRadius="50dp">
 
                     <LinearLayout
@@ -60,8 +62,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/monday"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="28dp" />
+                            android:textColor="?attr/colorTextInCard1"
+                            android:textSize="28dp"
+                            android:textStyle="bold" />
 
                         <Space
                             android:layout_width="match_parent"
@@ -72,8 +75,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="18dp" />
+                            android:textColor="?attr/colorTextInCard1"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -85,7 +89,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="180dp"
                     android:layout_height="180dp"
-                    android:backgroundTint="?attr/colorPrimaryVariant"
+                    android:backgroundTint="?attr/colorCard1"
                     app:cardCornerRadius="50dp">
 
                     <LinearLayout
@@ -101,8 +105,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/tuesday"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="28dp" />
+                            android:textColor="?attr/colorTextInCard1"
+                            android:textSize="28dp"
+                            android:textStyle="bold" />
 
                         <Space
                             android:layout_width="match_parent"
@@ -113,8 +118,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="18dp" />
+                            android:textColor="?attr/colorTextInCard1"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -134,7 +140,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="180dp"
                     android:layout_height="180dp"
-                    android:backgroundTint="?attr/colorPrimaryVariant"
+                    android:backgroundTint="?attr/colorCard1"
                     app:cardCornerRadius="50dp">
 
                     <LinearLayout
@@ -150,8 +156,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/wednesday"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="28dp" />
+                            android:textColor="?attr/colorTextInCard1"
+                            android:textSize="28dp"
+                            android:textStyle="bold" />
 
                         <Space
                             android:layout_width="match_parent"
@@ -162,7 +169,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="3"
-                            android:textColor="?attr/colorOnPrimary"
+                            android:textColor="?attr/colorTextInCard1"
                             android:textSize="18dp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -175,7 +182,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="180dp"
                     android:layout_height="180dp"
-                    android:backgroundTint="?attr/colorPrimaryVariant"
+                    android:backgroundTint="?attr/colorCard1"
                     app:cardCornerRadius="50dp">
 
                     <LinearLayout
@@ -191,8 +198,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/thursday"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="28dp" />
+                            android:textColor="?attr/colorTextInCard1"
+                            android:textSize="28dp"
+                            android:textStyle="bold" />
 
                         <Space
                             android:layout_width="match_parent"
@@ -203,8 +211,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="18dp" />
+                            android:textColor="?attr/colorTextInCard1"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -224,7 +233,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="180dp"
                     android:layout_height="180dp"
-                    android:backgroundTint="?attr/colorPrimaryVariant"
+                    android:backgroundTint="?attr/colorCard1"
                     app:cardCornerRadius="50dp">
 
                     <LinearLayout
@@ -240,8 +249,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/friday"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="28dp" />
+                            android:textColor="?attr/colorTextInCard1"
+                            android:textSize="28dp"
+                            android:textStyle="bold" />
 
                         <Space
                             android:layout_width="match_parent"
@@ -252,8 +262,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="18dp" />
+                            android:textColor="?attr/colorTextInCard1"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -265,7 +276,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="180dp"
                     android:layout_height="180dp"
-                    android:backgroundTint="?attr/colorPrimaryVariant"
+                    android:backgroundTint="?attr/colorCard1"
                     app:cardCornerRadius="50dp">
 
                     <LinearLayout
@@ -281,8 +292,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/saturday"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="28dp" />
+                            android:textColor="?attr/colorTextInCard1"
+                            android:textSize="28dp"
+                            android:textStyle="bold" />
 
                         <Space
                             android:layout_width="match_parent"
@@ -293,8 +305,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="18dp" />
+                            android:textColor="?attr/colorTextInCard1"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -314,7 +327,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="180dp"
                     android:layout_height="180dp"
-                    android:backgroundTint="?attr/colorPrimaryVariant"
+                    android:backgroundTint="?attr/colorCard1"
                     app:cardCornerRadius="50dp">
 
                     <LinearLayout
@@ -330,8 +343,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/sunday"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="28dp" />
+                            android:textColor="?attr/colorTextInCard1"
+                            android:textSize="28dp"
+                            android:textStyle="bold" />
 
                         <Space
                             android:layout_width="match_parent"
@@ -342,8 +356,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="18dp" />
+                            android:textColor="?attr/colorTextInCard1"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 

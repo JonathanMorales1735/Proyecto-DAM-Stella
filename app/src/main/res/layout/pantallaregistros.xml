@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorBackground">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -25,7 +26,9 @@
                 style="@style/taskStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="[NOMBRE DE USUARIO]" />
+                android:text="[NOMBRE DE USUARIO]"
+                android:textColor="?attr/colorTextInBackground"
+                android:textStyle="bold" />
 
             <Space
                 android:layout_width="match_parent"
@@ -44,8 +47,11 @@
                 android:id="@+id/btn_consultPreviousRecords"
                 android:layout_width="342dp"
                 android:layout_height="wrap_content"
+                android:backgroundTint="?attr/colorCard1"
                 android:onClick="showPreviousRecordsScreen"
                 android:text="@string/consultpreviousrecords"
+                android:textColor="?attr/colorTextInCard1"
+                android:textStyle="bold"
                 app:cornerRadius="20dp" />
         </LinearLayout>
     </ScrollView>

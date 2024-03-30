@@ -9,4 +9,14 @@
     <color name="white">#FFFFFFFF</color>
     <color name="ocher_background">#8e432e</color>
     <color name="ocher_elements">#d69b3d</color>
+    <color name="grey_hard">#3c3f41</color>
+    <color name="grey_soft">#656A6E</color>
+    <color name="blue_hard">#3d6d94</color>
+    <color name="blue_soft">#8ebfd7</color>
+    <color name="pink_hard">#DA82B2</color>
+    <color name="pink_soft">#ffc4b3</color>
+    <color name="violet_hard">#7c5c99</color>
+    <color name="violet_soft">#cbb3c9</color>
+    <color name="green_hard">#38753b</color>
+    <color name="green_soft">#8ed2c9</color>
 </resources>

@@ -75,4 +75,8 @@
     <string name="theme_Light">Light</string>
     <string name="theme_Dark">Dark</string>
     <string name="theme_Ocher">Ocher</string>
+    <string name="theme_blue">Blue</string>
+    <string name="theme_pink">Pink</string>
+    <string name="theme_violet">Violet</string>
+    <string name="theme_green">Green</string>
 </resources>
