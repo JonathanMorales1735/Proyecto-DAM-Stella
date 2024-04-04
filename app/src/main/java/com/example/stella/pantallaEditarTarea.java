@@ -123,7 +123,7 @@ public class pantallaEditarTarea extends AppCompatActivity {
         } else {
             checkNotify.setChecked(false);
         }
-        // TODO CUANDO QUIERES EDITAR UNA TAREA EN COMPLETEDTASK SE CIERRA LA APP
+
         switch (auxType){
             case "work":
                 spinner.setSelection(0);
