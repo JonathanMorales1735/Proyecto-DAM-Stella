@@ -1,5 +1,5 @@
-INSERT INTO PROFILES (id, name) VALUES (1, Jonathan)
-INSERT INTO PROFILES (id, name) VALUES (2, Morales)
+INSERT INTO PROFILES (id, name) VALUES (1, 'Jonathan')
+INSERT INTO PROFILES (id, name) VALUES (2, 'Morales')
 INSERT INTO PENDINGTASKS (id, name, description, type, notify, time, profileId) VALUES (1, 'Hacer ejercicios de programacion', 'Ejercicios 1,2 y 4 del tema 4, pagina 54', 'study', 0, NULL, 1)
 INSERT INTO PENDINGTASKS (id, name, description, type, notify, time, profileId) VALUES (2, 'Revisar correo', NULL, 'work', 1, '17:00:00', 1)
 INSERT INTO COMPLETEDTASKS (id, name, description, type, notify, time, profileId) VALUES (3, 'Tarea de estudiar', 'Estudiar temas 1 y 2', 'study', 0, NULL, 1)

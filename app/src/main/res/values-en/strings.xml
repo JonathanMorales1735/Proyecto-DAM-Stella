@@ -79,4 +79,7 @@
     <string name="theme_pink">Pink</string>
     <string name="theme_violet">Violet</string>
     <string name="theme_green">Green</string>
+    <string name="choose_profile">Choose your profile</string>
+    <string name="add_new_profile">Add new profile</string>
+    <string name="manage_profiles">Manage profiles</string>
 </resources>

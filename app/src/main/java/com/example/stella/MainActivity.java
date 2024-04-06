@@ -3,6 +3,8 @@ package com.example.stella;
 import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -23,11 +25,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.stella.reciclerViewsAdapters.listProfilesAdapter;
 import com.example.stella.utils.loadSettings;
 import com.example.stella.workManager.scheduleDailyAction;
 import com.example.stella.db.DbHelper;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.time.LocalDate;
 
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Dialog bottomDialog = null;
     EditText email, password;
+    RecyclerView recyclerViewProfiles;
+    listProfilesAdapter adapter;
     com.example.stella.utils.loadSettings loadSettings;
 
     @Override
@@ -47,16 +51,17 @@ public class MainActivity extends AppCompatActivity {
         //ActionBar toolbar = getSupportActionBar();
 
         //toolbar.hide();
+        recyclerViewProfiles = findViewById(R.id.recycler_profiles);
+        adapter = new listProfilesAdapter(this, this);
+        //mAuth = FirebaseAuth.getInstance();
 
-        mAuth = FirebaseAuth.getInstance();
-
-        email = findViewById(R.id.editTextEmail);
-        password = findViewById(R.id.editTextPassword);
+        //email = findViewById(R.id.editTextEmail);
+        //password = findViewById(R.id.editTextPassword);
 
         createInitialDB();
         setDailyActionWork();
         onFirstRun();
-
+        setRecyclerViewProfiles();
 
     }
 
@@ -64,12 +69,27 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null && currentUser.isEmailVerified()){
+        //FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(isUserActive()){
             prueba();
         }
+
     }
 
+    private boolean isUserActive(){
+        SharedPreferences isUserActivePref = getSharedPreferences("isUserActive", 0);
+        boolean check = isUserActivePref.getBoolean("isActive", false);
+        return check;
+    }
+
+    private void setRecyclerViewProfiles(){
+        adapter.fillProfiles();
+        recyclerViewProfiles.setHasFixedSize(true);
+        recyclerViewProfiles.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewProfiles.setNestedScrollingEnabled(false);
+        recyclerViewProfiles.setAdapter(adapter);
+
+    }
 
 
     private void setDailyActionWork(){

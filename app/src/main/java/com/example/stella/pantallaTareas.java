@@ -64,8 +64,8 @@ public class pantallaTareas extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
 
-        mAuth = FirebaseAuth.getInstance();
-        userName = String.valueOf(mAuth.getCurrentUser().getDisplayName());
+        //mAuth = FirebaseAuth.getInstance();
+        //userName = String.valueOf(mAuth.getCurrentUser().getDisplayName());
 
         Toolbar toolbar = findViewById(R.id.toolbarPantallaTareas);
         recyclerViewPending = findViewById(R.id.recyclerPendingTasks);
@@ -134,7 +134,8 @@ public class pantallaTareas extends AppCompatActivity {
      */
 
     public void logOut(View view){
-        FirebaseAuth.getInstance().signOut();
+        //FirebaseAuth.getInstance().signOut();
+        setUserInactive();
         returnMainScreen();
     }
 
@@ -153,6 +154,13 @@ public class pantallaTareas extends AppCompatActivity {
         recyclerViewPending.setLayoutManager(new LinearLayoutManager(this)); // antes lm
         recyclerViewPending.setAdapter(adapterPendingTasks);
 
+    }
+
+    private void setUserInactive(){
+        SharedPreferences userActivityPref = getSharedPreferences("isUserActive", 0);
+        SharedPreferences.Editor editor = userActivityPref.edit();
+        editor.putBoolean("isActive", false);
+        editor.commit();
     }
 
 
@@ -215,6 +223,8 @@ public class pantallaTareas extends AppCompatActivity {
         Intent intent = new Intent(this, pantallaMiSemana.class);
         startActivity(intent);
     }
+
+
 
 
 

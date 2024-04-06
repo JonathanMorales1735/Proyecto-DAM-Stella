@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name" translatable="false">Stella</string>
     <string name="btn_logIn">Iniciar sesión</string>
+    <string name="choose_profile">Elige tu perfil</string>
+    <string name="add_new_profile">Añadir nuevo perfil</string>
+    <string name="manage_profiles">Administrar perfiles</string>
     <string name="txt_noAccount1">¿No tienes una cuenta?</string>
     <string name="txt_noAccount2">Click aquí</string>
     <string name="configuration">Configuración</string>

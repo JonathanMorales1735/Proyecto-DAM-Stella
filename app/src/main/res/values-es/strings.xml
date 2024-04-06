@@ -79,4 +79,7 @@
     <string name="theme_pink">Rosa</string>
     <string name="theme_violet">Violeta</string>
     <string name="theme_green">Verde</string>
+    <string name="choose_profile">Elige tu perfil</string>
+    <string name="add_new_profile">Añadir nuevo perfil</string>
+    <string name="manage_profiles">Administrar perfiles</string>
 </resources>

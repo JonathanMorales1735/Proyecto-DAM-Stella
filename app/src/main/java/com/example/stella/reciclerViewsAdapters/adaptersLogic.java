@@ -10,6 +10,8 @@ import com.example.stella.db.DbHelper;
 import com.example.stella.db.dbLogic;
 import com.example.stella.dialogs.taskInfoDialog;
 
+import java.util.List;
+
 public class adaptersLogic {
     public static final String TAG = adaptersLogic.class.getName();
     Context c;
@@ -68,6 +70,17 @@ public class adaptersLogic {
         }
 
         return task;
+    }
+
+    public List<profiles> getProfiles(){
+        dbLogic db = new dbLogic(c);
+        List<profiles> list = db.getProfiles();
+        if(!list.isEmpty()){
+            Log.i(TAG, "Perfiles cargados.");
+        } else {
+            Log.i(TAG, "No se encuentra ningún perfil.");
+        }
+        return list;
     }
 
 }

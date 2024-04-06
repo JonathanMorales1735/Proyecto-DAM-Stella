@@ -9,9 +9,12 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.stella.reciclerViewsAdapters.profiles;
 import com.example.stella.utils.Alarm;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class dbLogic {
 
@@ -159,6 +162,30 @@ public class dbLogic {
         }
 
         return check;
+    }
+
+    public List<profiles> getProfiles(){
+        DbHelper dbH = new DbHelper(context);
+        SQLiteDatabase db = dbH.getReadableDatabase();
+
+        String query = "Select id, name from profiles";
+
+        Cursor cursor = db.rawQuery(query, null);
+        List<profiles> list = new ArrayList<>();
+        profiles prof;
+        while(cursor.moveToNext()){
+            prof = new profiles(cursor.getInt(0), cursor.getString(1));
+            list.add(prof);
+        }
+
+        try{
+            db.close();
+            dbH.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
 }
