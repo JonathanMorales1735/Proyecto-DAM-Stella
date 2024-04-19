@@ -39,14 +39,18 @@ public class listCompletedTasksAdapter extends RecyclerView.Adapter<listComplete
     private Context context;
     private Dialog dialogInfo = null;
     listPendingTasksAdapter pendingTasksAdapter;
-    private adaptersLogic adapterLogic;
+    adaptersLogic adapterLogic;
 
     public listCompletedTasksAdapter(Context context){
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
-        fillCompletedTasks();
         adapterLogic = new adaptersLogic(context);
+        setItem(adapterLogic.getCompletedtasksList());
+        notifyDataSetChanged();
+    }
 
+    public void reSetItemList(){
+        setItem(adapterLogic.getCompletedtasksList());
     }
 
     @Override
@@ -102,12 +106,13 @@ public class listCompletedTasksAdapter extends RecyclerView.Adapter<listComplete
                                     intent.putExtra("type", auxItem.getType());
                                     intent.putExtra("notify", auxItem.isNotify());
                                     intent.putExtra("time", auxItem.getTime());
-                                    intent.putExtra("table", "weeklytasks");
+                                    intent.putExtra("table", "completedtasks");
                                     context.startActivity(intent);
                                     break;
                                 case R.id.optionDelete:
-                                    deleteItem(item.getId());
-                                    fillCompletedTasks();
+                                    adapterLogic.deleteTask(item.getId(), "completedtasks");
+                                    setItem(adapterLogic.getCompletedtasksList());
+                                    notifyDataSetChanged();
                                     break;
                                 default:
                                     break;
@@ -127,8 +132,9 @@ public class listCompletedTasksAdapter extends RecyclerView.Adapter<listComplete
 
                     if(b == false){
                         pendingTasksAdapter.uncompleteCompletedTask(item.getId());
-                        deleteItem(item.getId());
-                        fillCompletedTasks();
+                        adapterLogic.deleteTask(item.getId(), "completedtasks");
+                        setItem(adapterLogic.getCompletedtasksList());
+                        notifyDataSetChanged();
                     }
 
                 }
@@ -137,7 +143,7 @@ public class listCompletedTasksAdapter extends RecyclerView.Adapter<listComplete
             name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showInfoDialog(item.getId());
+                    adapterLogic.showTaskInfo(item.getId(), "completedtasks");
                 }
             });
         }
@@ -165,40 +171,7 @@ public class listCompletedTasksAdapter extends RecyclerView.Adapter<listComplete
         }
     }
 
-    /**
-     * Éste método sirve para rellenar la List del adaptador de objetos "taskElement". Para rellenar la información
-     * de cada taskElement, se llama a la base de datos para recoger el nombre y el id. Finalmente notifica al adaptador
-     * que la información ha cambiado mediante notifyDataSetChanged();
-     *
-     * Se usa principalmente en la app apara refrescar la lista de elementos dentro del recyclerView que haga uso de este adaptador.
-     */
 
-    public void fillCompletedTasks(){
-        DbHelper dbHelper = new DbHelper(context);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("Select name, id from completedtasks", null);
-        taskElement task;
-        if(mData != null){
-            clear();
-        }
-
-        while(cursor.moveToNext()){
-            task = new taskElement();
-            String name = cursor.getString(0);
-            int id = cursor.getInt(1);
-            if(name.length() >= 42){
-                name = name.substring(0, 42) + "...";
-            }
-            task.setName(name);
-            task.setId(id);
-            mData.add(task);
-        }
-
-        cursor.close();
-        db.close();
-        notifyDataSetChanged();
-
-    }
 
     /**
      * Éste método sirve para vaciar la List del adaptador.
@@ -207,75 +180,7 @@ public class listCompletedTasksAdapter extends RecyclerView.Adapter<listComplete
     public void clear(){
         mData.clear();
     }
-
-    private void showInfoDialog(int id){
-        if((dialogInfo == null) || !dialogInfo.isShowing()){
-            dialogInfo = new Dialog(context);
-            dialogInfo.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialogInfo.setContentView(R.layout.pantallainfo);
-
-            TextView name = dialogInfo.findViewById(R.id.textName);
-            TextView description = dialogInfo.findViewById(R.id.textDescription);
-            TextView type = dialogInfo.findViewById(R.id.textType);
-            TextView time = dialogInfo.findViewById(R.id.textTime);
-            TextView days = dialogInfo.findViewById(R.id.textDays);
-
-            taskElement item = auxGetTaskFullInfo(id);
-
-            //Debido a que la app tiene mas de un idioma, se consigue el nombre del tipo de tarea (la cual se introduce en inglés para que coincida con su id en strings.xml)
-            //y se muestra en el idioma seleccionado por el usuario.
-            int typeIdName = context.getResources().getIdentifier(item.getType(), "string", context.getPackageName());
-            String typeName = context.getResources().getString(typeIdName);
-
-            name.setText(item.getName());
-            description.setText(item.getDescription());
-            type.setText(typeName);
-            time.setText(item.getTime());
-
-
-            dialogInfo.show();
-            dialogInfo.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            dialogInfo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            dialogInfo.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationLeft;
-            dialogInfo.getWindow().setGravity(Gravity.LEFT);
-
-            ImageButton button = dialogInfo.findViewById(R.id.btn_close);
-            button.setOnClickListener(new View.OnClickListener(){
-                public void onClick(View view) {
-                    dialogInfo.hide();
-                    dialogInfo.dismiss();
-                }
-            });
-        }
-
-
-    }
-
-    private taskElement auxGetTaskFullInfo(int id){
-        DbHelper dbHelper = new DbHelper(context);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        taskElement task = null;
-
-        Cursor cursor = db.rawQuery("Select * from completedtasks where id = " + id, null);
-
-        while(cursor.moveToNext()){
-            task = new taskElement();
-            task.setId(cursor.getInt(0));
-            task.setName(cursor.getString(1));
-            task.setDescription(cursor.getString(2));
-            task.setType(cursor.getString(3));
-            task.setNotify(cursor.getInt(4));
-            task.setTime(cursor.getString(5));
-        }
-        try{
-            db.close();
-            cursor.close();
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        return task;
-    }
+    
 
     public void completePendingTask(int id){
         DbHelper dbHelper = new DbHelper(context);
@@ -292,6 +197,7 @@ public class listCompletedTasksAdapter extends RecyclerView.Adapter<listComplete
             cv.put("type", cursor.getString(3));
             cv.put("notify", cursor.getInt(4));
             cv.put("time", cursor.getString(5));
+            cv.put("profileId", cursor.getInt(6));
         }
         try {
             checkInsert = db.insertOrThrow("COMPLETEDTASKS", null, cv);
@@ -302,7 +208,8 @@ public class listCompletedTasksAdapter extends RecyclerView.Adapter<listComplete
         } finally {
             db.close();
             cursor.close();
-            fillCompletedTasks();
+            setItem(adapterLogic.getCompletedtasksList());
+            notifyDataSetChanged();
         }
     }
 

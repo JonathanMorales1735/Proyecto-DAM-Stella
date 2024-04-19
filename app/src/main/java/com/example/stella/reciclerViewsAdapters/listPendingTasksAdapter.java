@@ -9,15 +9,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -26,6 +22,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.stella.db.dbLogic;
 import com.example.stella.utils.Alarm;
 import com.example.stella.R;
 import com.example.stella.db.DbHelper;
@@ -51,9 +48,14 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
         alarm = new Alarm(context);
-        fillPendingTasks();
         adaptersLogic = new adaptersLogic(context);
+        setItem(adaptersLogic.getPendingtasksList());
+        notifyDataSetChanged();
 
+    }
+
+    public void reSetItemList(){
+        setItem(adaptersLogic.getPendingtasksList());
     }
 
     @Override
@@ -113,8 +115,9 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
                                     context.startActivity(intent);
                                     break;
                                 case R.id.optionDelete:
-                                    deleteItem(item.getId());
-                                    fillPendingTasks();
+                                    adaptersLogic.deleteTask(item.getId(), "pendingtasks");
+                                    setItem(adaptersLogic.getPendingtasksList());
+                                    notifyDataSetChanged();
                                     break;
                                 default:
                                     break;
@@ -133,8 +136,9 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
                     if(b == true){
                         completedTasksAdapter.completePendingTask(item.getId());
                         alarm.cancelAlarm(item.getId());
-                        deleteItem(item.getId());
-                        fillPendingTasks();
+                        adaptersLogic.deleteTask(item.getId(), "pendingtasks");
+                        setItem(adaptersLogic.getPendingtasksList());
+                        notifyDataSetChanged();
                     }
                 }
             });
@@ -175,40 +179,6 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
     }
 
 
-    /**
-     * Éste método sirve para rellenar la List del adaptador de objetos "taskElement". Para rellenar la información
-     * de cada taskElement, se llama a la base de datos para recoger el nombre y el id. Finalmente notifica al adaptador
-     * que la información ha cambiado mediante notifyDataSetChanged();
-     *
-     * Se usa principalmente en la app apara refrescar la lista de elementos dentro del recyclerView que haga uso de este adaptador.
-     */
-
-    public void fillPendingTasks(){
-        DbHelper dbHelper = new DbHelper(context);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("Select name, id from pendingtasks", null);
-        taskElement task;
-        if(mData != null){
-            clear();
-        }
-
-        while(cursor.moveToNext()){
-            task = new taskElement();
-            String name = cursor.getString(0);
-            int id = cursor.getInt(1);
-            if(name.length() >= 42){
-                name = name.substring(0, 42) + "...";
-            }
-            task.setName(name);
-            task.setId(id);
-            mData.add(task);
-        }
-
-        cursor.close();
-        db.close();
-        notifyDataSetChanged();
-
-    }
 
     /**
      * Éste método sirve para vaciar la List del adaptador.
@@ -218,74 +188,6 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
         mData.clear();
     }
 
-    private void showInfoDialog(int id){
-        if((dialogInfo == null) || !dialogInfo.isShowing()){
-            dialogInfo = new Dialog(context);
-            dialogInfo.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialogInfo.setContentView(R.layout.pantallainfo);
-
-            TextView name = dialogInfo.findViewById(R.id.textName);
-            TextView description = dialogInfo.findViewById(R.id.textDescription);
-            TextView type = dialogInfo.findViewById(R.id.textType);
-            TextView time = dialogInfo.findViewById(R.id.textTime);
-            TextView days = dialogInfo.findViewById(R.id.textDays);
-
-            taskElement item = auxGetTaskFullInfo(id);
-
-            //Debido a que la app tiene mas de un idioma, se consigue el nombre del tipo de tarea (la cual se introduce en inglés para que coincida con su id en strings.xml)
-            //y se muestra en el idioma seleccionado por el usuario.
-            int typeIdName = context.getResources().getIdentifier(item.getType(), "string", context.getPackageName());
-            String typeName = context.getResources().getString(typeIdName);
-
-            name.setText(item.getName());
-            description.setText(item.getDescription());
-            type.setText(typeName);
-            time.setText(item.getTime());
-
-
-            dialogInfo.show();
-            dialogInfo.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            dialogInfo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            dialogInfo.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationLeft;
-            dialogInfo.getWindow().setGravity(Gravity.LEFT);
-
-            ImageButton button = dialogInfo.findViewById(R.id.btn_close);
-            button.setOnClickListener(new View.OnClickListener(){
-                public void onClick(View view) {
-                    dialogInfo.hide();
-                    dialogInfo.dismiss();
-                }
-            });
-        }
-
-
-    }
-
-    private taskElement auxGetTaskFullInfo(int id){
-        DbHelper dbHelper = new DbHelper(context);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        taskElement task = null;
-
-        Cursor cursor = db.rawQuery("Select * from pendingtasks where id = " + id, null);
-
-        while(cursor.moveToNext()){
-            task = new taskElement();
-            task.setId(cursor.getInt(0));
-            task.setName(cursor.getString(1));
-            task.setDescription(cursor.getString(2));
-            task.setType(cursor.getString(3));
-            task.setNotify(cursor.getInt(4));
-            task.setTime(cursor.getString(5));
-        }
-        try{
-            db.close();
-            cursor.close();
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        return task;
-    }
 
     public void uncompleteCompletedTask(int id){
         DbHelper dbHelper = new DbHelper(context);
@@ -302,6 +204,7 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
             cv.put("type", cursor.getString(3));
             cv.put("notify", cursor.getInt(4));
             cv.put("time", cursor.getString(5));
+            cv.put("profileId", cursor.getInt(6));
         }
         try {
             if(cv.getAsString("time") != null){
@@ -320,7 +223,8 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
         } finally {
             db.close();
             cursor.close();
-            fillPendingTasks();
+            setItem(adaptersLogic.getPendingtasksList());
+            notifyDataSetChanged();
         }
     }
 

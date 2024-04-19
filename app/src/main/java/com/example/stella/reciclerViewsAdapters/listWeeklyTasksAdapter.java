@@ -37,11 +37,19 @@ public class listWeeklyTasksAdapter extends RecyclerView.Adapter<listWeeklyTasks
     private Context context;
     private Dialog dialogInfo = null;
     private adaptersLogic adapterLogic;
+    public String selectedDay = "";
 
-    public listWeeklyTasksAdapter(Context context, Window w){
+    public listWeeklyTasksAdapter(Context context, Window w, String selectedDay){
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
         adapterLogic = new adaptersLogic(context);
+        this.selectedDay =  selectedDay;
+        setItem(adapterLogic.getWeeklytasksList(selectedDay));
+        notifyDataSetChanged();
+    }
+
+    public void setSelectedDay(String day){
+        selectedDay = day;
     }
 
 
@@ -56,6 +64,8 @@ public class listWeeklyTasksAdapter extends RecyclerView.Adapter<listWeeklyTasks
     public void onBindViewHolder(@NonNull listWeeklyTasksAdapter.ViewHolder holder, int position) {
         holder.bindData(mData.get(position));
     }
+
+    public void setItem(List<taskElement> items){ mData = items;}
 
     @Override
     public int getItemCount() {
@@ -121,28 +131,7 @@ public class listWeeklyTasksAdapter extends RecyclerView.Adapter<listWeeklyTasks
         }
     }
 
-    public void fillWeeklyTasks(String day){
-        DbHelper dbHelper = new DbHelper(context);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Log.i(TAG, "Obteniendo tareas de " + day);
-        Cursor cursor = db.rawQuery("Select id, name from WEEKLYTASKS where " + day + " = 1", null);
-        taskElement task;
 
-        while (cursor.moveToNext()){
-            task = new taskElement();
-            task.setId(cursor.getInt(0));
-            task.setName(cursor.getString(1));
-            Log.i(TAG, "Tarea recogida de weeklytasks: " + task.getId() + " " + task.getName());
-            mData.add(task);
-        }
-        try{
-            db.close();
-            cursor.close();
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-        notifyDataSetChanged();
-    }
 
 
 

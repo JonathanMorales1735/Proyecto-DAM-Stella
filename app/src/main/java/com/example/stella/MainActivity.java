@@ -3,6 +3,7 @@ package com.example.stella;
 import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private Dialog bottomDialog = null;
-    EditText email, password;
+    CardView cardView_addNewProfile, cardView_manageProfiles;
     RecyclerView recyclerViewProfiles;
     listProfilesAdapter adapter;
     com.example.stella.utils.loadSettings loadSettings;
@@ -48,20 +49,19 @@ public class MainActivity extends AppCompatActivity {
         loadSettings = new loadSettings(this);
         loadSettings.loadSettings(this);
         setContentView(R.layout.activity_main);
-        //ActionBar toolbar = getSupportActionBar();
 
-        //toolbar.hide();
         recyclerViewProfiles = findViewById(R.id.recycler_profiles);
         adapter = new listProfilesAdapter(this, this);
-        //mAuth = FirebaseAuth.getInstance();
 
-        //email = findViewById(R.id.editTextEmail);
-        //password = findViewById(R.id.editTextPassword);
+        cardView_addNewProfile = findViewById(R.id.cardView_addNewProfile);
+        cardView_manageProfiles = findViewById(R.id.cardView_manageProfiles);
 
         createInitialDB();
         setDailyActionWork();
         onFirstRun();
         setRecyclerViewProfiles();
+        enableManageProfilesBtn();
+        enableAddProfileBtn();
 
     }
 
@@ -74,6 +74,21 @@ public class MainActivity extends AppCompatActivity {
             prueba();
         }
 
+    }
+    private void enableAddProfileBtn(){
+        if(adapter.getItemCount() < 5){
+            cardView_addNewProfile.setVisibility(View.VISIBLE);
+        } else{
+            cardView_addNewProfile.setVisibility(View.GONE);
+        }
+    }
+
+    private void enableManageProfilesBtn(){
+        if(adapter.getItemCount() > 0){
+            cardView_manageProfiles.setVisibility(View.VISIBLE);
+        } else {
+            cardView_manageProfiles.setVisibility(View.GONE);
+        }
     }
 
     private boolean isUserActive(){
@@ -148,47 +163,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * Método "logIn" tiene como función el inicio de sesión del usuario.
-     * Para ello hace uso del email y contraseña introducida por el usuario.
-     * @param view
-     */
 
-    public void logIn(View view){
-        // Se recoge el imail y contraseña introducida por el usuario
-        String emailText, passwordText;
-        emailText = String.valueOf(email.getText());
-        passwordText = String.valueOf(password.getText());
-
-        //  A continuación, se hacen las comprobaciones pertinenetes del email y contraseña
-
-        if(TextUtils.isEmpty(emailText)){
-            Toast.makeText(this, R.string.emailEmpty, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(TextUtils.isEmpty(passwordText)){
-            Toast.makeText(this, R.string.passwordEmpty, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Una vez hecho las comprobaciones, se procede al inicio de sesión con FireBase
-        mAuth.signInWithEmailAndPassword(emailText, passwordText)
-                .addOnCompleteListener(task -> {
-                    // Su el inicio de sesión tuvo éxito, se procede a ir a la siguiente pantalla
-                    if(task.isSuccessful() && task.getResult().getUser().isEmailVerified()){
-                        prueba();
-                    } else {
-                        Toast.makeText(MainActivity.this, "Usuario no válido", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-    }
 
     public void prueba(){
         Intent intent = new Intent(this, pantallaTareas.class);
         startActivity(intent);
         finish();
     }
+
 
     public void showBottomDialog(View view){
 

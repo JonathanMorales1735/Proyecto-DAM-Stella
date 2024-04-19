@@ -23,7 +23,7 @@ public class pantallaDaySchedule extends AppCompatActivity {
         setContentView(R.layout.pantalladiadelasemana);
 
         recyclerView = findViewById(R.id.recyclerWeeklyTasks);
-        adapter = new listWeeklyTasksAdapter(this, this.getWindow());
+        adapter = new listWeeklyTasksAdapter(this, this.getWindow(), auxGetDayIntent());
 
         setRecyclerViewCompleted();
 
@@ -31,12 +31,14 @@ public class pantallaDaySchedule extends AppCompatActivity {
     }
 
     private void setRecyclerViewCompleted(){
-        adapter.fillWeeklyTasks(auxGetDayIntent());
+        //adapter.fillWeeklyTasks(auxGetDayIntent());
+        adapter.setSelectedDay(auxGetDayIntent());
+        adapter.notifyDataSetChanged();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(adapter);
-
+        adapter.notifyDataSetChanged();
     }
 
     private String auxGetDayIntent(){

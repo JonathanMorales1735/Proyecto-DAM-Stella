@@ -80,41 +80,33 @@ public class pantallaMiSemana extends AppCompatActivity {
 
         String day = getResources().getResourceEntryName(view.getId());
         Log.i(TAG, "Dia seleccionado: " + day);
-        Intent intent;
-
+        Intent intent = new Intent(this, pantallaDaySchedule.class);
         switch (day){
             case "monday_layout":
-                intent = new Intent(this, pantallaDaySchedule.class);
                 intent.putExtra("day", "monday");
                 startActivity(intent);
                 break;
             case "tuesday_layout":
-                intent = new Intent(this, pantallaDaySchedule.class);
                 intent.putExtra("day", "tuesday");
                 startActivity(intent);
                 break;
             case "wednesday_layout":
-                intent = new Intent(this, pantallaDaySchedule.class);
                 intent.putExtra("day", "wednesday");
                 startActivity(intent);
                 break;
             case "thursday_layout":
-                intent = new Intent(this, pantallaDaySchedule.class);
                 intent.putExtra("day", "thursday");
                 startActivity(intent);
                 break;
             case "friday_layout":
-                intent = new Intent(this, pantallaDaySchedule.class);
                 intent.putExtra("day", "friday");
                 startActivity(intent);
                 break;
             case "saturday_layout":
-                intent = new Intent(this, pantallaDaySchedule.class);
                 intent.putExtra("day", "saturday");
                 startActivity(intent);
                 break;
             case "sunday_layout":
-                intent = new Intent(this, pantallaDaySchedule.class);
                 intent.putExtra("day", "sunday");
                 startActivity(intent);
                 break;

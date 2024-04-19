@@ -16,13 +16,14 @@ public class adaptersLogic {
     public static final String TAG = adaptersLogic.class.getName();
     Context c;
     taskInfoDialog taskInfoDialog = null;
+    dbLogic dbLogic;
 
     public adaptersLogic(Context context){
         c = context;
+        dbLogic = new dbLogic(c);
     }
 
     public void deleteTaskInWeeklyTasks(int id){
-        dbLogic dbLogic = new dbLogic(c);
         boolean deleteSuccessfully = dbLogic.deleteTask(id, "weeklytasks");
         if(deleteSuccessfully){
             Log.i(TAG, "Deleted task successfully in WEEKLYTASKS with id " + id);
@@ -72,15 +73,24 @@ public class adaptersLogic {
         return task;
     }
 
-    public List<profiles> getProfiles(){
-        dbLogic db = new dbLogic(c);
-        List<profiles> list = db.getProfiles();
-        if(!list.isEmpty()){
-            Log.i(TAG, "Perfiles cargados.");
-        } else {
-            Log.i(TAG, "No se encuentra ningún perfil.");
-        }
+    public List<taskElement> getPendingtasksList(){
+        List<taskElement> list = dbLogic.getPendingTasksList();
         return list;
     }
+
+    public List<taskElement> getCompletedtasksList(){
+        List<taskElement> list = dbLogic.getCompletedTasksList();
+        return list;
+    }
+    public List<taskElement> getWeeklytasksList(String day){
+        List<taskElement> list = dbLogic.getWeeklyTasksList(day);
+        return list;
+    }
+
+    public void deleteTask(int id, String tableName){
+        dbLogic.deleteTask(id, tableName);
+    }
+
+        //  TODO: Aqui en verdad puede ir toda la logica, asi no hay tanto metodo en los adaptadores y hace un objeto adaptersLogic para hacer algo simplemente
 
 }

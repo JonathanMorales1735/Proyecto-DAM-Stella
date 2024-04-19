@@ -35,6 +35,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.stella.db.DbHelper;
+import com.example.stella.db.dbLogic;
 import com.example.stella.dialogs.dayPickerDialog;
 import com.example.stella.dialogs.timePickerDialog;
 import com.example.stella.utils.Alarm;
@@ -134,9 +135,6 @@ public class pantallaNuevaTarea extends AppCompatActivity {
             notify = 1;
         }
 
-
-        DbHelper dbH = new DbHelper(this);
-        SQLiteDatabase db = dbH.getWritableDatabase();
         nameText = String.valueOf(name.getText());
         if(!TextUtils.isEmpty(String.valueOf(description))){
             descriptionText = String.valueOf(description.getText());
@@ -153,7 +151,7 @@ public class pantallaNuevaTarea extends AppCompatActivity {
         // Si no requiere de notificación, la tarea será de duración infinita y se meterá directa a la tabla PENDINGTASKS
         if(notify == 0){
 
-            checkInsert = auxInsertTask(task, db, "PENDINGTASKS");
+            checkInsert = auxInsertTask(task, "PENDINGTASKS");
             clearNewTaskScreen();
             Toast.makeText(this, getResources().getString(R.string.newtaskcreatedsuccessfully), Toast.LENGTH_SHORT).show();
             Log.i(TAG, "CheckInsert: " + checkInsert);
@@ -174,18 +172,18 @@ public class pantallaNuevaTarea extends AppCompatActivity {
             }
             if(daysCheck){
                 if(auxCheckCurrentDay()){
-                    checkInsert = auxInsertTask(task, db, "PENDINGTASKS");
+                    checkInsert = auxInsertTask(task, "PENDINGTASKS");
                     Log.i(TAG, "CheckInsert: " + checkInsert);
                 }
                 for(String day: dayList){
                     task.put(day, 1);
                 }
-                checkInsert = auxInsertTask(task, db, "WEEKLYTASKS");
+                checkInsert = auxInsertTask(task, "WEEKLYTASKS");
                 clearNewTaskScreen();
                 Toast.makeText(this, getResources().getString(R.string.newtaskcreatedsuccessfully), Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "CheckInsert: " + checkInsert);
             } else {
-                checkInsert = auxInsertTask(task, db, "PENDINGTASKS");
+                checkInsert = auxInsertTask(task, "PENDINGTASKS");
                 clearNewTaskScreen();
                 Toast.makeText(this, getResources().getString(R.string.newtaskcreatedsuccessfully), Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "CheckInsert: " + checkInsert);
@@ -193,11 +191,7 @@ public class pantallaNuevaTarea extends AppCompatActivity {
         }
 
         Log.i(TAG, "Id de la tarea: " + String.valueOf(task.get("id")));
-        try {
-            db.close();
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
+
 
 
     }
@@ -217,10 +211,15 @@ public class pantallaNuevaTarea extends AppCompatActivity {
         return b;
     }
 
-    private long auxInsertTask(ContentValues cv, @NonNull SQLiteDatabase db1, String tableName){
+
+    private long auxInsertTask(ContentValues cv, String tableName){
 
         long mid = 0;
-        SQLiteDatabase db = db1;
+        DbHelper dbH = new DbHelper(this);
+        SQLiteDatabase db = dbH.getWritableDatabase();
+        dbLogic dbLogic = new dbLogic(this);
+        int currentProfileID = dbLogic.checkCurrentProfileID();
+        cv.put("profileId", currentProfileID);
         try {
             mid = db.insertOrThrow(tableName, null, cv);
             Log.i(TAG, "Inserción en " + tableName + " : " + String.valueOf(mid));
@@ -236,7 +235,7 @@ public class pantallaNuevaTarea extends AppCompatActivity {
             Log.e("Exception","SQLException"+String.valueOf(e.getMessage()));
             e.printStackTrace();
         } finally {
-            //db.close();
+            db.close();
         }
 
         return mid;

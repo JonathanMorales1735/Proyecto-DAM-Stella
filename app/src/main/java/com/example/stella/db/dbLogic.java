@@ -4,12 +4,14 @@ import static android.content.ContentValues.TAG;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.stella.reciclerViewsAdapters.profiles;
+import com.example.stella.reciclerViewsAdapters.taskElement;
 import com.example.stella.utils.Alarm;
 
 import java.util.ArrayList;
@@ -22,6 +24,12 @@ public class dbLogic {
 
     public dbLogic(Context c){
         context = c;
+    }
+
+    public int checkCurrentProfileID(){
+        SharedPreferences settings = context.getSharedPreferences("profile", 0);
+        int id = settings.getInt("id", 0);
+        return id;
     }
 
 
@@ -187,5 +195,99 @@ public class dbLogic {
 
         return list;
     }
+
+    public List<taskElement> getPendingTasksList(){
+        DbHelper dbHelper = new DbHelper(context);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        int currentProfileID = checkCurrentProfileID();
+        Cursor cursor = db.rawQuery("Select name, id from pendingtasks where profileId = " + currentProfileID, null);
+        taskElement task;
+        List<taskElement> list = new ArrayList<>();
+
+        while(cursor.moveToNext()){
+            task = new taskElement();
+            String name = cursor.getString(0);
+            int id = cursor.getInt(1);
+            if(name.length() >= 42){
+                name = name.substring(0, 42) + "...";
+            }
+
+            task.setName(name);
+            task.setId(id);
+            Log.i(TAG, task.getName());
+            list.add(task);
+        }
+        try{
+            cursor.close();
+            db.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return list;
+
+    }
+
+    public List<taskElement> getCompletedTasksList(){
+        DbHelper dbHelper = new DbHelper(context);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        int currentProfileID = checkCurrentProfileID();
+        Cursor cursor = db.rawQuery("Select name, id from completedtasks where profileId = " + currentProfileID, null);
+        taskElement task;
+        List<taskElement> list = new ArrayList<>();
+
+        while(cursor.moveToNext()){
+            task = new taskElement();
+            String name = cursor.getString(0);
+            int id = cursor.getInt(1);
+            if(name.length() >= 42){
+                name = name.substring(0, 42) + "...";
+            }
+            task.setName(name);
+            task.setId(id);
+            list.add(task);
+        }
+        try {
+            cursor.close();
+            db.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return list;
+
+    }
+
+    public List<taskElement> getWeeklyTasksList(String day){
+        DbHelper dbHelper = new DbHelper(context);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Log.i(TAG, "Obteniendo tareas de " + day);
+        int currentProfileID = checkCurrentProfileID();
+        Cursor cursor = db.rawQuery("Select id, name from WEEKLYTASKS where " + day + " = 1 and profileId = " + currentProfileID, null);
+        taskElement task;
+        List<taskElement> list = new ArrayList<>();
+
+        while (cursor.moveToNext()){
+            task = new taskElement();
+            task.setId(cursor.getInt(0));
+            task.setName(cursor.getString(1));
+            Log.i(TAG, "Tarea recogida de weeklytasks: " + task.getId() + " " + task.getName());
+            list.add(task);
+        }
+        try{
+            db.close();
+            cursor.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    
+
+
+    // TODO: consulta PENDINGTASKS, COMPLETEDTASKS con el inner join a perfiles
+    // TODO: consulta de WEEKLYTASKS con el inner join a perfiles
+    // TODO: consulta a PREVIOUSRECORD
 
 }

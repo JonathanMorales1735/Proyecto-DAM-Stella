@@ -33,6 +33,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.stella.dialogs.settingsDialog;
+import com.example.stella.reciclerViewsAdapters.adaptersLogic;
 import com.example.stella.reciclerViewsAdapters.listCompletedTasksAdapter;
 import com.example.stella.reciclerViewsAdapters.listPendingTasksAdapter;
 import com.example.stella.utils.loadSettings;
@@ -52,6 +53,7 @@ public class pantallaTareas extends AppCompatActivity {
     loadSettings loadSettings;
     settingsDialog settingsDialog = null;
     boolean settingsDialogChecker = false;
+    adaptersLogic adapterLogic;
 
 
 
@@ -78,6 +80,7 @@ public class pantallaTareas extends AppCompatActivity {
         adapterCompletedTasks = new listCompletedTasksAdapter(this);
         adapterPendingTasks.auxSetListCompletedTasksAdapter(adapterCompletedTasks);
         adapterCompletedTasks.auxSetListPendingTasksAdapter(adapterPendingTasks);
+        adapterLogic = new adaptersLogic(this);
 
         createNotificationChannel();
         //setSupportActionBar(toolbar);
@@ -140,21 +143,26 @@ public class pantallaTareas extends AppCompatActivity {
     }
 
     private void setRecyclerViewCompleted(){
-        adapterCompletedTasks.fillCompletedTasks();
+        //adapterCompletedTasks.fillCompletedTasks();
+        adapterCompletedTasks.notifyDataSetChanged();
         recyclerViewCompleted.setHasFixedSize(true);
         recyclerViewCompleted.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewCompleted.setNestedScrollingEnabled(false);
         recyclerViewCompleted.setAdapter(adapterCompletedTasks);
+        adapterCompletedTasks.notifyDataSetChanged();
+        adapterCompletedTasks.reSetItemList();
 
     }
 
     public void setRecyclerViewPending(){
-        adapterPendingTasks.fillPendingTasks();
+        adapterPendingTasks.notifyDataSetChanged();
         recyclerViewPending.setHasFixedSize(true);
         recyclerViewPending.setLayoutManager(new LinearLayoutManager(this)); // antes lm
         recyclerViewPending.setAdapter(adapterPendingTasks);
-
+        adapterPendingTasks.notifyDataSetChanged();
+        adapterPendingTasks.reSetItemList();
     }
+
 
     private void setUserInactive(){
         SharedPreferences userActivityPref = getSharedPreferences("isUserActive", 0);
