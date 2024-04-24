@@ -14,12 +14,15 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.example.stella.db.dbLogic;
+import com.example.stella.reciclerViewsAdapters.profiles;
 import com.example.stella.utils.Alarm;
 import com.example.stella.db.DbHelper;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class dailyActionWorker extends Worker {
@@ -121,7 +124,7 @@ public class dailyActionWorker extends Worker {
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        Cursor cursor = db.rawQuery("Select id, name, description, type, notify, time from WEEKLYTASKS where " + dayName + " = 1", null);
+        Cursor cursor = db.rawQuery("Select id, name, description, type, notify, time, profileId from WEEKLYTASKS where " + dayName + " = 1", null);
         int mid = 0;
         Log.i(TAG, "Insertando weeklytasks en pending");
         if(cursor.getExtras().isEmpty()){
@@ -135,6 +138,7 @@ public class dailyActionWorker extends Worker {
             cv.put("type", cursor.getString(3));
             cv.put("notify", cursor.getInt(4));
             cv.put("time", cursor.getString(5));
+            cv.put("profileId", cursor.getInt(6));
             mid += db.insertOrThrow("pendingtasks", null, cv);
         }
 
@@ -162,11 +166,9 @@ public class dailyActionWorker extends Worker {
     private void setPreviousRecords(Context context){
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
+        List<Integer> IDsList = new ArrayList<>();
+        IDsList = auxGetProfilesIDs();
 
-        int work = 0;
-        int domestic = 0;
-        int study = 0;
-        int leisure = 0;
 
         ArrayList<String> types = new ArrayList<>();
         types.add("work");
@@ -175,44 +177,60 @@ public class dailyActionWorker extends Worker {
         types.add("leisure");
 
         Cursor cursor;
+        for(int id : IDsList){
 
-        for (String type: types){
-            String query = "Select * from completedtasks where type = '" + type + "'";
-            cursor = db.rawQuery(query, null);
+            int work = 0;
+            int domestic = 0;
+            int study = 0;
+            int leisure = 0;
 
-            if(type.equals("work")){
-                work += cursor.getCount();
-            } else if (type.equals("domestic")){
-                domestic += cursor.getCount();
-            } else if (type.equals("study")){
-                study += cursor.getCount();
-            } else if (type.equals("leisure")){
-                leisure += cursor.getCount();
-                cursor.close();
+            for (String type: types){
+                String query = "Select * from completedtasks where type = '" + type + "' and profileId = " + id;
+                cursor = db.rawQuery(query, null);
+
+                if(type.equals("work")){
+                    work += cursor.getCount();
+                } else if (type.equals("domestic")){
+                    domestic += cursor.getCount();
+                } else if (type.equals("study")){
+                    study += cursor.getCount();
+                } else if (type.equals("leisure")){
+                    leisure += cursor.getCount();
+                    cursor.close();
+                }
             }
+
+            SharedPreferences settings = context.getSharedPreferences("lastDayDailyAction", 0);
+            String date = settings.getString("lastDailyAction", "DEFAULT");
+            // TODO: BORRAR, ,,,,, deberia salir dia 24
+            ContentValues cv = new ContentValues();
+            cv.put("date", date);
+            cv.put("study", study);
+            cv.put("domestic", domestic);
+            cv.put("work", work);
+            cv.put("leisure", leisure);
+            cv.put("profileId", id);
+
+
+
+            db.insert("PREVIOUSRECORDS", null, cv);
         }
-
-
-        LocalDate localDate = LocalDate.now();
-        localDate = localDate.minusDays(1);
-        String date = localDate.toString();
-
-        ContentValues cv = new ContentValues();
-        cv.put("date", date);
-        cv.put("study", study);
-        cv.put("domestic", domestic);
-        cv.put("work", work);
-        cv.put("leisure", leisure);
-
-
-
-        db.insert("PREVIOUSRECORDS", null, cv);
 
         try {
             db.close();
         } catch (SQLException e){
             e.printStackTrace();
         }
+    }
+
+    private List<Integer> auxGetProfilesIDs(){
+        dbLogic dbLogic = new dbLogic(context);
+        List<profiles> profiles = dbLogic.getProfiles();
+        List<Integer> list = new ArrayList<>();
+        for(profiles p : profiles){
+            list.add(p.getId());
+        }
+        return list;
     }
 
     private void clearCompletedTasks(Context context){

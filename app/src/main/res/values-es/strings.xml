@@ -82,4 +82,9 @@
     <string name="choose_profile">Elige tu perfil</string>
     <string name="add_new_profile">Añadir nuevo perfil</string>
     <string name="manage_profiles">Administrar perfiles</string>
+    <string name="delete_profile_warning">¿Seguro que quieres borrar el perfil?</string>
+    <string name="yes">Si</string>
+    <string name="set_new_name">Introduce el nuevo nombre</string>
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
 </resources>

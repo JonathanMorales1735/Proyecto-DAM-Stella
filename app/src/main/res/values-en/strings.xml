@@ -82,4 +82,9 @@
     <string name="choose_profile">Choose your profile</string>
     <string name="add_new_profile">Add new profile</string>
     <string name="manage_profiles">Manage profiles</string>
+    <string name="delete_profile_warning">Are you sure you want to delete the profile?</string>
+    <string name="yes">Yes</string>
+    <string name="set_new_name">Set new name</string>
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -22,6 +22,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.stella.db.DbHelper;
+import com.example.stella.db.dbLogic;
 import com.example.stella.dialogs.MonthYearPickerDialog;
 import com.example.stella.dialogs.YearPickerDialog;
 import com.example.stella.utils.MyValueFormatter;
@@ -165,6 +166,8 @@ public class pantallaRegistrosAnteriores extends AppCompatActivity {
     public void setGraph(View view){
         DbHelper dbH = new DbHelper(this);
         SQLiteDatabase db = dbH.getReadableDatabase();
+        dbLogic dbLogic = new dbLogic(this);
+        int currentProfileID = dbLogic.checkCurrentProfileID();
 
         int work = 0;
         int domestic = 0;
@@ -186,20 +189,20 @@ public class pantallaRegistrosAnteriores extends AppCompatActivity {
 
         Log.i("Set Graph", "Colocando query");
 
-        // Recogemos de la base de datos, en la tabla COMPLETEDTASKS, cuantas de las tareas tienen como "type"; work, study, domestic o leisure.
+        // Recogemos de la base de datos, en la tabla PREVIOUSRECORDS, cuantas de las tareas tienen como "type"; work, study, domestic o leisure.
 
         for(String name: types){
             Log.i("Set Graph: ", name);
             String query = "";
             switch (filter){
                 case 0:
-                    query = "Select sum(" + name + ") as total from PREVIOUSRECORDS where date = '" + fullDate + "'";
+                    query = "Select sum(" + name + ") as total from PREVIOUSRECORDS where date = '" + fullDate + "' and profileId = " + currentProfileID;
                     break;
                 case 1:
-                    query = "Select sum(" + name + ") as total from PREVIOUSRECORDS where date BETWEEN '" + year + "-" + month + "-01' and '" +  year + "-" + month + "-31'" ;
+                    query = "Select sum(" + name + ") as total from PREVIOUSRECORDS where date BETWEEN '" + year + "-" + month + "-01' and '" +  year + "-" + month + "-31' AND profileId = " + currentProfileID ;
                     break;
                 case 2:
-                    query = "Select sum(" + name + ") as total from PREVIOUSRECORDS where date BETWEEN '" + year + "-01-01' and '" +  year + "-12-31'" ;
+                    query = "Select sum(" + name + ") as total from PREVIOUSRECORDS where date BETWEEN '" + year + "-01-01' and '" +  year + "-12-31' AND profileId = " + currentProfileID ;
                     break;
                 default:
                     break;
@@ -280,42 +283,6 @@ public class pantallaRegistrosAnteriores extends AppCompatActivity {
         }
     }
 
-    public void pruebecilla(View view){
-        summary.notifyDataSetChanged();
-        summary.invalidate();
-    }
-
-
-    private String getMonthName(int month) {
-        switch (month) {
-            case 0:
-                return "January";
-            case 1:
-                return "February";
-            case 2:
-                return "March";
-            case 3:
-                return "April";
-            case 4:
-                return "May";
-            case 5:
-                return "June";
-            case 6:
-                return "July";
-            case 7:
-                return "August";
-            case 8:
-                return "September";
-            case 9:
-                return "October";
-            case 10:
-                return "November";
-            case 11:
-                return "December";
-            default:
-                return "";
-        }
-    }
 
     private void showFilterDialog(){
         Dialog dialog = new Dialog(this);

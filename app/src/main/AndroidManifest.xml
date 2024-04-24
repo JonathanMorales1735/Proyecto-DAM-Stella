@@ -2,12 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.stella">
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission
+        android:name="android.permission.SCHEDULE_EXACT_ALARM"
         android:maxSdkVersion="32" />
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
-    <!--<uses-permission  android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>-->  <!-- este permiso sirve para que funcione bien dailyActionReceiver-->
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -19,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Stella"
         tools:targetApi="31">
+        <activity
+            android:name=".screenManageProfiles"
+            android:exported="false" />
         <activity
             android:name=".pantallaEditarTarea"
             android:exported="false" />
@@ -39,9 +43,6 @@
             android:exported="false" />
         <activity
             android:name=".pantallaTareas"
-            android:exported="false"/>
-        <activity
-            android:name=".pantallaCrearCuenta"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -52,9 +53,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name="com.example.stella.broadcastReceiver.alarmReceiver" android:enabled="true"/>
+
         <receiver
-            android:name="com.example.stella.broadcastReceiver.BootBroadcastReceiver"
+            android:name=".broadcastReceiver.alarmReceiver"
+            android:enabled="true" />
+        <receiver
+            android:name=".broadcastReceiver.BootBroadcastReceiver"
             android:enabled="true"
             android:exported="false"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">

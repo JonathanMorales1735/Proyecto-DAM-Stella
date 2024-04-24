@@ -155,39 +155,9 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
     }
 
     /**
-     * Éste método sirve para eliminar de la base de datos la tarea seleccionada. Hace uso de la id del elemento "taskElement"
-     * como condición para su eliminación.
+     * Método de comunicación con otro adapter, "listCompletedTasksAdapter", para el intercambio de tareas (completado -> pendiente)
      * @param id
      */
-    private void deleteItem(int id){
-        DbHelper dbhelper = new DbHelper(context);
-        SQLiteDatabase db = dbhelper.getWritableDatabase();
-        Cursor c = db.rawQuery("SELECT id from PENDINGTASKS where id = " + id, null);
-        if(c.moveToFirst()){
-            do{
-                int rowsAffected = db.delete("PENDINGTASKS", "id = ?", new String[]{String.valueOf(id)});
-                Log.i(TAG, "Delete rows affected in PENDINGTASKS: " + rowsAffected);
-                if(rowsAffected > 0){
-                alarm.cancelAlarm(id);
-                }
-
-
-            }while(c.moveToNext());
-            c.close();
-            db.close();
-        }
-    }
-
-
-
-    /**
-     * Éste método sirve para vaciar la List del adaptador.
-     */
-
-    public void clear(){
-        mData.clear();
-    }
-
 
     public void uncompleteCompletedTask(int id){
         DbHelper dbHelper = new DbHelper(context);

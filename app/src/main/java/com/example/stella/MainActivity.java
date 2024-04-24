@@ -62,14 +62,13 @@ public class MainActivity extends AppCompatActivity {
         setRecyclerViewProfiles();
         enableManageProfilesBtn();
         enableAddProfileBtn();
-
+        //  TODO: La configuracion (dialog) de la mainactivity no esta actualizada como en pantallaTareas
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        //FirebaseUser currentUser = mAuth.getCurrentUser();
+        setRecyclerViewProfiles();
         if(isUserActive()){
             prueba();
         }
@@ -164,6 +163,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void goToManageProfileScreen(View view){
+        Intent intent = new Intent(this, screenManageProfiles.class);
+        startActivity(intent);
+    }
 
     public void prueba(){
         Intent intent = new Intent(this, pantallaTareas.class);
@@ -202,8 +205,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void goToRegisterScreen(View view){
-        Intent intent = new Intent(this, pantallaCrearCuenta.class);
-        startActivity(intent);
-    }
 }

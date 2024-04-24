@@ -113,6 +113,28 @@ public class dbLogic {
         }
     }
 
+    public boolean updateProfile(String text, int id){
+        DbHelper dbhelper = new DbHelper(context);
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("name", text);
+
+        int count = db.update("profiles", cv, "id = " + id, null);
+
+        try {
+            db.close();
+            dbhelper.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        if(count > 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     //=============================================================================
     // DELETE METHODS
@@ -143,6 +165,27 @@ public class dbLogic {
 
         return true;
 
+    }
+
+    public boolean deleteProfile(int profileId){
+        DbHelper dbhelper = new DbHelper(context);
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+
+        int rowAffected = db.delete("profiles", "id = " + profileId, null);
+        Log.i(TAG, "Delete row affected in PROFILES : " + rowAffected);
+
+        try {
+            db.close();
+            dbhelper.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        if(rowAffected > 0){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //=============================================================================
@@ -282,12 +325,9 @@ public class dbLogic {
         }
         return list;
     }
-    
-    
 
 
-    // TODO: consulta PENDINGTASKS, COMPLETEDTASKS con el inner join a perfiles
-    // TODO: consulta de WEEKLYTASKS con el inner join a perfiles
-    // TODO: consulta a PREVIOUSRECORD
+
+
 
 }

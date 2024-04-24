@@ -1,34 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="#00FFFFFF"
     android:backgroundTint="#00FFFFFF"
     app:cardBackgroundColor="#00FFFFFF"
-    app:cardCornerRadius="15dp"
-    app:strokeColor="#C1C0C0"
-    app:strokeWidth="1sp">
+    app:cardElevation="0dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/layout12"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingLeft="30dp"
-        android:paddingTop="10dp"
+        android:paddingTop="5dp"
         android:paddingRight="30dp"
-        android:paddingBottom="10dp">
+        android:paddingBottom="5dp">
 
-        <TextView
-            android:id="@+id/textView2"
+        <androidx.cardview.widget.CardView
+            style="@style/cardview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="@string/manage_profiles"
-            android:textColor="?attr/colorTextInBackground"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:background="?attr/colorCard1"
+            android:backgroundTint="?attr/colorCard1"
+            app:cardCornerRadius="15dp">
 
-</com.google.android.material.card.MaterialCardView>
+            <LinearLayout
+                android:id="@+id/layout_profile_chooser"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="30dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:id="@+id/txt_profileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="TextView"
+                    android:textColor="?attr/colorTextInCard1"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/btn_options"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="#00FFFFFF"
+                    app:srcCompat="@drawable/ic_baseline_more_vert_24" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
