@@ -94,6 +94,8 @@
     <string name="theme_green">Verde</string>
 
     <string name="set_new_name">Introduce el nuevo nombre</string>
+    <string name="set_new_profile_name">Introduce el nombre del nuevo perfil</string>
+    <string name="new_profile_created">Nuevo perfil creado con éxito</string>
     <string name="delete_profile_warning">¿Seguro que quieres borrar el perfil?</string>
     <string name="yes">Si</string>
     <string name="accept">Aceptar</string>

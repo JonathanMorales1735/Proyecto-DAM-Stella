@@ -23,9 +23,14 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.stella.db.dbLogic;
+import com.example.stella.dialogs.createNewProfileDialog;
+import com.example.stella.dialogs.newProfileNameDialog;
+import com.example.stella.dialogs.settingsDialog;
 import com.example.stella.reciclerViewsAdapters.listProfilesAdapter;
 import com.example.stella.utils.loadSettings;
 import com.example.stella.workManager.scheduleDailyAction;
@@ -41,7 +46,10 @@ public class MainActivity extends AppCompatActivity {
     CardView cardView_addNewProfile, cardView_manageProfiles;
     RecyclerView recyclerViewProfiles;
     listProfilesAdapter adapter;
+    ImageView logo;
     com.example.stella.utils.loadSettings loadSettings;
+    settingsDialog settingsDialog = null;
+    dbLogic dbLogic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +57,14 @@ public class MainActivity extends AppCompatActivity {
         loadSettings = new loadSettings(this);
         loadSettings.loadSettings(this);
         setContentView(R.layout.activity_main);
+        logo = findViewById(R.id.image_logo);
 
         recyclerViewProfiles = findViewById(R.id.recycler_profiles);
         adapter = new listProfilesAdapter(this, this);
 
         cardView_addNewProfile = findViewById(R.id.cardView_addNewProfile);
         cardView_manageProfiles = findViewById(R.id.cardView_manageProfiles);
+        dbLogic = new dbLogic(this);
 
         createInitialDB();
         setDailyActionWork();
@@ -62,13 +72,16 @@ public class MainActivity extends AppCompatActivity {
         setRecyclerViewProfiles();
         enableManageProfilesBtn();
         enableAddProfileBtn();
-        //  TODO: La configuracion (dialog) de la mainactivity no esta actualizada como en pantallaTareas
+        changeLogoColor();
     }
 
     @Override
     public void onStart() {
         super.onStart();
         setRecyclerViewProfiles();
+        changeLogoColor();
+        enableManageProfilesBtn();
+        enableAddProfileBtn();
         if(isUserActive()){
             prueba();
         }
@@ -87,6 +100,16 @@ public class MainActivity extends AppCompatActivity {
             cardView_manageProfiles.setVisibility(View.VISIBLE);
         } else {
             cardView_manageProfiles.setVisibility(View.GONE);
+        }
+    }
+
+    private void changeLogoColor(){
+        SharedPreferences settingsGeneral = getSharedPreferences("generalSettings", 0);
+        int appTheme = settingsGeneral.getInt("appTheme", 0);
+        if(appTheme == 0){
+            logo.setImageResource(R.drawable.logo2);
+        } else{
+            logo.setImageResource(R.drawable.logo1);
         }
     }
 
@@ -162,6 +185,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void showBottomDialog(View view){
+        if(settingsDialog == null || !settingsDialog.isShowing()){
+            settingsDialog = new settingsDialog(this);
+            settingsDialog.show();
+        }
+    }
+
 
     public void goToManageProfileScreen(View view){
         Intent intent = new Intent(this, screenManageProfiles.class);
@@ -174,35 +204,25 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    public void showNewProfileDialog(View view){
+        createNewProfileDialog.show(this,   new createNewProfileDialog.OnDialogClickListener() {
+            @Override
+            public void onAccept(String text) {
+                dbLogic.createProfile(text);
+                adapter.fillProfiles();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.new_profile_created), Toast.LENGTH_SHORT).show();
+                enableAddProfileBtn();
+                enableManageProfilesBtn();
+            }
 
-    public void showBottomDialog(View view){
-
-        if ((bottomDialog == null) || !bottomDialog.isShowing()){
-            bottomDialog = new Dialog(this);
-            bottomDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            bottomDialog.setContentView(R.layout.bottomsheet_settings_layout);
-
-            // Se crea el adapter del spinner
-            Spinner spinner = bottomDialog.findViewById(R.id.languageOptionsSpinner);
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.language_array, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner.setAdapter(adapter);
-
-            Spinner spinnerTheme = bottomDialog.findViewById(R.id.themeOptionsSpinner);
-            ArrayAdapter<CharSequence> adapterTheme = ArrayAdapter.createFromResource(this, R.array.themes_array, android.R.layout.simple_spinner_item);
-            adapterTheme.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerTheme.setAdapter(adapterTheme);
-
-
-            bottomDialog.show();
-
-
-            bottomDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            bottomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            bottomDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationBottom;
-            bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
-        }
-
+            @Override
+            public void onCancel() {
+                // Nada
+            }
+        });
     }
+
+
+
 
 }

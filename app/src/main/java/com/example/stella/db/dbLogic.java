@@ -73,6 +73,30 @@ public class dbLogic {
         return check;
     }
 
+    public boolean createProfile(String name){
+        DbHelper dbH = new DbHelper(context);
+        SQLiteDatabase db = dbH.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("name", name);
+        try {
+           long mid = db.insertOrThrow("profiles", null, cv);
+           Log.i(TAG, "Insercion en PROFILES: " + mid);
+        } catch (SQLException e){
+            Log.e("Exception","SQLException"+String.valueOf(e.getMessage()));
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                db.close();
+                dbH.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+
+         return true;
+        }
+    }
+
     //=============================================================================
     // UPDATE METHODS
     //=============================================================================

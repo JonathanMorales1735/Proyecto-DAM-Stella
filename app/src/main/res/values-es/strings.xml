@@ -87,4 +87,6 @@
     <string name="set_new_name">Introduce el nuevo nombre</string>
     <string name="accept">Aceptar</string>
     <string name="cancel">Cancelar</string>
+    <string name="set_new_profile_name">Introduce el nombre del nuevo perfil</string>
+    <string name="new_profile_created">Nuevo perfil creado con éxito</string>
 </resources>

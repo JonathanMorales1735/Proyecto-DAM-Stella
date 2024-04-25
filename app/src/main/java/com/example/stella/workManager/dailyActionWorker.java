@@ -202,7 +202,7 @@ public class dailyActionWorker extends Worker {
 
             SharedPreferences settings = context.getSharedPreferences("lastDayDailyAction", 0);
             String date = settings.getString("lastDailyAction", "DEFAULT");
-            // TODO: BORRAR, ,,,,, deberia salir dia 24
+
             ContentValues cv = new ContentValues();
             cv.put("date", date);
             cv.put("study", study);

@@ -23,12 +23,13 @@
                 style="@style/taskStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="50dp"
                 android:text="@string/manage_profiles"
                 android:textColor="?attr/colorTextInBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                app:layout_constraintTop_toBottomOf="@+id/image_logo" />
 
             <Space
                 android:layout_width="match_parent"

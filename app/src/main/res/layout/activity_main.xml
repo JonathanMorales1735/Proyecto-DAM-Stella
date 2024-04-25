@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorBackground"
+    android:backgroundTint="?attr/colorBackground"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -31,11 +33,12 @@
                 app:srcCompat="@drawable/optionsicon" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/image_logo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="52dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/logo2" />
@@ -50,7 +53,7 @@
                 android:textColor="?attr/colorTextInBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                app:layout_constraintTop_toBottomOf="@+id/image_logo" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_profiles"
@@ -81,6 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#00FFFFFF"
+                    android:onClick="showNewProfileDialog"
                     android:visibility="gone"
                     app:cardCornerRadius="15dp"
                     app:strokeColor="#C1C0C0"
@@ -102,7 +106,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:text="@string/add_new_profile"
-                            android:textColor="?attr/colorTextInBackground"
+                            android:textColor="@color/black"
                             android:textSize="20dp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -140,12 +144,17 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:text="@string/manage_profiles"
-                            android:textColor="?attr/colorTextInBackground"
+                            android:textColor="@color/black"
                             android:textSize="20dp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp" />
+
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

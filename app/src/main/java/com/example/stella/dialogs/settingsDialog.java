@@ -170,10 +170,5 @@ public class settingsDialog extends Dialog {
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
-        /**Intent refresh = new Intent(this, pantallaTareas.class);
-         finish();
-         startActivity(refresh);*/
-        //this.show();
-
     }
 }

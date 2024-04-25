@@ -96,7 +96,8 @@ public class listProfilesManagementAdapter extends RecyclerView.Adapter<listProf
                                             switch (which){
                                                 case DialogInterface.BUTTON_POSITIVE:
                                                     dbLogic.deleteProfile(profile.getId());
-                                                    activity.recreate();
+                                                    fillProfiles();
+                                                    //activity.recreate();
                                                     break;
 
                                                 case DialogInterface.BUTTON_NEGATIVE:
@@ -133,7 +134,7 @@ public class listProfilesManagementAdapter extends RecyclerView.Adapter<listProf
             public void onAccept(String text) {
                 dbLogic.updateProfile(text, id);
                 fillProfiles();
-                activity.recreate();
+                //activity.recreate();
             }
 
             @Override
