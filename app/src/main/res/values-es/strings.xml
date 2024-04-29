@@ -42,7 +42,6 @@
     <string name="sunday">Domingo</string>
     <string name="edittask">Editar tarea</string>
     <string name="any">Cualquiera</string>
-    <string name="newaccountcreated">Verifica tu email para poder acceder.</string>
     <string name="success">Éxito</string>
     <string name="close">Cerrar</string>
     <string name="work">Trabajo</string>
@@ -89,4 +88,19 @@
     <string name="cancel">Cancelar</string>
     <string name="set_new_profile_name">Introduce el nombre del nuevo perfil</string>
     <string name="new_profile_created">Nuevo perfil creado con éxito</string>
+    <string name="my">Mi</string>
+    <string name="january">Enero</string>
+    <string name="february">Febrero</string>
+    <string name="march">Marzo</string>
+    <string name="april">Abril</string>
+    <string name="may">Mayo</string>
+    <string name="june">Junio</string>
+    <string name="july">Julio</string>
+    <string name="august">Agosto</string>
+    <string name="september">Septiembre</string>
+    <string name="october">Octubre</string>
+    <string name="november">Noviembre</string>
+    <string name="december">Diciembre</string>
+    <string name="taskCreatedSuccessfully">Tarea creada con éxito</string>
+    <string name="taskEditedSuccessfully">Tarea editada con éxito</string>
 </resources>

@@ -9,10 +9,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.stella.db.DbHelper;
 import com.example.stella.utils.MyValueFormatter;
 import com.example.stella.utils.loadSettings;
+import com.example.stella.utils.settings;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -25,6 +27,8 @@ import java.util.ArrayList;
 public class pantallaRegistros extends AppCompatActivity {
 
     PieChart summary;
+    TextView txt_inRecordProfileName;
+    settings settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,16 +38,21 @@ public class pantallaRegistros extends AppCompatActivity {
         setContentView(R.layout.pantallaregistros);
 
         summary = findViewById(R.id.summaryItem);
-
-
-
+        txt_inRecordProfileName = findViewById(R.id.txt_inRecordProfileName);
+        settings = new settings(this);
         setGraph();
+        setProfileNameTitle();
 
+    }
+    private void setProfileNameTitle(){
+        String profileName = settings.getCurrentProfileName();
+        txt_inRecordProfileName.setText(profileName);
     }
 
     private void setGraph(){
         DbHelper dbH = new DbHelper(this);
         SQLiteDatabase db = dbH.getReadableDatabase();
+        int profileId = settings.getCurrentProfileID();
 
         int work = 0;
         int domestic = 0;
@@ -63,7 +72,7 @@ public class pantallaRegistros extends AppCompatActivity {
 
         for(String name: types){
             Log.i("Set Graph: ", name);
-            String query = "Select * from completedtasks where type = '" + name + "'";
+            String query = "Select * from completedtasks where type = '" + name + "' and profileId = " + profileId;
             cursor = db.rawQuery(query, null);
 
             if(name.equals("work")){

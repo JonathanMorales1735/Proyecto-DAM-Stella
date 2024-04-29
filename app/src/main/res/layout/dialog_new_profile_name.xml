@@ -9,6 +9,7 @@
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Ingresa algo aquí" />
+        android:hint="Ingresa algo aquí"
+        android:maxLength="16"/>
 
 </LinearLayout>

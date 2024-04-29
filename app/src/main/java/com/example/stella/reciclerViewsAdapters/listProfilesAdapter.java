@@ -3,7 +3,6 @@ package com.example.stella.reciclerViewsAdapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.stella.R;
 import com.example.stella.db.dbLogic;
 import com.example.stella.pantallaTareas;
+import com.example.stella.utils.settings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +26,13 @@ public class listProfilesAdapter extends RecyclerView.Adapter<listProfilesAdapte
     private LayoutInflater mInflater;
     private Context context;
     private Activity activity;
+    settings settings;
 
     public listProfilesAdapter(Context context, Activity activity) {
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
         this.activity = activity;
+        this.settings = new settings(context);
         fillProfiles();
     }
 
@@ -86,19 +88,12 @@ public class listProfilesAdapter extends RecyclerView.Adapter<listProfilesAdapte
     }
 
     private void setChosenProfile(int id, String name){
-        SharedPreferences profile = context.getSharedPreferences("profile", 0);
-        SharedPreferences.Editor editor = profile.edit();
-        editor.putString("name", name);
-        editor.commit();
-        editor.putInt("id", id);
-        editor.commit();
+        settings.setProfileID(id);
+        settings.setProfileName(name);
     }
 
     private void setUserActive(){
-        SharedPreferences userActivePref = context.getSharedPreferences("isUserActive", 0);
-        SharedPreferences.Editor editor = userActivePref.edit();
-        editor.putBoolean("isActive", true);
-        editor.commit();
+        settings.setUserActivity(true);
     }
 
 

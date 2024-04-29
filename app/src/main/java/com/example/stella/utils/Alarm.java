@@ -25,29 +25,33 @@ public class Alarm {
     AlarmManager alarmManager;
     PendingIntent pendingIntent;
     Context context;
+    settings settings;
 
     public Alarm(Context context){
         this.context = context;
         alarmManager = (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
+        settings = new settings(context);
     }
 
-    public void setAlarm(int id, String name, Calendar timeCalendar){
+    public void setAlarm(int id, String nameTask, Calendar timeCalendar){
 
         Calendar auxCalendar = Calendar.getInstance();
+        String nameProfile = settings.getCurrentProfileName();
 
         int hour = timeCalendar.get(Calendar.HOUR_OF_DAY);
         int minute = timeCalendar.get(Calendar.MINUTE);
         int currentHour = auxCalendar.get(Calendar.HOUR_OF_DAY);
         int currentMinute = auxCalendar.get(Calendar.MINUTE);
         if((hour <= currentHour) && (minute <= currentMinute)){
-            Log.i("Alarm: " , "La hora establecida de la tarea es mayor a la actual");
+            Log.i("Alarm: " , "La hora establecida de la tarea es menor a la actual");
             return;
         }
 
         Intent intent = new Intent(context, alarmReceiver.class);
         intent.putExtra("id", id);
-        intent.putExtra("name", name);
-        Log.i(TAG, name);
+        intent.putExtra("nameTask", nameTask);
+        intent.putExtra("nameProfile", nameProfile);
+        Log.i(TAG, nameTask);
         pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 

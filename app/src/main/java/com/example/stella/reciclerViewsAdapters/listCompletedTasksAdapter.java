@@ -107,6 +107,7 @@ public class listCompletedTasksAdapter extends RecyclerView.Adapter<listComplete
                                     intent.putExtra("notify", auxItem.isNotify());
                                     intent.putExtra("time", auxItem.getTime());
                                     intent.putExtra("table", "completedtasks");
+                                    intent.putExtra("profileId", auxItem.getProfileId());
                                     context.startActivity(intent);
                                     break;
                                 case R.id.optionDelete:

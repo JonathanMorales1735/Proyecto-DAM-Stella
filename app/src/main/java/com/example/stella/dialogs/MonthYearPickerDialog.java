@@ -35,7 +35,7 @@ public class MonthYearPickerDialog extends Dialog {
         // Configurar el NumberPicker del mes
         monthPicker.setMinValue(0);
         monthPicker.setMaxValue(11);
-        monthPicker.setDisplayedValues(new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"});
+        monthPicker.setDisplayedValues(getMonthsArray());
         monthPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
         // Configurar el NumberPicker del año
@@ -58,5 +58,23 @@ public class MonthYearPickerDialog extends Dialog {
 
     public interface OnMonthYearSetListener {
         void onMonthYearSet(int selectedMonth, int selectedYear);
+    }
+
+    private String[] getMonthsArray(){
+        String[] months = new String[12];
+        months[0] = getContext().getResources().getString(R.string.january);
+        months[1] = getContext().getResources().getString(R.string.february);
+        months[2] = getContext().getResources().getString(R.string.march);
+        months[3] = getContext().getResources().getString(R.string.april);
+        months[4] = getContext().getResources().getString(R.string.may);
+        months[5] = getContext().getResources().getString(R.string.june);
+        months[6] = getContext().getResources().getString(R.string.july);
+        months[7] = getContext().getResources().getString(R.string.august);
+        months[8] = getContext().getResources().getString(R.string.september);
+        months[9] = getContext().getResources().getString(R.string.october);
+        months[10] = getContext().getResources().getString(R.string.november);
+        months[11] = getContext().getResources().getString(R.string.december);
+
+        return months;
     }
 }

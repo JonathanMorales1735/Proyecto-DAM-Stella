@@ -35,7 +35,6 @@ public class listWeeklyTasksAdapter extends RecyclerView.Adapter<listWeeklyTasks
     private List<taskElement> mData = new ArrayList<>();
     private LayoutInflater mInflater;
     private Context context;
-    private Dialog dialogInfo = null;
     private adaptersLogic adapterLogic;
     public String selectedDay = "";
 
@@ -51,7 +50,9 @@ public class listWeeklyTasksAdapter extends RecyclerView.Adapter<listWeeklyTasks
     public void setSelectedDay(String day){
         selectedDay = day;
     }
-
+    public void reSetItemList(){
+        setItem(adapterLogic.getWeeklytasksList(selectedDay));
+    }
 
     @NonNull
     @Override
@@ -105,11 +106,13 @@ public class listWeeklyTasksAdapter extends RecyclerView.Adapter<listWeeklyTasks
                                     intent.putExtra("notify", auxItem.isNotify());
                                     intent.putExtra("time", auxItem.getTime());
                                     intent.putExtra("table", "weeklytasks");
+                                    intent.putExtra("profileId", auxItem.getProfileId());
                                     context.startActivity(intent);
                                     break;
                                 case R.id.optionDelete:
                                     adapterLogic.deleteTaskInWeeklyTasks(item.getId());
-                                    //fillPendingTasks();
+                                    reSetItemList();
+                                    notifyDataSetChanged();
                                     break;
                                 default:
                                     break;

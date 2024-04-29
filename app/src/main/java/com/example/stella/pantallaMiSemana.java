@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.stella.db.DbHelper;
 import com.example.stella.utils.loadSettings;
+import com.example.stella.utils.settings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ import java.util.List;
 public class pantallaMiSemana extends AppCompatActivity {
 
     TextView mondayTasksAmount, tuesdayTasksAmount, wednesdayTasksAmount, thursdayTasksAmount, fridayTasksAmount, saturdayTasksAmount, sundayTasksAmount;
+   settings settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,7 @@ public class pantallaMiSemana extends AppCompatActivity {
         fridayTasksAmount = findViewById(R.id.textFridayTasks);
         saturdayTasksAmount = findViewById(R.id.textSaturdayTasks);
         sundayTasksAmount = findViewById(R.id.textSundayTasks);
-
+        settings = new settings(this);
 
 
         getAmountTasks();
@@ -58,10 +61,12 @@ public class pantallaMiSemana extends AppCompatActivity {
         TextView[] textViewList = new TextView[]{mondayTasksAmount, tuesdayTasksAmount, wednesdayTasksAmount,
                 thursdayTasksAmount, fridayTasksAmount, saturdayTasksAmount, sundayTasksAmount};
 
+        int profileId = settings.getCurrentProfileID();
+
         Cursor cursor = null;
 
         for(int i = 0; i <= dayList.length-1; i++){
-            cursor = db.rawQuery("Select count(*) from weeklytasks where " + String.valueOf(dayList[i]) + " = 1", null);
+            cursor = db.rawQuery("Select count(*) from weeklytasks where " + String.valueOf(dayList[i]) + " = 1 and profileId = " + profileId, null);
             while (cursor.moveToNext()){
                 textViewList[i].setText(cursor.getString(0));
             }

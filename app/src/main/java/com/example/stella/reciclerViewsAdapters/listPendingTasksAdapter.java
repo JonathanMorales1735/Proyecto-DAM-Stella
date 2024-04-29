@@ -38,7 +38,6 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
     private List<taskElement> mData = new ArrayList<>();
     private LayoutInflater mInflater;
     private Context context;
-    private Dialog dialogInfo = null;
     listCompletedTasksAdapter completedTasksAdapter;
     Alarm alarm;
     adaptersLogic adaptersLogic;
@@ -112,6 +111,7 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
                                     intent.putExtra("notify", auxItem.isNotify());
                                     intent.putExtra("time", auxItem.getTime());
                                     intent.putExtra("table", "pendingtasks");
+                                    intent.putExtra("profileId", auxItem.getProfileId());
                                     context.startActivity(intent);
                                     break;
                                 case R.id.optionDelete:

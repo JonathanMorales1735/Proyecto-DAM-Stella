@@ -137,95 +137,103 @@
                         android:layout_height="37dp" />
 
                     <LinearLayout
-                        android:id="@+id/layer_horario"
+                        android:id="@+id/layer_timeAndDaysEdit"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center|left"
-                        android:orientation="horizontal"
-                        android:paddingRight="40dp">
+                        android:orientation="vertical">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <LinearLayout
+                            android:id="@+id/layer_horario"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent"
+                            android:gravity="center|left"
+                            android:orientation="horizontal"
+                            android:paddingRight="40dp">
 
-                            <TextView
-                                android:id="@+id/textSelectedTime"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/never"
-                                android:textColor="#CFCDCD"
-                                android:textSize="18sp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/textView14"
-                                app:layout_constraintTop_toTopOf="parent" />
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
 
-                            <TextView
-                                android:id="@+id/btn_reset"
-                                style="@style/TextViewClaroClick"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/reset"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                <TextView
+                                    android:id="@+id/textSelectedTime"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/never"
+                                    android:textColor="#CFCDCD"
+                                    android:textSize="18sp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/textView14"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                            <TextView
-                                android:id="@+id/textView14"
-                                android:layout_width="100dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/time"
-                                android:textColor="?attr/colorTextInCard1"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                                <TextView
+                                    android:id="@+id/btn_reset"
+                                    style="@style/TextViewClaroClick"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="@string/reset"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                    </LinearLayout>
+                                <TextView
+                                    android:id="@+id/textView14"
+                                    android:layout_width="100dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/time"
+                                    android:textColor="?attr/colorTextInCard1"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="37dp" />
+                        </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/layer_dias"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center|left"
-                        android:orientation="horizontal"
-                        android:paddingRight="40dp">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <Space
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="37dp" />
 
-                            <TextView
-                                android:id="@+id/textSelectedDays"
-                                android:layout_width="wrap_content"
-                                android:layout_height="0dp"
-                                android:layout_marginTop="3dp"
-                                android:text="@string/never"
-                                android:textColor="#CFCDCD"
-                                android:textSize="18sp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/textView15"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="0.0" />
+                        <LinearLayout
+                            android:id="@+id/layer_dias"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|left"
+                            android:orientation="horizontal"
+                            android:paddingRight="40dp">
 
-                            <TextView
-                                android:id="@+id/textView15"
-                                android:layout_width="100dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/repeat"
-                                android:textColor="?attr/colorTextInCard1"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/textSelectedDays"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_marginTop="3dp"
+                                    android:text="@string/never"
+                                    android:textColor="#CFCDCD"
+                                    android:textSize="18sp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/textView15"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_bias="0.0" />
+
+                                <TextView
+                                    android:id="@+id/textView15"
+                                    android:layout_width="100dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/repeat"
+                                    android:textColor="?attr/colorTextInCard1"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </LinearLayout>
 
                     </LinearLayout>
 

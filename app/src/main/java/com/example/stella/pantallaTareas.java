@@ -2,9 +2,7 @@ package com.example.stella;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,23 +11,16 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.stella.dialogs.settingsDialog;
@@ -37,13 +28,11 @@ import com.example.stella.reciclerViewsAdapters.adaptersLogic;
 import com.example.stella.reciclerViewsAdapters.listCompletedTasksAdapter;
 import com.example.stella.reciclerViewsAdapters.listPendingTasksAdapter;
 import com.example.stella.utils.loadSettings;
-import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.Locale;
+import com.example.stella.utils.settings;
 
 public class pantallaTareas extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
+
     String userName;
     RecyclerView recyclerViewPending, recyclerViewCompleted;
     ImageButton btnNewTask;
@@ -54,6 +43,7 @@ public class pantallaTareas extends AppCompatActivity {
     settingsDialog settingsDialog = null;
     boolean settingsDialogChecker = false;
     adaptersLogic adapterLogic;
+    settings settings;
 
 
 
@@ -64,12 +54,6 @@ public class pantallaTareas extends AppCompatActivity {
         loadSettings.loadSettings(this);
         setContentView(R.layout.pantallatareas);
 
-        ActionBar actionBar = getSupportActionBar();
-
-        //mAuth = FirebaseAuth.getInstance();
-        //userName = String.valueOf(mAuth.getCurrentUser().getDisplayName());
-
-        Toolbar toolbar = findViewById(R.id.toolbarPantallaTareas);
         recyclerViewPending = findViewById(R.id.recyclerPendingTasks);
         recyclerViewCompleted = findViewById(R.id.recyclerCompletedTasks);
         btnNewTask = (ImageButton) findViewById(R.id.btnNewTask);
@@ -81,9 +65,10 @@ public class pantallaTareas extends AppCompatActivity {
         adapterPendingTasks.auxSetListCompletedTasksAdapter(adapterCompletedTasks);
         adapterCompletedTasks.auxSetListPendingTasksAdapter(adapterPendingTasks);
         adapterLogic = new adaptersLogic(this);
+        settings = new settings(this);
 
         createNotificationChannel();
-        //setSupportActionBar(toolbar);
+        setCurrentProfileName();
 
     }
 
@@ -165,10 +150,11 @@ public class pantallaTareas extends AppCompatActivity {
 
 
     private void setUserInactive(){
-        SharedPreferences userActivityPref = getSharedPreferences("isUserActive", 0);
-        SharedPreferences.Editor editor = userActivityPref.edit();
-        editor.putBoolean("isActive", false);
-        editor.commit();
+        settings.setUserActivity(false);
+    }
+
+    private void setCurrentProfileName(){
+        userName = settings.getCurrentProfileName();
     }
 
 

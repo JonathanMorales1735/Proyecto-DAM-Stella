@@ -2,7 +2,6 @@ package com.example.stella.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
@@ -13,10 +12,11 @@ import java.util.Locale;
 
 public class loadSettings {
     Context c;
+    settings settings;
 
     public loadSettings(Context context){
         c = context;
-
+        settings = new settings(context);
     }
 
     public void loadSettings(Activity activity){
@@ -26,8 +26,7 @@ public class loadSettings {
     }
 
     private void chargeTheme(Activity activity){
-        SharedPreferences loadSettings = c.getSharedPreferences("generalSettings", 0);
-        int theme = loadSettings.getInt("appTheme", 0);
+        int theme = settings.getAppTheme();
 
         if (theme == 0) {
             activity.setTheme(R.style.Theme_Stella); // Tema claro
@@ -48,8 +47,7 @@ public class loadSettings {
     }
 
     private void chargeLanguage(){
-        SharedPreferences loadSettings = c.getSharedPreferences("generalSettings", 0);
-        int language = loadSettings.getInt("language", 0);
+        int language = settings.getAppLanguage();
         String lang = "";
 
         if(language == 0){

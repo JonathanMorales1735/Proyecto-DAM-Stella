@@ -17,7 +17,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -26,6 +28,7 @@ import android.widget.Toast;
 import com.example.stella.db.DbHelper;
 import com.example.stella.db.dbLogic;
 import com.example.stella.dialogs.dayPickerDialog;
+import com.example.stella.dialogs.successDialog;
 import com.example.stella.dialogs.timePickerDialog;
 import com.example.stella.utils.loadSettings;
 
@@ -41,8 +44,10 @@ public class pantallaEditarTarea extends AppCompatActivity {
     EditText name, description;
     CheckBox checkNotify;
     TextView textSelectedTime, textSelectedDays, btn_reset;
+    LinearLayout layer_timeAndDaysEdit;
 
     int taskId = 0;
+    int profileId = 0;
     String table = "";
 
     List<String> dayList;
@@ -68,6 +73,7 @@ public class pantallaEditarTarea extends AppCompatActivity {
         textSelectedTime = findViewById(R.id.textSelectedTime);
         textSelectedDays = findViewById(R.id.textSelectedDays);
         btn_reset = findViewById(R.id.btn_reset);
+        layer_timeAndDaysEdit = findViewById(R.id.layer_timeAndDaysEdit);
         dayList = new ArrayList<>();
         timeCalendar = Calendar.getInstance();
 
@@ -78,8 +84,10 @@ public class pantallaEditarTarea extends AppCompatActivity {
 
         taskId = intent.getIntExtra("id", 0);
         table = intent.getStringExtra("table");
+        profileId = intent.getIntExtra("profileId", 0);
 
         fillAllSections(intent);
+        showTimeAndDaysLayer();
 
         textSelectedDays.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +107,17 @@ public class pantallaEditarTarea extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 resetTime();
+            }
+        });
+
+        checkNotify.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    layer_timeAndDaysEdit.setVisibility(View.VISIBLE);
+                } else {
+                    layer_timeAndDaysEdit.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -214,6 +233,14 @@ public class pantallaEditarTarea extends AppCompatActivity {
 
     }
 
+    private void showTimeAndDaysLayer(){
+        if(checkNotify.isChecked()){
+            layer_timeAndDaysEdit.setVisibility(View.VISIBLE);
+        } else {
+            layer_timeAndDaysEdit.setVisibility(View.GONE);
+        }
+    }
+
     private void showDayPickerDialog(){
         dayPickerDialog dialog = new dayPickerDialog(this, new dayPickerDialog.OnDaySetListener() {
             @Override
@@ -284,23 +311,31 @@ public class pantallaEditarTarea extends AppCompatActivity {
         String tablePending = "pendingtasks";
         String tableWeekly = "weeklytasks";
         String tableCompleted = "completedtasks";
-
+        boolean auxCheck = false;
+        boolean check = false;
 
         if(checkTaskInTable(tableWeekly)){
-            updateTaskInWeeklyTasks();
+            auxCheck = updateTaskInWeeklyTasks();
+            if(auxCheck) check = true;
         }
         if(checkTaskInTable(tablePending)){
-            updateTaskInPendingTasks();
+            auxCheck = updateTaskInPendingTasks();
+            if(auxCheck) check = true;
         }
-        if(checkTaskInTable(tableWeekly) && !checkTaskInTable(tablePending) && auxCheckCurrentDay()){
-            insertInPendingtasks();
+        if(checkTaskInTable(tableWeekly) && !checkTaskInTable(tablePending) && auxCheckCurrentDay() && !checkTaskInTable(tableCompleted)){
+            auxCheck = insertInPendingtasks();
+            if(auxCheck) check = true;
         }
         if(!checkTaskInTable(tableWeekly) && dayCheck){
-            insertInWeeklytasks();
+            auxCheck = insertInWeeklytasks();
+            if(auxCheck) check = true;
         }
         if(checkTaskInTable(tableCompleted)){
-            updateTaskInCompletedTasks();
+            auxCheck = updateTaskInCompletedTasks();
+            if(auxCheck) check = true;
         }
+
+        if(check) showSuccessDialog();
     }
 
     private void clearTimeAndDaysIfNeeded(){
@@ -313,27 +348,31 @@ public class pantallaEditarTarea extends AppCompatActivity {
         }
     }
 
-    private void insertInWeeklytasks(){
+    private boolean insertInWeeklytasks(){
         ContentValues task = getTaskForWeeklytasks();
         task.put("id", taskId);
         dbLogic dbLogic = new dbLogic(this);
         boolean insertSuccessfully = dbLogic.insertTask(timeCalendar, "weeklytasks",task);
         if(insertSuccessfully) {
             Log.i(TAG, "insertInWeeklytasks: La tarea se insertó correctamente en WEEKLYTASKS.");
+            return true;
         } else{
             Log.e(TAG, "insertInPendingtasks: La tarea no pudo insertarse correctamente.");
+            return false;
         }
     }
 
-    private void insertInPendingtasks(){
+    private boolean insertInPendingtasks(){
         ContentValues task = getTaskForPendingCompletedTasks();
         task.put("id", taskId);
         dbLogic dbLogic = new dbLogic(this);
         boolean insertSuccessfully = dbLogic.insertTask(timeCalendar, "pendingtasks", task);
         if(insertSuccessfully) {
             Log.i(TAG, "insertInPendingtasks: La tarea se insertó correctamente en PENDINGTASKS.");
+            return true;
         } else{
             Log.e(TAG, "insertInPendingtasks: La tarea no pudo insertarse correctamente.");
+            return false;
         }
     }
 
@@ -456,6 +495,7 @@ public class pantallaEditarTarea extends AppCompatActivity {
         task.put("friday", friday);
         task.put("saturday", saturday);
         task.put("sunday", sunday);
+        task.put("profileId", profileId);
         return task;
     }
 
@@ -467,13 +507,14 @@ public class pantallaEditarTarea extends AppCompatActivity {
             taskTime = textSelectedTime.getText().toString();
         }
         String taskType = auxGetType(spinner.getSelectedItemPosition());
-
+        Log.i(TAG, "EL ID PROFILE PASADO ES: "+ profileId);
         ContentValues task = new ContentValues();
         task.put("name", name.getText().toString());
         task.put("description", description.getText().toString());
         task.put("type", taskType);
         task.put("notify", taskNotify);
         task.put("time", taskTime);
+        task.put("profileId", profileId);
 
         return task;
     }
@@ -523,7 +564,10 @@ public class pantallaEditarTarea extends AppCompatActivity {
         return check;
     }
 
-
+    private void showSuccessDialog(){
+        successDialog dialog = new successDialog();
+        dialog.showDialog(this, 1);
+    }
 
     private void fillTypesSpinner(Spinner spinner){
         ArrayAdapter<CharSequence> adapterTheme = ArrayAdapter.createFromResource(this, R.array.types_array, android.R.layout.simple_spinner_item);

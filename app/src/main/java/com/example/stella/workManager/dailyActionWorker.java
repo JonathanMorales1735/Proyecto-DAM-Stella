@@ -4,7 +4,6 @@ import static android.content.ContentValues.TAG;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,6 +17,7 @@ import com.example.stella.db.dbLogic;
 import com.example.stella.reciclerViewsAdapters.profiles;
 import com.example.stella.utils.Alarm;
 import com.example.stella.db.DbHelper;
+import com.example.stella.utils.settings;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,10 +28,12 @@ import java.util.Locale;
 public class dailyActionWorker extends Worker {
 
     Context context;
+    settings settings;
 
     public dailyActionWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         this.context = context;
+        this.settings = new settings(context);
     }
 
     @NonNull
@@ -67,38 +69,24 @@ public class dailyActionWorker extends Worker {
 
         boolean mboolean = false;
 
-        SharedPreferences settings = context.getSharedPreferences("lastDayDailyAction", 0);
-        String date = settings.getString("lastDailyAction", "DEFAULT");
+        String date = settings.getLastDailyAction();
 
 
         LocalDate localDate = LocalDate.now();
         String str_LocalDate = localDate.toString();
         if(!date.equals(str_LocalDate)){
             Log.i(TAG, "Las fechas no son iguales, hay que realizar las operaciones pertinentes.");
-
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putString("operationInfo", "Hay que realizar operaciones");
-            editor.commit();
+            settings.setInfoLastDailyAction("Hay que realizar operaciones");
             mboolean = true;
         } else {
             Log.i(TAG, "Las fechas coinciden, no hay que realizar ninguna operacion.");
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putString("operationInfo", "No hay que realizar operaciones");
-            editor.commit();
+            settings.setInfoLastDailyAction("No hay que realizar operaciones");
         }
 
         return mboolean;
     }
     private void updateLastDailyActionDate(Context context){
-        SharedPreferences settings = context.getSharedPreferences("lastDayDailyAction", 0);
-        SharedPreferences.Editor editor = settings.edit();
-
-        LocalDate localDate = LocalDate.now();
-        String str_LocalDate = localDate.toString();
-
-        editor.putString("lastDailyAction", str_LocalDate);
-        editor.commit();
-
+        settings.updateLastDailyAction();
     }
 
     private void clearPendingTasks(Context context){
@@ -200,8 +188,8 @@ public class dailyActionWorker extends Worker {
                 }
             }
 
-            SharedPreferences settings = context.getSharedPreferences("lastDayDailyAction", 0);
-            String date = settings.getString("lastDailyAction", "DEFAULT");
+
+            String date = settings.getLastDailyAction();
 
             ContentValues cv = new ContentValues();
             cv.put("date", date);

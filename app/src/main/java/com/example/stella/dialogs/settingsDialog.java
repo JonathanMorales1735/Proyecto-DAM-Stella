@@ -3,7 +3,6 @@ package com.example.stella.dialogs;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -22,18 +21,20 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 
 import com.example.stella.R;
+import com.example.stella.utils.settings;
 
 import java.util.Locale;
 
 public class settingsDialog extends Dialog {
 
-    SharedPreferences settingsGeneral = getContext().getSharedPreferences("generalSettings", 0);
+    settings settings;
 
     public settingsDialog(@NonNull Context context) {
         super(context);
         if (context instanceof Activity) {
             setOwnerActivity((Activity) context);
         }
+        settings = new settings(context);
     }
 
     @Override
@@ -56,8 +57,8 @@ public class settingsDialog extends Dialog {
         Button btn_apply = findViewById(R.id.btn_apply);
 
 
-        int language = settingsGeneral.getInt("language", 0);
-        int appTheme = settingsGeneral.getInt("appTheme", 0);
+        int language = settings.getAppLanguage();
+        int appTheme = settings.getAppTheme();
 
         spinnerLanguage.setSelection(language, false);
         spinnerTheme.setSelection(appTheme, false);
@@ -102,7 +103,6 @@ public class settingsDialog extends Dialog {
 
     private void setSettings(String language, String theme){
 
-        SharedPreferences.Editor editor = settingsGeneral.edit();
 
         // Setting language
         String nameSimplified = "";
@@ -110,12 +110,10 @@ public class settingsDialog extends Dialog {
         String english = getContext().getResources().getString(R.string.english);
         if (language.equals(spanish)) {
             nameSimplified = "es";
-            editor.putInt("language", 0);
-            editor.commit();
+            settings.setLanguage(0);
         } else if (language.equals(english)) {
             nameSimplified = "en";
-            editor.putInt("language", 1);
-            editor.commit();
+            settings.setLanguage(1);
         }
 
 
@@ -130,32 +128,25 @@ public class settingsDialog extends Dialog {
         String green = getContext().getResources().getString(R.string.theme_green);
 
         if(theme.equals(light)){
-            editor.putInt("appTheme", 0);
-            editor.commit();
+            settings.setAppTheme(0);
             getOwnerActivity().setTheme(R.style.Theme_Stella);
         } else if(theme.equals(dark)){
-            editor.putInt("appTheme", 1);
-            editor.commit();
+            settings.setAppTheme(1);
             //TODO PONER EL DARK THEME
         } else if(theme.equals(ocher)){
-            editor.putInt("appTheme", 2);
-            editor.commit();
+            settings.setAppTheme(2);
             getOwnerActivity().getApplicationContext().setTheme(R.style.Theme_ocher);
         } else if (theme.equals(blue)) {
-            editor.putInt("appTheme", 3);
-            editor.commit();
+            settings.setAppTheme(3);
             getOwnerActivity().getApplicationContext().setTheme(R.style.Theme_blue);
         }else if (theme.equals(pink)) {
-            editor.putInt("appTheme", 4);
-            editor.commit();
+            settings.setAppTheme(4);
             getOwnerActivity().getApplicationContext().setTheme(R.style.Theme_pink);
         }else if (theme.equals(violet)) {
-            editor.putInt("appTheme", 5);
-            editor.commit();
+            settings.setAppTheme(5);
             getOwnerActivity().getApplicationContext().setTheme(R.style.Theme_violet);
         }else if (theme.equals(green)) {
-            editor.putInt("appTheme", 6);
-            editor.commit();
+            settings.setAppTheme(6);
             getOwnerActivity().getApplicationContext().setTheme(R.style.Theme_green);
         }
 

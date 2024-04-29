@@ -52,7 +52,7 @@ public class adaptersLogic {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         taskElement task = null;
 
-        Cursor cursor = db.rawQuery("Select id, name, description, type, notify, time from " + tableName +" where id = " + id, null);
+        Cursor cursor = db.rawQuery("Select id, name, description, type, notify, time, profileId from " + tableName +" where id = " + id, null);
 
         while(cursor.moveToNext()){
             task = new taskElement();
@@ -62,6 +62,7 @@ public class adaptersLogic {
             task.setType(cursor.getString(3));
             task.setNotify(cursor.getInt(4));
             task.setTime(cursor.getString(5));
+            task.setProfileId(cursor.getInt(6));
         }
         try{
             db.close();
@@ -91,6 +92,5 @@ public class adaptersLogic {
         dbLogic.deleteTask(id, tableName);
     }
 
-        //  TODO: Aqui en verdad puede ir toda la logica, asi no hay tanto metodo en los adaptadores y hace un objeto adaptersLogic para hacer algo simplemente
 
 }

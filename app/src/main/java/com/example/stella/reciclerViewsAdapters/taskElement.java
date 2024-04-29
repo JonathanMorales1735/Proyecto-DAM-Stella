@@ -6,16 +6,18 @@ public class taskElement {
     int id;
     int notify;
     String time;
+    int profileId;
 
     public taskElement(){}
 
-    public taskElement(String name, String description, String type, int id, int notify, String time) {
+    public taskElement(String name, String description, String type, int id, int notify, String time, int profileId) {
         this.name = name;
         this.description = description;
         this.type = type;
         this.id = id;
         this.notify = notify;
         this.time = time;
+        this.profileId = profileId;
     }
 
 
@@ -66,4 +68,8 @@ public class taskElement {
     public void setTime(String time) {
         this.time = time;
     }
+
+    public void setProfileId(int profileId){this.profileId = profileId;}
+
+    public int getProfileId(){return this.profileId;}
 }

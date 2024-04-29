@@ -4,14 +4,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -21,8 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.stella.R;
 import com.example.stella.db.dbLogic;
 import com.example.stella.dialogs.newProfileNameDialog;
-import com.example.stella.pantallaEditarTarea;
-import com.example.stella.pantallaTareas;
 
 import java.util.ArrayList;
 import java.util.List;

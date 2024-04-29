@@ -27,6 +27,7 @@ import com.example.stella.dialogs.MonthYearPickerDialog;
 import com.example.stella.dialogs.YearPickerDialog;
 import com.example.stella.utils.MyValueFormatter;
 import com.example.stella.utils.loadSettings;
+import com.example.stella.utils.settings;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -43,6 +44,7 @@ public class pantallaRegistrosAnteriores extends AppCompatActivity {
     ArrayList<PieEntry> enters;
     PieDataSet pieDataSet;
     PieData pieData;
+    settings settings;
 
     static TextView txt_date;
     Button btn_applyFilter;
@@ -59,7 +61,7 @@ public class pantallaRegistrosAnteriores extends AppCompatActivity {
         loadSettings loadSettings = new loadSettings(this);
         loadSettings.loadSettings(this);
         setContentView(R.layout.pantallaregistrosanteriores);
-
+        settings = new settings(this);
         txt_date = (TextView) findViewById(R.id.txt_date);
         btn_filter = findViewById(R.id.btn_filter);
         summary = findViewById(R.id.summaryItem);
@@ -166,8 +168,7 @@ public class pantallaRegistrosAnteriores extends AppCompatActivity {
     public void setGraph(View view){
         DbHelper dbH = new DbHelper(this);
         SQLiteDatabase db = dbH.getReadableDatabase();
-        dbLogic dbLogic = new dbLogic(this);
-        int currentProfileID = dbLogic.checkCurrentProfileID();
+        int currentProfileID = settings.getCurrentProfileID();
 
         int work = 0;
         int domestic = 0;

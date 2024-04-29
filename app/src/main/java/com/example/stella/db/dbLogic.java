@@ -4,7 +4,6 @@ import static android.content.ContentValues.TAG;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +12,7 @@ import android.util.Log;
 import com.example.stella.reciclerViewsAdapters.profiles;
 import com.example.stella.reciclerViewsAdapters.taskElement;
 import com.example.stella.utils.Alarm;
+import com.example.stella.utils.settings;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,17 +21,12 @@ import java.util.List;
 public class dbLogic {
 
     Context context;
+    settings settings;
 
     public dbLogic(Context c){
         context = c;
+        settings = new settings(c);
     }
-
-    public int checkCurrentProfileID(){
-        SharedPreferences settings = context.getSharedPreferences("profile", 0);
-        int id = settings.getInt("id", 0);
-        return id;
-    }
-
 
     //=============================================================================
     // INSERT METHODS
@@ -173,7 +168,7 @@ public class dbLogic {
 
         int rowsAffected = db.delete(tableName, "id = " + taskId, null);
         Log.i(TAG, "Delete rows affected in " + tableName + ": " + rowsAffected);
-        if(rowsAffected > 0){
+        if(rowsAffected > 0 && !checkTaskInTable(taskId, "pendingtasks")){
             Alarm alarm = new Alarm(context);
             alarm.cancelAlarm(taskId);
         } else{
@@ -231,7 +226,6 @@ public class dbLogic {
             db.close();
             cursor.close();
             dbH.close();
-            Log.i(TAG, "checkTaskInTable: DBH cerrado.");
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -266,7 +260,7 @@ public class dbLogic {
     public List<taskElement> getPendingTasksList(){
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        int currentProfileID = checkCurrentProfileID();
+        int currentProfileID = settings.getCurrentProfileID();
         Cursor cursor = db.rawQuery("Select name, id from pendingtasks where profileId = " + currentProfileID, null);
         taskElement task;
         List<taskElement> list = new ArrayList<>();
@@ -298,7 +292,7 @@ public class dbLogic {
     public List<taskElement> getCompletedTasksList(){
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        int currentProfileID = checkCurrentProfileID();
+        int currentProfileID = settings.getCurrentProfileID();
         Cursor cursor = db.rawQuery("Select name, id from completedtasks where profileId = " + currentProfileID, null);
         taskElement task;
         List<taskElement> list = new ArrayList<>();
@@ -329,7 +323,7 @@ public class dbLogic {
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Log.i(TAG, "Obteniendo tareas de " + day);
-        int currentProfileID = checkCurrentProfileID();
+        int currentProfileID = settings.getCurrentProfileID();
         Cursor cursor = db.rawQuery("Select id, name from WEEKLYTASKS where " + day + " = 1 and profileId = " + currentProfileID, null);
         taskElement task;
         List<taskElement> list = new ArrayList<>();

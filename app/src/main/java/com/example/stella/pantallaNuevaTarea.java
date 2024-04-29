@@ -2,17 +2,11 @@ package com.example.stella;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.PendingIntent;
-import android.app.TimePickerDialog;
 import android.content.ContentValues;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -20,14 +14,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,11 +26,12 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.stella.db.DbHelper;
-import com.example.stella.db.dbLogic;
 import com.example.stella.dialogs.dayPickerDialog;
+import com.example.stella.dialogs.successDialog;
 import com.example.stella.dialogs.timePickerDialog;
 import com.example.stella.utils.Alarm;
 import com.example.stella.utils.loadSettings;
+import com.example.stella.utils.settings;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -60,6 +52,7 @@ public class pantallaNuevaTarea extends AppCompatActivity {
     AlarmManager alarmManager;
     PendingIntent pendingIntent;
     Alarm alarm;
+    settings settings;
     boolean timeCheck, daysCheck; // Con estas booleanas se sabrá si el usuario ha escogido una hora y/o día o no.
 
     @Override
@@ -68,6 +61,8 @@ public class pantallaNuevaTarea extends AppCompatActivity {
         loadSettings loadSettings = new loadSettings(this);
         loadSettings.loadSettings(this);
         setContentView(R.layout.pantallanuevatarea);
+
+        settings = new settings(this);
 
         textSelectedTime = (TextView) findViewById(R.id.textSelectedTime);
         textSelectedDays = (TextView) findViewById(R.id.textSelectedDays);
@@ -143,7 +138,7 @@ public class pantallaNuevaTarea extends AppCompatActivity {
         String typeName = auxGetType(spinner.getSelectedItemPosition());
 
         ContentValues task = new ContentValues();
-        task.put("id", auxGetNextID());
+        task.put("id", settings.getNextTaskID());
         task.put("name", nameText);
         task.put("description", descriptionText);
         task.put("type", typeName);
@@ -153,7 +148,6 @@ public class pantallaNuevaTarea extends AppCompatActivity {
 
             checkInsert = auxInsertTask(task, "PENDINGTASKS");
             clearNewTaskScreen();
-            Toast.makeText(this, getResources().getString(R.string.newtaskcreatedsuccessfully), Toast.LENGTH_SHORT).show();
             Log.i(TAG, "CheckInsert: " + checkInsert);
 
         // Si requiere de notificación, la tarea será de una duración de solo un día, así que se ingresará: [1]En WEEKLYTASKS si el usuario
@@ -180,23 +174,23 @@ public class pantallaNuevaTarea extends AppCompatActivity {
                 }
                 checkInsert = auxInsertTask(task, "WEEKLYTASKS");
                 clearNewTaskScreen();
-                Toast.makeText(this, getResources().getString(R.string.newtaskcreatedsuccessfully), Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "CheckInsert: " + checkInsert);
             } else {
                 checkInsert = auxInsertTask(task, "PENDINGTASKS");
                 clearNewTaskScreen();
-                Toast.makeText(this, getResources().getString(R.string.newtaskcreatedsuccessfully), Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "CheckInsert: " + checkInsert);
             }
         }
 
         Log.i(TAG, "Id de la tarea: " + String.valueOf(task.get("id")));
-
-
+        if(checkInsert != 0)showSuccessDialog();
 
     }
 
-
+    private void showSuccessDialog(){
+        successDialog dialog = new successDialog();
+        dialog.showDialog(this, 0);
+    }
 
     private boolean auxCheckCurrentDay(){
         String day = LocalDate.now().getDayOfWeek().name();
@@ -217,8 +211,8 @@ public class pantallaNuevaTarea extends AppCompatActivity {
         long mid = 0;
         DbHelper dbH = new DbHelper(this);
         SQLiteDatabase db = dbH.getWritableDatabase();
-        dbLogic dbLogic = new dbLogic(this);
-        int currentProfileID = dbLogic.checkCurrentProfileID();
+
+        int currentProfileID = settings.getCurrentProfileID();
         cv.put("profileId", currentProfileID);
         try {
             mid = db.insertOrThrow(tableName, null, cv);
@@ -242,14 +236,7 @@ public class pantallaNuevaTarea extends AppCompatActivity {
 
     }
 
-    private int auxGetNextID(){
-        SharedPreferences preferences = getSharedPreferences("nextID", Context.MODE_PRIVATE);
-        int id = preferences.getInt("id", -1);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt("id", id+1);
-        editor.commit();
-        return id;
-    }
+
 
     private String auxGetType(int type){
         String aux = "";
