@@ -17,6 +17,7 @@
     <string name="registration">Registrar cuenta</string>
     <string name="task">Tareas</string>
     <string name="completed">Completadas</string>
+    <string name="pending">Pendientes</string>
     <string name="myrecord">Mi registro</string>
     <string name="myweek">Mi semana</string>
     <string name="disconnect">Cerrar sesión</string>

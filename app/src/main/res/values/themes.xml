@@ -25,6 +25,29 @@
         <item name= "colorTextInBackground">@color/black</item>
 
     </style>
+    <style name="Theme.dark" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/dark_hard</item>
+        <item name="colorPrimaryVariant">@color/dark_hard</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/dark_soft</item>
+        <item name="colorSecondaryVariant">@color/dark_soft</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="windowNoTitle">true</item>
+        <item name= "colorBackground">@color/dark_hard</item>
+        <item name= "colorCard1">@color/dark_soft</item>
+        <item name= "colorTextInCard1">@color/white</item>
+        <item name= "colorCard2">@color/dark_hard</item>
+        <item name= "colorTextInCard2">@color/white</item>
+        <item name= "colorEditText">@color/white</item>
+        <item name= "colorButton1">@color/dark_hard</item>
+        <item name= "colorButton2">@color/dark_soft</item>
+        <item name= "colorTextInBackground">@color/white</item>
+    </style>
     <style name="Theme.ocher" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/ocher_background</item>

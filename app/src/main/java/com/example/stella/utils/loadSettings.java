@@ -31,7 +31,7 @@ public class loadSettings {
         if (theme == 0) {
             activity.setTheme(R.style.Theme_Stella); // Tema claro
         } else if (theme == 1) {
-            //activity.setTheme(R.style.TuTemaDark); // Tu tema oscuro
+            activity.setTheme(R.style.Theme_dark); // Tu tema oscuro
         } else if (theme == 2) {
             activity.setTheme(R.style.Theme_ocher); // Tema ocher
         } else if (theme == 3){

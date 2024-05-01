@@ -103,4 +103,5 @@
     <string name="december">Diciembre</string>
     <string name="taskCreatedSuccessfully">Tarea creada con éxito</string>
     <string name="taskEditedSuccessfully">Tarea editada con éxito</string>
+    <string name="pending">Pendientes</string>
 </resources>

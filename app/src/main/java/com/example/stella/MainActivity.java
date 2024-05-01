@@ -15,6 +15,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -38,10 +39,12 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerViewProfiles;
     listProfilesAdapter adapter;
     ImageView logo;
+    ImageButton btn_optionsGear;
     com.example.stella.utils.loadSettings loadSettings;
     settingsDialog settingsDialog = null;
     dbLogic dbLogic;
     settings settings;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         loadSettings.loadSettings(this);
         setContentView(R.layout.activity_main);
         logo = findViewById(R.id.image_logo);
+        btn_optionsGear = findViewById(R.id.btn_optionsGear);
 
         recyclerViewProfiles = findViewById(R.id.recycler_profiles);
         adapter = new listProfilesAdapter(this, this);
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         setRecyclerViewProfiles();
         enableManageProfilesBtn();
         enableAddProfileBtn();
-        changeLogoColor();
+        changeLogoAndGearColor();
 
     }
 
@@ -73,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         setRecyclerViewProfiles();
-        changeLogoColor();
+        changeLogoAndGearColor();
         enableManageProfilesBtn();
         enableAddProfileBtn();
         if(settings.isUserActive()){
@@ -97,12 +101,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void changeLogoColor(){
+    private void changeLogoAndGearColor(){
         int appTheme = settings.getAppTheme();
         if(appTheme == 0){
             logo.setImageResource(R.drawable.logo2);
+            btn_optionsGear.setImageResource(R.drawable.optionsicon);
         } else{
             logo.setImageResource(R.drawable.logo1);
+            btn_optionsGear.setImageResource(R.drawable.optionsiconwhite);
         }
     }
 

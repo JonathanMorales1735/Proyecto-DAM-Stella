@@ -19,4 +19,6 @@
     <color name="violet_soft">#cbb3c9</color>
     <color name="green_hard">#38753b</color>
     <color name="green_soft">#8ed2c9</color>
+    <color name="dark_soft">#383a40</color>
+    <color name="dark_hard">#232428</color>
 </resources>

@@ -23,7 +23,7 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/btn_optionsGear"
                 android:layout_width="57dp"
                 android:layout_height="55dp"
                 android:backgroundTint="#00FFFFFF"

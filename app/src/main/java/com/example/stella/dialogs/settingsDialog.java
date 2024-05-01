@@ -1,5 +1,7 @@
 package com.example.stella.dialogs;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -9,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +29,7 @@ import com.example.stella.utils.settings;
 import java.util.Locale;
 
 public class settingsDialog extends Dialog {
+
 
     settings settings;
 
@@ -132,7 +136,7 @@ public class settingsDialog extends Dialog {
             getOwnerActivity().setTheme(R.style.Theme_Stella);
         } else if(theme.equals(dark)){
             settings.setAppTheme(1);
-            //TODO PONER EL DARK THEME
+            getOwnerActivity().getApplicationContext().setTheme(R.style.Theme_dark);
         } else if(theme.equals(ocher)){
             settings.setAppTheme(2);
             getOwnerActivity().getApplicationContext().setTheme(R.style.Theme_ocher);

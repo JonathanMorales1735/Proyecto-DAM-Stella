@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.stella.dialogs.settingsDialog;
@@ -36,6 +37,7 @@ public class pantallaTareas extends AppCompatActivity {
     String userName;
     RecyclerView recyclerViewPending, recyclerViewCompleted;
     ImageButton btnNewTask;
+    ImageView image_arrow1, image_arrow2;
     listPendingTasksAdapter adapterPendingTasks;
     listCompletedTasksAdapter adapterCompletedTasks;
     private Dialog bottomDialog, leftDialog = null;
@@ -58,6 +60,8 @@ public class pantallaTareas extends AppCompatActivity {
         recyclerViewCompleted = findViewById(R.id.recyclerCompletedTasks);
         btnNewTask = (ImageButton) findViewById(R.id.btnNewTask);
         btnNewTask.bringToFront();
+        image_arrow1 = findViewById(R.id.image_arrow1);
+        image_arrow2 = findViewById(R.id.image_arrow2);
 
 
         adapterPendingTasks = new listPendingTasksAdapter(this);
@@ -69,6 +73,7 @@ public class pantallaTareas extends AppCompatActivity {
 
         createNotificationChannel();
         setCurrentProfileName();
+        changeAddCircleBtnColor();
 
     }
 
@@ -77,6 +82,7 @@ public class pantallaTareas extends AppCompatActivity {
         super.onStart();
         setRecyclerViewPending();
         setRecyclerViewCompleted();
+        changeAddCircleBtnColor();
     }
 
     @Override
@@ -157,7 +163,35 @@ public class pantallaTareas extends AppCompatActivity {
         userName = settings.getCurrentProfileName();
     }
 
+    private void changeAddCircleBtnColor(){
+        //btnNewTask
+        int appTheme = settings.getAppTheme();
+        if(appTheme == 1){
+            btnNewTask.setImageResource(R.drawable.ic_baseline_add_circle_white_24);
+        } else{
+            btnNewTask.setImageResource(R.drawable.ic_baseline_add_circle_24);
+        }
+    }
 
+    public void retractPendingRecyclerView(View view){
+        if(recyclerViewPending.getVisibility() == View.VISIBLE){
+            recyclerViewPending.setVisibility(View.GONE);
+            image_arrow1.setImageResource(android.R.drawable.arrow_up_float);
+        } else{
+            recyclerViewPending.setVisibility(View.VISIBLE);
+            image_arrow1.setImageResource(android.R.drawable.arrow_down_float);
+        }
+    }
+
+    public void retractCompletedRecyclerView(View view){
+        if(recyclerViewCompleted.getVisibility() == View.VISIBLE){
+            recyclerViewCompleted.setVisibility(View.GONE);
+            image_arrow2.setImageResource(android.R.drawable.arrow_up_float);
+        } else{
+            recyclerViewCompleted.setVisibility(View.VISIBLE);
+            image_arrow2.setImageResource(android.R.drawable.arrow_down_float);
+        }
+    }
 
 
     // MÉTODOS PARA LLEGAR A OTRAS PANTALLAS
