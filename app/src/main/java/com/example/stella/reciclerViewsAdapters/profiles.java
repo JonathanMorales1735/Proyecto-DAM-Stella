@@ -1,5 +1,9 @@
 package com.example.stella.reciclerViewsAdapters;
 
+/**
+ * profiles es una clase que se utiliza para la inserccion de datos en la tabla "profiles"
+ */
+
 public class profiles {
 
     int id;

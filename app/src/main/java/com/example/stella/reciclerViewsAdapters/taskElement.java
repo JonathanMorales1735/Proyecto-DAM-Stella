@@ -1,5 +1,9 @@
 package com.example.stella.reciclerViewsAdapters;
 
+/**
+ * taskElement es la clase que se utiliza para la inserccion de las tareas en la base de datos
+ */
+
 public class taskElement {
 
     String name, description, type;

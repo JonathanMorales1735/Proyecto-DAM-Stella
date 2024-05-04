@@ -22,6 +22,10 @@ import com.example.stella.R;
 import com.example.stella.db.DbHelper;
 import com.example.stella.reciclerViewsAdapters.taskElement;
 
+/**
+ * textInfoDialog muestra un dialog con información de una tarea, como su nombre, descripcion, hora...
+ */
+
 public class taskInfoDialog extends Dialog {
     private Context context;
     private boolean isShowing = false;
@@ -46,7 +50,6 @@ public class taskInfoDialog extends Dialog {
             TextView description = findViewById(R.id.textDescription);
             TextView type = findViewById(R.id.textType);
             TextView time = findViewById(R.id.textTime);
-            TextView days = findViewById(R.id.textDays);
 
             taskElement item = auxGetTaskFullInfo(taskID);
 

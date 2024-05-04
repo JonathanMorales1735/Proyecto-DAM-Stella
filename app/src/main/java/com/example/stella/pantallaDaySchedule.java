@@ -11,6 +11,10 @@ import android.widget.TextView;
 import com.example.stella.reciclerViewsAdapters.listWeeklyTasksAdapter;
 import com.example.stella.utils.loadSettings;
 
+/**
+ * Esta clase muestra la pantalla de un dia especigido en "mi semana"
+ */
+
 public class pantallaDaySchedule extends AppCompatActivity {
 
     RecyclerView recyclerView;
@@ -44,6 +48,10 @@ public class pantallaDaySchedule extends AppCompatActivity {
         setRecyclerViewDaySchedule();
     }
 
+    /**
+     * setRecyclerViewDaySchedule prepara el adapter y el recyclerview que muestra las tareas de un dia en especifico
+     */
+
     private void setRecyclerViewDaySchedule(){
         adapter.setSelectedDay(auxGetDayIntent());
         adapter.notifyDataSetChanged();
@@ -55,6 +63,11 @@ public class pantallaDaySchedule extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * auxGetDayIntent metodo auxiliar para obtener el dia en especifico seleccionado por el usuario
+     * @return
+     */
+
     private String auxGetDayIntent(){
         Intent intent = getIntent();
         String day = intent.getStringExtra("day");
@@ -62,6 +75,12 @@ public class pantallaDaySchedule extends AppCompatActivity {
 
         return day;
     }
+
+    /**
+     * getDayTranslatioinInt devuelve la traduccion del dia seleccionado ( ej: Lunes -> Monday)
+     * @param day
+     * @return
+     */
 
     private String getDayTranslatioinInt(String day){
         String dayTranslation = "";

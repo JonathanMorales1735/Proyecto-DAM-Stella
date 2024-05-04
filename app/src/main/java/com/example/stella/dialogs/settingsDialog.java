@@ -11,7 +11,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +26,10 @@ import com.example.stella.R;
 import com.example.stella.utils.settings;
 
 import java.util.Locale;
+
+/**
+ * settingsDialog se utiliza para mostrar un dialog en donde podemos cambiar la configuración de la app. Cuando con cambio de idioma y de colores
+ */
 
 public class settingsDialog extends Dialog {
 
@@ -104,6 +107,11 @@ public class settingsDialog extends Dialog {
         }
     }
 
+    /**
+     * setSettings establece, segun lo que se ha seleccionado en los spinners, el idioma y el tema escogidos.
+     * @param language
+     * @param theme
+     */
 
     private void setSettings(String language, String theme){
 

@@ -10,6 +10,30 @@
         android:maxSdkVersion="32" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
+    <compatible-screens>
+        <!-- Normal screens -->
+        <screen android:screenSize="normal" android:screenDensity="ldpi" />
+        <screen android:screenSize="normal" android:screenDensity="mdpi" />
+        <screen android:screenSize="normal" android:screenDensity="hdpi" />
+        <screen android:screenSize="normal" android:screenDensity="xhdpi" />
+        <screen android:screenSize="normal" android:screenDensity="xxhdpi" />
+        <screen android:screenSize="normal" android:screenDensity="xxxhdpi" />
+        <!-- Large screens -->
+        <screen android:screenSize="large" android:screenDensity="ldpi" />
+        <screen android:screenSize="large" android:screenDensity="mdpi" />
+        <screen android:screenSize="large" android:screenDensity="hdpi" />
+        <screen android:screenSize="large" android:screenDensity="xhdpi" />
+        <screen android:screenSize="large" android:screenDensity="xxhdpi" />
+        <screen android:screenSize="large" android:screenDensity="xxxhdpi" />
+        <!-- Extra large screens -->
+        <screen android:screenSize="xlarge" android:screenDensity="ldpi" />
+        <screen android:screenSize="xlarge" android:screenDensity="mdpi" />
+        <screen android:screenSize="xlarge" android:screenDensity="hdpi" />
+        <screen android:screenSize="xlarge" android:screenDensity="xhdpi" />
+        <screen android:screenSize="xlarge" android:screenDensity="xxhdpi" />
+        <screen android:screenSize="xlarge" android:screenDensity="xxxhdpi" />
+    </compatible-screens>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorBackground"
+    android:backgroundTint="?attr/colorBackground"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/btn_optionsGear"
+                android:layout_width="57dp"
+                android:layout_height="55dp"
+                android:backgroundTint="#00FFFFFF"
+                android:onClick="showBottomDialog"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/optionsicon" />
+
+            <ImageView
+                android:id="@+id/image_logo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="52dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/logo2" />
+
+            <TextView
+                android:id="@+id/textView"
+                style="@style/taskStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="@string/choose_profile"
+                android:textColor="?attr/colorTextInBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_logo" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_profiles"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_profiles">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardView_addNewProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00FFFFFF"
+                    android:onClick="showNewProfileDialog"
+                    android:visibility="gone"
+                    app:cardCornerRadius="15dp"
+                    app:strokeColor="#C1C0C0"
+                    app:strokeWidth="1sp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingLeft="30dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="30dp"
+                        android:paddingBottom="10dp">
+
+                        <TextView
+                            android:id="@+id/textView222"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="@string/add_new_profile"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardView_manageProfiles"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00FFFFFF"
+                    android:onClick="goToManageProfileScreen"
+                    android:visibility="gone"
+                    app:cardCornerRadius="15dp"
+                    app:strokeColor="#C1C0C0"
+                    app:strokeWidth="1sp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingLeft="30dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="30dp"
+                        android:paddingBottom="10dp">
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="@string/manage_profiles"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

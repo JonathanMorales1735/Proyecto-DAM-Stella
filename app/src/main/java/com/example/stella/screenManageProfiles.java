@@ -9,6 +9,10 @@ import android.os.Bundle;
 import com.example.stella.reciclerViewsAdapters.listProfilesManagementAdapter;
 import com.example.stella.utils.loadSettings;
 
+/**
+ * Esta clase muestra la pantalla de administración de perfiles
+ */
+
 public class screenManageProfiles extends AppCompatActivity {
 
     RecyclerView recyclerViewProfiles;
@@ -25,6 +29,10 @@ public class screenManageProfiles extends AppCompatActivity {
         adapter = new listProfilesManagementAdapter(this, this);
         setRecyclerViewProfiles();
     }
+
+    /**
+     * setRecyclerViewProfiles prepara el adapter y el recyclerview que muestra los perfiles
+     */
 
     private void setRecyclerViewProfiles(){
         adapter.fillProfiles();

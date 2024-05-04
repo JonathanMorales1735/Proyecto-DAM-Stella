@@ -25,6 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * dailyActionWorker es una clase que extiende de WorkManager. Se encarga de realizar unas tareas cada dia.
+ */
+
 public class dailyActionWorker extends Worker {
 
     Context context;
@@ -39,7 +43,6 @@ public class dailyActionWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        Log.i("ContentValues", "workeando a tope");
         setDailyAction(context);
 
         return Result.success();
@@ -49,11 +52,15 @@ public class dailyActionWorker extends Worker {
         Log.i("ContentValues", "Worker parado");
     }
 
+    /**
+     * setDailyAction es un método que recoge todas las acciones que realiza DailyActionworker y las ejecuta
+     * @param context
+     */
+
     private void setDailyAction(Context context){
         boolean mboolean = checkLastDailyAction(context);
 
         if(mboolean){
-            Log.i("ContentValues", "Toca chambear");
             clearPendingTasks(context);
             setWeeklyTasksInPending(context);
             setAlarms(context);
@@ -63,17 +70,20 @@ public class dailyActionWorker extends Worker {
         }
     }
 
-
+    /**
+     * checkLastDailyAction verifica cuando fue la ultima vez que realizo una acción diaria. Devuelve true si la fecha de hoy no coincide con la guardada en lasDailyAction
+     * @param context
+     * @return
+     */
 
     private boolean checkLastDailyAction(Context context){
 
         boolean mboolean = false;
 
         String date = settings.getLastDailyAction();
-
-
         LocalDate localDate = LocalDate.now();
         String str_LocalDate = localDate.toString();
+
         if(!date.equals(str_LocalDate)){
             Log.i(TAG, "Las fechas no son iguales, hay que realizar las operaciones pertinentes.");
             settings.setInfoLastDailyAction("Hay que realizar operaciones");
@@ -85,9 +95,20 @@ public class dailyActionWorker extends Worker {
 
         return mboolean;
     }
+
+    /**
+     * updateLastDailyActionDate actualiza la fecha de la ultima acción diaria de dailyActionWorker
+     * @param context
+     */
+
     private void updateLastDailyActionDate(Context context){
         settings.updateLastDailyAction();
     }
+
+    /**
+     * clearPendingTasks se encarga de borrar todas las tareas de pendingtasks las cuales tienen una alarma o se encuentran en la tabla weeklytasks (notify en true)
+     * @param context
+     */
 
     private void clearPendingTasks(Context context){
         DbHelper dbHelper = new DbHelper(context);
@@ -102,6 +123,11 @@ public class dailyActionWorker extends Worker {
             e.printStackTrace();
         }
     }
+
+    /**
+     * setWeeklyTasksInPending se encarga de ir a weeklytasks, recoger las tareas del dia de hoy y las lleva a pendingtasks
+     * @param context
+     */
 
     private void setWeeklyTasksInPending(Context context){
         Locale enLocale=new Locale("en", "EN");
@@ -141,7 +167,10 @@ public class dailyActionWorker extends Worker {
 
     }
 
-
+    /**
+     * setAlarms establece todas las alarmas de la tabla pendingtasks
+     * @param context
+     */
 
     private void setAlarms(Context context){
         Alarm alarm = new Alarm(context);
@@ -149,7 +178,10 @@ public class dailyActionWorker extends Worker {
 
     }
 
-
+    /**
+     * setPreviousRecords se encarga de llevar los datos de las tareas de completedtasks a la tabla previousrecords
+     * @param context
+     */
 
     private void setPreviousRecords(Context context){
         DbHelper dbHelper = new DbHelper(context);
@@ -211,6 +243,11 @@ public class dailyActionWorker extends Worker {
         }
     }
 
+    /**
+     * auxGetProfilesIDs es un metodo auxiliar que devuelve una lista de los id de todos los perfiles
+     * @return
+     */
+
     private List<Integer> auxGetProfilesIDs(){
         dbLogic dbLogic = new dbLogic(context);
         List<profiles> profiles = dbLogic.getProfiles();
@@ -220,6 +257,11 @@ public class dailyActionWorker extends Worker {
         }
         return list;
     }
+
+    /**
+     * clearCompletedTasks limpia toda la tabla de completedTasks
+     * @param context
+     */
 
     private void clearCompletedTasks(Context context){
         DbHelper dbHelper = new DbHelper(context);

@@ -12,6 +12,10 @@ import com.example.stella.dialogs.taskInfoDialog;
 
 import java.util.List;
 
+/**
+ * adaptersLogic guarda logica que se utiliza en los "adapter" de todos los recyclerViews de la app
+ */
+
 public class adaptersLogic {
     public static final String TAG = adaptersLogic.class.getName();
     Context c;
@@ -22,6 +26,11 @@ public class adaptersLogic {
         c = context;
         dbLogic = new dbLogic(c);
     }
+
+    /**
+     * deleteTaskInWeeklyTasks es un método que se encarga de borrar una tarea en la tabla weeklytasks
+     * @param id
+     */
 
     public void deleteTaskInWeeklyTasks(int id){
         boolean deleteSuccessfully = dbLogic.deleteTask(id, "weeklytasks");
@@ -40,12 +49,25 @@ public class adaptersLogic {
         }
     }
 
+    /**
+     * showTaskInfo muestra un dialog con la información de la tarea
+     * @param id
+     * @param tableName
+     */
+
     public void showTaskInfo(int id, String tableName){
         if(taskInfoDialog == null || !taskInfoDialog.isShowing()){
             taskInfoDialog = new taskInfoDialog(c ,id, tableName);;
             taskInfoDialog.show();
         }
     }
+
+    /**
+     * getTaskFullInfo obtiene todos los campos de la tarea, se busca por id y por nombre de la tabla
+     * @param id
+     * @param tableName
+     * @return
+     */
 
     public taskElement getTaskFullInfo(int id, String tableName){
         DbHelper dbHelper = new DbHelper(c);
@@ -74,19 +96,42 @@ public class adaptersLogic {
         return task;
     }
 
+    /**
+     * getPendingTasksList obtiene una lista con todas las tareas de la tabla pendingtasks
+     * @return
+     */
+
     public List<taskElement> getPendingtasksList(){
         List<taskElement> list = dbLogic.getPendingTasksList();
         return list;
     }
 
+    /**
+     * getCompletedtasksList obtiene una lista con todas las tareas de la tabla completedtasks
+     * @return
+     */
+
     public List<taskElement> getCompletedtasksList(){
         List<taskElement> list = dbLogic.getCompletedTasksList();
         return list;
     }
+
+    /**
+     * getWeeklytasksList obtiene una lsita con todas las tareas de la tabla weeklytasks
+     * @param day
+     * @return
+     */
+
     public List<taskElement> getWeeklytasksList(String day){
         List<taskElement> list = dbLogic.getWeeklyTasksList(day);
         return list;
     }
+
+    /**
+     * deleteTasks borra una tarea a partir de su id y el nombre de la tabla en la que se encuentra
+     * @param id
+     * @param tableName
+     */
 
     public void deleteTask(int id, String tableName){
         dbLogic.deleteTask(id, tableName);

@@ -10,6 +10,10 @@ import com.example.stella.R;
 
 import java.util.Locale;
 
+/**
+ * loadSettings es la clase que se utiliza para cargar la configuracion elegida por el usuario. Se utiliza al cargan una pantalla
+ */
+
 public class loadSettings {
     Context c;
     settings settings;
@@ -24,6 +28,11 @@ public class loadSettings {
         chargeTheme(activity);
 
     }
+
+    /**
+     * chargeTheme se encarga de cargar el tema que eligió el usuario
+     * @param activity
+     */
 
     private void chargeTheme(Activity activity){
         int theme = settings.getAppTheme();
@@ -46,6 +55,10 @@ public class loadSettings {
 
     }
 
+    /**
+     * chargeLanguage se encarga de cargar el lenguaje quye eligió el usuario
+     */
+
     private void chargeLanguage(){
         int language = settings.getAppLanguage();
         String lang = "";
@@ -63,6 +76,5 @@ public class loadSettings {
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
         Locale.setDefault(myLocale);
-        //onConfigurationChanged(conf);
     }
 }

@@ -31,6 +31,10 @@ import com.example.stella.pantallaEditarTarea;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * listWeeklyTasksAdapter es el adapter de la recyclerview que muestra las tareas de la tabla "weeklytasks"
+ */
+
 public class listWeeklyTasksAdapter extends RecyclerView.Adapter<listWeeklyTasksAdapter.ViewHolder> {
     private List<taskElement> mData = new ArrayList<>();
     private LayoutInflater mInflater;
@@ -97,6 +101,8 @@ public class listWeeklyTasksAdapter extends RecyclerView.Adapter<listWeeklyTasks
                         public boolean onMenuItemClick(MenuItem menuItem) {
                             switch (menuItem.getItemId()){
                                 case R.id.optionEdit:
+                                    // Logica del boton editar
+                                    // Recoge los datos de la tarea y la traspasa a la pantalla editar tarea
                                     Intent intent = new Intent(context, pantallaEditarTarea.class);
                                     taskElement auxItem= adapterLogic.getTaskFullInfo(item.getId(), "weeklytasks");
                                     intent.putExtra("id", auxItem.getId());
@@ -110,6 +116,8 @@ public class listWeeklyTasksAdapter extends RecyclerView.Adapter<listWeeklyTasks
                                     context.startActivity(intent);
                                     break;
                                 case R.id.optionDelete:
+                                    // Logica del boton eliminar
+                                    // Elimina la tarea
                                     adapterLogic.deleteTaskInWeeklyTasks(item.getId());
                                     reSetItemList();
                                     notifyDataSetChanged();
@@ -124,7 +132,7 @@ public class listWeeklyTasksAdapter extends RecyclerView.Adapter<listWeeklyTasks
                     popupMenu.show();
                 }
             });
-
+            // Muestra un dialog con la informacion de la tarea
             name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -26,6 +26,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.stella.db.DbHelper;
+import com.example.stella.db.dbLogic;
 import com.example.stella.dialogs.dayPickerDialog;
 import com.example.stella.dialogs.successDialog;
 import com.example.stella.dialogs.timePickerDialog;
@@ -39,6 +40,10 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Esta clase muestra la pantalla para insertar una tarea nueva
+ */
+
 public class pantallaNuevaTarea extends AppCompatActivity {
 
     int hora, minuto;
@@ -49,10 +54,8 @@ public class pantallaNuevaTarea extends AppCompatActivity {
     Spinner spinner;
     List<String> dayList;
     Calendar timeCalendar;
-    AlarmManager alarmManager;
-    PendingIntent pendingIntent;
-    Alarm alarm;
     settings settings;
+    dbLogic dbLogic;
     boolean timeCheck, daysCheck; // Con estas booleanas se sabrá si el usuario ha escogido una hora y/o día o no.
 
     @Override
@@ -63,6 +66,7 @@ public class pantallaNuevaTarea extends AppCompatActivity {
         setContentView(R.layout.pantallanuevatarea);
 
         settings = new settings(this);
+        dbLogic = new dbLogic(this);
 
         textSelectedTime = (TextView) findViewById(R.id.textSelectedTime);
         textSelectedDays = (TextView) findViewById(R.id.textSelectedDays);
@@ -111,13 +115,18 @@ public class pantallaNuevaTarea extends AppCompatActivity {
 
     }
 
+    /**
+     * createNewTask es el método que se encarga de crear la tarea e insertarla en la base de datos
+     * @param view
+     */
+
     public void createNewTask(View view){
 
         int notify = 0;
         String nameText;
         String descriptionText = null;
 
-        long checkInsert = 0; // Variable para saber si se insertó bien la tarea o no
+        boolean checkInsert = false;
 
 
         if (TextUtils.isEmpty(String.valueOf(name.getText()))){
@@ -143,10 +152,11 @@ public class pantallaNuevaTarea extends AppCompatActivity {
         task.put("description", descriptionText);
         task.put("type", typeName);
         task.put("notify", notify);
+        task.put("profileId", settings.getCurrentProfileID());
         // Si no requiere de notificación, la tarea será de duración infinita y se meterá directa a la tabla PENDINGTASKS
         if(notify == 0){
 
-            checkInsert = auxInsertTask(task, "PENDINGTASKS");
+            checkInsert = dbLogic.insertTask("PENDINGTASKS", task);
             clearNewTaskScreen();
             Log.i(TAG, "CheckInsert: " + checkInsert);
 
@@ -166,31 +176,39 @@ public class pantallaNuevaTarea extends AppCompatActivity {
             }
             if(daysCheck){
                 if(auxCheckCurrentDay()){
-                    checkInsert = auxInsertTask(task, "PENDINGTASKS");
+                    checkInsert = dbLogic.insertTask("PENDINGTASKS", task);
                     Log.i(TAG, "CheckInsert: " + checkInsert);
                 }
                 for(String day: dayList){
                     task.put(day, 1);
                 }
-                checkInsert = auxInsertTask(task, "WEEKLYTASKS");
+                checkInsert = dbLogic.insertTask("WEEKLYTASKS", task);
                 clearNewTaskScreen();
                 Log.i(TAG, "CheckInsert: " + checkInsert);
             } else {
-                checkInsert = auxInsertTask(task, "PENDINGTASKS");
+                checkInsert = dbLogic.insertTask("PENDINGTASKS", task);
                 clearNewTaskScreen();
                 Log.i(TAG, "CheckInsert: " + checkInsert);
             }
         }
 
-        Log.i(TAG, "Id de la tarea: " + String.valueOf(task.get("id")));
-        if(checkInsert != 0)showSuccessDialog();
+        if(checkInsert)showSuccessDialog();
 
     }
+
+    /**
+     * showSuccessDialog muestra un dialog con un mensaje de éxito
+     */
 
     private void showSuccessDialog(){
         successDialog dialog = new successDialog();
         dialog.showDialog(this, 0);
     }
+
+    /**
+     * auxCheckCurrentDay es un método auxiliar que detecta que dia es hoy
+     * @return
+     */
 
     private boolean auxCheckCurrentDay(){
         String day = LocalDate.now().getDayOfWeek().name();
@@ -205,38 +223,11 @@ public class pantallaNuevaTarea extends AppCompatActivity {
         return b;
     }
 
-
-    private long auxInsertTask(ContentValues cv, String tableName){
-
-        long mid = 0;
-        DbHelper dbH = new DbHelper(this);
-        SQLiteDatabase db = dbH.getWritableDatabase();
-
-        int currentProfileID = settings.getCurrentProfileID();
-        cv.put("profileId", currentProfileID);
-        try {
-            mid = db.insertOrThrow(tableName, null, cv);
-            Log.i(TAG, "Inserción en " + tableName + " : " + String.valueOf(mid));
-            boolean alarmTime = cv.containsKey("time");
-            tableName = tableName.toLowerCase();
-            if(alarmTime && tableName.equals("pendingtasks")){
-                int id = cv.getAsInteger("id");
-                String name = cv.getAsString("name");
-                alarm = new Alarm(this);
-                alarm.setAlarm(id, name, timeCalendar);
-            }
-        } catch (SQLException e){
-            Log.e("Exception","SQLException"+String.valueOf(e.getMessage()));
-            e.printStackTrace();
-        } finally {
-            db.close();
-        }
-
-        return mid;
-
-    }
-
-
+    /**
+     * auxGetType es un metodo auxiliar que obtiene la traduccion del dia seleccionado en el spinner
+     * @param type
+     * @return
+     */
 
     private String auxGetType(int type){
         String aux = "";
@@ -258,6 +249,10 @@ public class pantallaNuevaTarea extends AppCompatActivity {
         }
     }
 
+    /**
+     * clearNewTaskScreen este metodo se encarga de limpiar todos los campos de la pantalla
+     */
+
     private void clearNewTaskScreen(){
         name.setText("");
         description.setText("");
@@ -270,6 +265,10 @@ public class pantallaNuevaTarea extends AppCompatActivity {
         daysCheck = false;
         if(notifyCheckBox.isChecked()) notifyCheckBox.setChecked(false);
     }
+
+    /**
+     * showDayPickerDialog muestra el dialog "dayPickerDialog" para seleccionar los dias y meter la tarea en weeklytasks
+     */
 
     private void showDayPickerDialog(){
         dayPickerDialog dialog = new dayPickerDialog(this, new dayPickerDialog.OnDaySetListener() {
@@ -286,6 +285,11 @@ public class pantallaNuevaTarea extends AppCompatActivity {
         });
         dialog.show();
     }
+
+    /**
+     *  showTimePickerDialog muestra el dialog "timePickerDialog" para escoger la hora de la alarma
+     */
+
     private void showTimePickerDialog(){
         timePickerDialog dialog = new timePickerDialog(this, hora, minuto, true, new timePickerDialog.OnTimeSetListener() {
             @Override
@@ -303,11 +307,21 @@ public class pantallaNuevaTarea extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * resetTime resetea la hora
+     * @param view
+     */
+
     public void resetTime(View view){
         textSelectedTime.setText(getResources().getString(R.string.never));
         timeCheck = false;
         timeCalendar.clear();
     }
+
+    /**
+     * fillTypesSpinner rellena los valores del spinner de los tipos
+     * @param spinner
+     */
 
     private void fillTypesSpinner(Spinner spinner){
         ArrayAdapter<CharSequence> adapterTheme = ArrayAdapter.createFromResource(this, R.array.types_array, android.R.layout.simple_spinner_item);

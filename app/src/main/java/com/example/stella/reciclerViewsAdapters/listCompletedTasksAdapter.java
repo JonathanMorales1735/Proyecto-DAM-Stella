@@ -33,6 +33,10 @@ import com.example.stella.pantallaEditarTarea;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * listCOmpletedTasksAdapter es el adapter utilizado en el recyclerview que muestra las tareas completadas de la pantalla tareas
+ */
+
 public class listCompletedTasksAdapter extends RecyclerView.Adapter<listCompletedTasksAdapter.ViewHolder> {
     private List<taskElement> mData = new ArrayList<>();
     private LayoutInflater mInflater;
@@ -48,6 +52,10 @@ public class listCompletedTasksAdapter extends RecyclerView.Adapter<listComplete
         setItem(adapterLogic.getCompletedtasksList());
         notifyDataSetChanged();
     }
+
+    /**
+     * reSetItemList vuelve a insertar las tareas que se encuentran en la tabla completedtasks en el adapter
+     */
 
     public void reSetItemList(){
         setItem(adapterLogic.getCompletedtasksList());
@@ -98,6 +106,8 @@ public class listCompletedTasksAdapter extends RecyclerView.Adapter<listComplete
                         public boolean onMenuItemClick(MenuItem menuItem) {
                             switch (menuItem.getItemId()){
                                 case R.id.optionEdit:
+                                    // Logica del boton "editar"
+                                    // obtiene la informacion de latarea y la pasa a la pantalla editar tarea
                                     Intent intent = new Intent(context, pantallaEditarTarea.class);
                                     taskElement auxItem= adapterLogic.getTaskFullInfo(item.getId(), "completedtasks");
                                     intent.putExtra("id", auxItem.getId());
@@ -111,6 +121,8 @@ public class listCompletedTasksAdapter extends RecyclerView.Adapter<listComplete
                                     context.startActivity(intent);
                                     break;
                                 case R.id.optionDelete:
+                                    // Logica del boton "eliminar"
+                                    // Elimina la tarea
                                     adapterLogic.deleteTask(item.getId(), "completedtasks");
                                     setItem(adapterLogic.getCompletedtasksList());
                                     notifyDataSetChanged();
@@ -130,7 +142,7 @@ public class listCompletedTasksAdapter extends RecyclerView.Adapter<listComplete
             radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
+                    // Cuando se pulsa el radioButton de la tarjetita de la tarea, la borra de la tabla completedtasks y la traspasa a pendingtasks
                     if(b == false){
                         pendingTasksAdapter.uncompleteCompletedTask(item.getId());
                         adapterLogic.deleteTask(item.getId(), "completedtasks");
@@ -140,7 +152,7 @@ public class listCompletedTasksAdapter extends RecyclerView.Adapter<listComplete
 
                 }
             });
-
+            // Muestra la informacion de la tarea
             name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

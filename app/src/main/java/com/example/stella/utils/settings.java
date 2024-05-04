@@ -5,6 +5,10 @@ import android.content.SharedPreferences;
 
 import java.time.LocalDate;
 
+/**
+ * settings es la clase encargada de establecer o recoger las preferencias
+ */
+
 public class settings {
     Context context;
     SharedPreferences settings;
@@ -17,11 +21,21 @@ public class settings {
     // GETTERS
     //=============================================================================
 
+    /**
+     * getCurrentProfileID recoge el id del perfil que está en uso
+     * @return
+     */
+
     public int getCurrentProfileID(){
         settings = context.getSharedPreferences("profile", 0);
         int id = settings.getInt("id", 0);
         return id;
     }
+
+    /**
+     * getCurrentProfilename obtiene el nombre del perfil que está en uso
+     * @return
+     */
 
     public String getCurrentProfileName(){
         settings = context.getSharedPreferences("profile", 0);
@@ -29,11 +43,21 @@ public class settings {
         return profileName;
     }
 
+    /**
+     * getAppTheme obtiene el tema que escogió el usuario
+     * @return
+     */
+
     public int getAppTheme(){
         settings = context.getSharedPreferences("generalSettings", 0);
         int theme = settings.getInt("appTheme", 0);
         return theme;
     }
+
+    /**
+     * getAppLanguage obtiene el idioma escogido por el usuario
+     * @return
+     */
 
     public int getAppLanguage(){
         settings = context.getSharedPreferences("generalSettings", 0);
@@ -41,11 +65,21 @@ public class settings {
         return language;
     }
 
+    /**
+     * getLastDailyAction obtiene la fecha de la ultima vez que "dailyActionWorker" realizó sus acciones
+     * @return
+     */
+
     public String getLastDailyAction(){
         settings = context.getSharedPreferences("lastDayDailyAction", 0);
         String lastDailyAction = settings.getString("lastDailyAction", "DEFAULT");
         return lastDailyAction;
     }
+
+    /**
+     * getNextTaskID obtiene un id para asignarselo a una tarea, luego se suma 1 a si mismo
+     * @return
+     */
 
     public int getNextTaskID(){
         settings = context.getSharedPreferences("nextID", Context.MODE_PRIVATE);
@@ -60,11 +94,21 @@ public class settings {
     // CHECKERS
     //=============================================================================
 
+    /**
+     * isFirstRunPassed verifica si la app ya se utilizo por primera vez anteriormente
+     * @return
+     */
+
     public boolean isFirstRunPassed(){
         settings = context.getSharedPreferences("FIRST_RUN", 0 );
         boolean check = settings.getBoolean("FIRST_RUN_BOOL", false);
         return check;
     }
+
+    /**
+     * isUserActive verifica si el perfil que se uso por ultima vez sigue en estado activo
+     * @return
+     */
 
     public boolean isUserActive(){
         SharedPreferences isUserActivePref = context.getSharedPreferences("isUserActive", 0);
@@ -76,6 +120,11 @@ public class settings {
     // SETTERS
     //=============================================================================
 
+    /**
+     * setuserActivity establece si el perfil esta en uso o se cerró sesión con él
+     * @param check
+     */
+
     public void setUserActivity(boolean check){
         settings = context.getSharedPreferences("isUserActive", 0);
         edit = settings.edit();
@@ -83,12 +132,20 @@ public class settings {
         edit.commit();
     }
 
+    /**
+     * updateFirstRunPassed establece que la app ya se abrió por primera vez
+     */
+
     public void updateFirstRunPassed(){
         settings = context.getSharedPreferences("FIRST_RUN", 0 );
         edit = settings.edit();
         edit.putBoolean("FIRST_RUN_BOOL", true);
         edit.commit();
     }
+
+    /**
+     * updateLastDailyAction actualiza la fecha de la ultima acción diaria de "dailyActionWorker" a la fecha de hoy
+     */
 
     public void updateLastDailyAction(){
         settings = context.getSharedPreferences("lastDayDailyAction", 0);
@@ -99,12 +156,22 @@ public class settings {
         edit.commit();
     }
 
+    /**
+     * setInfoLastDailyAction establece la información de la ultima acción diaria usada por "dailtActionWorker"
+     * @param info
+     */
+
     public void setInfoLastDailyAction(String info){
         settings = context.getSharedPreferences("lastdayDailyAction", 0);
         edit = settings.edit();
         edit.putString("operationInfo",info);
         edit.commit();
     }
+
+    /**
+     * setAppTheme guarda el tema de la app
+     * @param appTheme
+     */
 
     public void setAppTheme(int appTheme){
         settings = context.getSharedPreferences("generalSettings", 0);
@@ -113,6 +180,11 @@ public class settings {
         edit.commit();
     }
 
+    /**
+     * setLanguage guarda el idioma de la app
+     * @param language
+     */
+
     public void setLanguage(int language){
         settings = context.getSharedPreferences("generalSettings", 0);
         edit = settings.edit();
@@ -120,12 +192,22 @@ public class settings {
         edit.commit();
     }
 
+    /**
+     * setProfileName guarda el nombre del perfil escogido
+     * @param name
+     */
+
     public void setProfileName(String name){
         settings = context.getSharedPreferences("profile", 0);
         edit = settings.edit();
         edit.putString("name", name);
         edit.commit();
     }
+
+    /**
+     * setProfileID guarda el id del perfil escogido
+     * @param id
+     */
 
     public void setProfileID(int id){
         settings = context.getSharedPreferences("profile", 0);

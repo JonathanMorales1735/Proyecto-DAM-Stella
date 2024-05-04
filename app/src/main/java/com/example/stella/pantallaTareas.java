@@ -31,6 +31,10 @@ import com.example.stella.reciclerViewsAdapters.listPendingTasksAdapter;
 import com.example.stella.utils.loadSettings;
 import com.example.stella.utils.settings;
 
+/**
+ * Clase que muestra la pantalla en donde se recogen las tareas pendientes y completadas
+ */
+
 public class pantallaTareas extends AppCompatActivity {
 
 
@@ -104,7 +108,9 @@ public class pantallaTareas extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * createNotificationChannel se encarga de crear y poner en marcha el canal por donde se trasmiten las notificaciones
+     */
 
     private void createNotificationChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -123,7 +129,7 @@ public class pantallaTareas extends AppCompatActivity {
 
 
     /**
-     * Este método cierra la sesión del usuario. Llevándolo de vuelta a la pantalla para Iniciar sesión.
+     * logOut Este método cierra la sesión del perfil. Llevándolo de vuelta a la pantalla para escoger perfil.
      * @param view
      */
 
@@ -132,6 +138,10 @@ public class pantallaTareas extends AppCompatActivity {
         setUserInactive();
         returnMainScreen();
     }
+
+    /**
+     * setRecyclerViewCompleted prepara el adapter y el recyclerview que muestra las tareas que ya estan completas
+     */
 
     private void setRecyclerViewCompleted(){
         //adapterCompletedTasks.fillCompletedTasks();
@@ -145,6 +155,10 @@ public class pantallaTareas extends AppCompatActivity {
 
     }
 
+    /**
+     * setRecyclerViewPending prepara el adapter y el recyclerview que muestra las tareas que estan pendientes
+     */
+
     public void setRecyclerViewPending(){
         adapterPendingTasks.notifyDataSetChanged();
         recyclerViewPending.setHasFixedSize(true);
@@ -154,14 +168,25 @@ public class pantallaTareas extends AppCompatActivity {
         adapterPendingTasks.reSetItemList();
     }
 
+    /**
+     * setUserInactive se utiliza para indicar que el perfil se encuentra inactivo. Hace su uso al cerrar sesion
+     */
 
     private void setUserInactive(){
         settings.setUserActivity(false);
     }
 
+    /**
+     * setCurrentProfileName recoge el nombre del perfil en uso y lo muestra en un textView
+     */
+
     private void setCurrentProfileName(){
         userName = settings.getCurrentProfileName();
     }
+
+    /**
+     * changeAddCircleBtnColor se encarga de cambiar el grafico del boton de añadir tarea dependiendo del tema de la app
+     */
 
     private void changeAddCircleBtnColor(){
         //btnNewTask
@@ -173,6 +198,11 @@ public class pantallaTareas extends AppCompatActivity {
         }
     }
 
+    /**
+     * retractPendingRecyclerView se encarga de contraer o expandir el recyclerview que contiene las tareas pendientes
+     * @param view
+     */
+
     public void retractPendingRecyclerView(View view){
         if(recyclerViewPending.getVisibility() == View.VISIBLE){
             recyclerViewPending.setVisibility(View.GONE);
@@ -182,6 +212,11 @@ public class pantallaTareas extends AppCompatActivity {
             image_arrow1.setImageResource(android.R.drawable.arrow_down_float);
         }
     }
+
+    /**
+     * retractCompletedRecyclerView se encarga de contraer o expandir el recyclerview que conteiene las tareas completadas
+     * @param view
+     */
 
     public void retractCompletedRecyclerView(View view){
         if(recyclerViewCompleted.getVisibility() == View.VISIBLE){
@@ -196,17 +231,31 @@ public class pantallaTareas extends AppCompatActivity {
 
     // MÉTODOS PARA LLEGAR A OTRAS PANTALLAS
 
+    /**
+     * returnMainScreen se encarga de regresar a la pantalla principal
+     */
+
     private void returnMainScreen(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
 
+    /**
+     * showNewTaskScreen se encarga de mostrar la pantalla de creación de nueva tarea
+     * @param view
+     */
+
     public void showNewTaskScreen(View view){
         Intent intent = new Intent(this, pantallaNuevaTarea.class);
         startActivity(intent);
 
     }
+
+    /**
+     * showBottomDialog se encarga de mostrar el dialog con las opciones de la app
+     * @param view
+     */
 
     public void showBottomDialog(View view){
         if(settingsDialog == null || !settingsDialog.isShowing()){
@@ -215,6 +264,10 @@ public class pantallaTareas extends AppCompatActivity {
         }
     }
 
+    /**
+     * showLeftDialog muestra el dialog del panel izquierdo con las opciones "Mi semana", "Mi registro" y "Desconectar"
+     * @param view
+     */
 
     public void showLeftDialog(View view){
 
@@ -241,11 +294,21 @@ public class pantallaTareas extends AppCompatActivity {
         }
     }
 
+    /**
+     * showSummaryScreen lleva a la pantalla "Mi registro"
+     * @param view
+     */
+
     public void showSummaryScreen(View view){
 
         Intent intent = new Intent(this, pantallaRegistros.class);
         startActivity(intent);
     }
+
+    /**
+     * showMyWeekScreen lleva a la pantalla "Mi semana"
+     * @param view
+     */
 
     public void showMyWeekScreen(View view){
         Intent intent = new Intent(this, pantallaMiSemana.class);

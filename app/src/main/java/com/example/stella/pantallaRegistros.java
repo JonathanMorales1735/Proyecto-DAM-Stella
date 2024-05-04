@@ -24,6 +24,10 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+/**
+ * Clase que muestra la pantalla del registro del perfil
+ */
+
 public class pantallaRegistros extends AppCompatActivity {
 
     PieChart summary;
@@ -44,10 +48,19 @@ public class pantallaRegistros extends AppCompatActivity {
         setProfileNameTitle();
 
     }
+
+    /**
+     * setProfileNameTitle recoge el nombre del perfil y lo muestra en un textView
+     */
+
     private void setProfileNameTitle(){
         String profileName = settings.getCurrentProfileName();
         txt_inRecordProfileName.setText(profileName);
     }
+
+    /**
+     * setGraph establece la grafica con porcentajes del registro de las tareas completadas por el perfil
+     */
 
     private void setGraph(){
         DbHelper dbH = new DbHelper(this);
@@ -141,7 +154,10 @@ public class pantallaRegistros extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * showPreviousRecordsScreen lleva a la pantalla de los registros anteriores
+     * @param view
+     */
 
     public void showPreviousRecordsScreen(View view){
         Intent intent = new Intent(this, pantallaRegistrosAnteriores.class);

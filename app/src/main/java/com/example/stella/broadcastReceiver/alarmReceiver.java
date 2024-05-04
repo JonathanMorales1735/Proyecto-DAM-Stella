@@ -21,11 +21,14 @@ import com.example.stella.R;
 
 import java.util.Random;
 
+/**
+ * Esta clase es usada junto con las alarmas de las tareas. Se encarga de recibir mediante un intent el id, nombre de la tarea y nombre del perfil y lo muestra en una notificacion
+ */
+
 public class alarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.i(TAG, "Enviando notificacion");
-        //TODO : que  salga el icono de la app
 
         Intent nextActivity = new Intent (context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, nextActivity, PendingIntent.FLAG_UPDATE_CURRENT);

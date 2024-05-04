@@ -8,6 +8,10 @@ import android.widget.TextView;
 
 import com.example.stella.R;
 
+/**
+ * succesDialog mueestra un pequeño dialog en donde mostramos, segun el type, un mensaje de éxito
+ */
+
 public class successDialog {
     public static void showDialog(Context context, int type) {
 

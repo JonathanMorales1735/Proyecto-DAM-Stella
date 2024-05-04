@@ -20,6 +20,10 @@ import com.example.stella.utils.settings;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * listProfilesAdapter es el adapter del recyclerview que muesrta los perfiles, se encuentra en la pantalla principal
+ */
+
 public class listProfilesAdapter extends RecyclerView.Adapter<listProfilesAdapter.ViewHolder>{
 
     List<profiles> profilesList = new ArrayList<>();
@@ -81,16 +85,30 @@ public class listProfilesAdapter extends RecyclerView.Adapter<listProfilesAdapte
         }
     }
 
+    /**
+     * fillProfiles rellena la lista del adapter con los perfiles existentes de la tabla "profiles"
+     */
+
     public void fillProfiles(){
         dbLogic dbLogic = new dbLogic(context);
         profilesList = dbLogic.getProfiles();
         notifyDataSetChanged();
     }
 
+    /**
+     * setChosenProfile guarda el id y el nombre del perfil que ha escogido usar el usuario
+     * @param id
+     * @param name
+     */
+
     private void setChosenProfile(int id, String name){
         settings.setProfileID(id);
         settings.setProfileName(name);
     }
+
+    /**
+     * setUserActive establece que el perfil seleccionado se encuentra en estado activo. Cuando el usuario regrese a la app le entrara directamente al perfil mientras siga en activo
+     */
 
     private void setUserActive(){
         settings.setUserActivity(true);

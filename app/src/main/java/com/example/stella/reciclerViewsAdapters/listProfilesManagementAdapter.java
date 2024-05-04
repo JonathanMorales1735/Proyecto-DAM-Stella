@@ -22,6 +22,10 @@ import com.example.stella.dialogs.newProfileNameDialog;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * listProfilesManagementAdapter es el adaptador de la recyclerview de perfiles que se encuentra en la pantalla de administracion de eprfiles
+ */
+
 public class listProfilesManagementAdapter extends RecyclerView.Adapter<listProfilesManagementAdapter.ViewHolder>{
 
     List<profiles> profilesList = new ArrayList<>();
@@ -92,7 +96,6 @@ public class listProfilesManagementAdapter extends RecyclerView.Adapter<listProf
                                                 case DialogInterface.BUTTON_POSITIVE:
                                                     dbLogic.deleteProfile(profile.getId());
                                                     fillProfiles();
-                                                    //activity.recreate();
                                                     break;
 
                                                 case DialogInterface.BUTTON_NEGATIVE:
@@ -118,10 +121,20 @@ public class listProfilesManagementAdapter extends RecyclerView.Adapter<listProf
         }
     }
 
+    /**
+     * fillProfiles rellena la lista del adapter con los perfiles que hay en la tabla "profiles"
+     */
+
     public void fillProfiles(){
         profilesList = dbLogic.getProfiles();
         notifyDataSetChanged();
     }
+
+    /**
+     * showNewProfileNameDialog muestra el dialog "newProfileNameDialog" para poder cambiar el nombre del perfil
+     * @param id
+     * @param originalName
+     */
 
     private void showNewProfileNameDialog(int id, String originalName){
         newProfileNameDialog.show(context, originalName,  new newProfileNameDialog.OnDialogClickListener() {

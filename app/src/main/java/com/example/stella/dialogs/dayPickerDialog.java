@@ -19,6 +19,11 @@ import com.example.stella.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * dayPickerDialog hace aparecer un dialog en el cual salen todos los dias de la semana con un checkbox cada uno.
+ * Se usa al crear o editar una tarea. Cada dia seleccionado es usado para meter la tarea en la tabla weeklyTasks
+ */
+
 public class dayPickerDialog extends Dialog {
 
     Context c;
@@ -56,6 +61,7 @@ public class dayPickerDialog extends Dialog {
         btnApply = (Button) findViewById(R.id.applyBtnDayPicker);
         btnClose = (ImageButton) findViewById(R.id.closeBtnDayPicker);
 
+        // Al pulsar el boton aplicar se añaden los dias a dos listas. Una lista para mostrar en un textView los dias seleccionados y traducidos, la otra para la inserccion en la tabla weeklytasks
         btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,6 +153,11 @@ public class dayPickerDialog extends Dialog {
     private String getDaysSelection(){
         return daysSelection;
     }
+
+    /**
+     * auxSetDaysText es un método auxiliar para escribir en un textView, los dias seleccionados. Cada dia solo sale sus dos primeras letras, dependiendo del idioma seleccionado. Ej= Lunes: LU, mondau: MO
+     * @param auxList
+     */
 
     private void auxSetDaysText(List<String> auxList){
         String text = "";

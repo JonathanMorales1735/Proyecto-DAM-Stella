@@ -38,6 +38,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * Clase que muestra la pantalla de los registros anteriores
+ */
+
 public class pantallaRegistrosAnteriores extends AppCompatActivity {
 
     PieChart summary;
@@ -90,6 +94,11 @@ public class pantallaRegistrosAnteriores extends AppCompatActivity {
 
     }
 
+    /**
+     * chooseDate metodo para escoger la fecha del registro anterior a ver
+     * @param view
+     */
+
     public void chooseDate(View view) {
         switch (filter){
             case 0:
@@ -106,6 +115,11 @@ public class pantallaRegistrosAnteriores extends AppCompatActivity {
                 break;
         }
     }
+
+    /**
+     * showFilterOption metodo para abrir el menu de seleccion de diferentes filtros
+     * @param view
+     */
 
     public void showFilterOption (View view){
         PopupMenu popupMenu = new PopupMenu(this, btn_filter);
@@ -127,6 +141,10 @@ public class pantallaRegistrosAnteriores extends AppCompatActivity {
         popupMenu.show();
     }
 
+    /**
+     * showYearPickerDialog muestra un dialog de "yearPickerDialog" para escoger un año
+     */
+
     private void showYearPickerDialog(){
         YearPickerDialog dialog = new YearPickerDialog(this, new YearPickerDialog.OnYearSelectedListener() {
             @Override
@@ -141,6 +159,10 @@ public class pantallaRegistrosAnteriores extends AppCompatActivity {
         });
         dialog.show();
     }
+
+    /**
+     * showMonthYearPickerDialog muestra un dialog de "monthYearPickerDialog" para seleccionar un mes y un año
+     */
 
     private void showMonthYearPickerDialog() {
         MonthYearPickerDialog dialog = new MonthYearPickerDialog(this, new MonthYearPickerDialog.OnMonthYearSetListener() {
@@ -160,10 +182,19 @@ public class pantallaRegistrosAnteriores extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * showFullDateDialog muestra un dialog "DatePickerFragment" para escoger una fecha completa
+     */
+
     private void showFullDateDialog(){
         DatePickerFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
+
+    /**
+     * setGraph establece la grafica con porcentajes de los tipos de tareas en la fecha seleccionada
+     * @param view
+     */
 
     public void setGraph(View view){
         DbHelper dbH = new DbHelper(this);
@@ -284,6 +315,9 @@ public class pantallaRegistrosAnteriores extends AppCompatActivity {
         }
     }
 
+    /**
+     * showFilterDialog muestra un dialog con los filtros
+     */
 
     private void showFilterDialog(){
         Dialog dialog = new Dialog(this);

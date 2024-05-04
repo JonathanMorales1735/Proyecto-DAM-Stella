@@ -27,12 +27,17 @@ import com.example.stella.utils.Alarm;
 import com.example.stella.R;
 import com.example.stella.db.DbHelper;
 import com.example.stella.pantallaEditarTarea;
+import com.example.stella.utils.timeConvertCalendar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+/**
+ * listPendingTasksAdapter es el adapter del recyclerView que muestra las tareas de la tabla "pendingtasks" de la pantalla tareas
+ */
 
 public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTasksAdapter.ViewHolder> {
     private List<taskElement> mData = new ArrayList<>();
@@ -52,6 +57,10 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
         notifyDataSetChanged();
 
     }
+
+    /**
+     * reSetItemList vuelve a insertar las tareas que se encuentran en la tabla pendingtasks en el adapter
+     */
 
     public void reSetItemList(){
         setItem(adaptersLogic.getPendingtasksList());
@@ -102,6 +111,8 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
                         public boolean onMenuItemClick(MenuItem menuItem) {
                             switch (menuItem.getItemId()){
                                 case R.id.optionEdit:
+                                    // Logica del boton editar
+                                    // Recoge los datos de la tarea en la tabla pendingtasks y la traspasa a la pantalla de editar tarea
                                     Intent intent = new Intent(context, pantallaEditarTarea.class);
                                     taskElement auxItem= adaptersLogic.getTaskFullInfo(item.getId(), "pendingtasks");
                                     intent.putExtra("id", auxItem.getId());
@@ -115,6 +126,8 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
                                     context.startActivity(intent);
                                     break;
                                 case R.id.optionDelete:
+                                    // Logica del boton eliminar
+                                    // Elimina la tarea
                                     adaptersLogic.deleteTask(item.getId(), "pendingtasks");
                                     setItem(adaptersLogic.getPendingtasksList());
                                     notifyDataSetChanged();
@@ -133,6 +146,7 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
             radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    // Logica del radioButton de la tarjetita de la tarea, cuando se pulsa se borra de pendingtasks pero antes la traspasa a la tabla completedTasls
                     if(b == true){
                         completedTasksAdapter.completePendingTask(item.getId());
                         alarm.cancelAlarm(item.getId());
@@ -142,7 +156,7 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
                     }
                 }
             });
-
+            // Muestra la informacion de la tarea
             name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -180,7 +194,8 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
             if(cv.getAsString("time") != null){
                 String name = cv.getAsString("name");
                 Calendar calendar;
-                calendar = auxSetCalendar(cv.getAsString("time"));
+                timeConvertCalendar timeConvert = new timeConvertCalendar();
+                calendar = timeConvert.convertToCalendar(cv.getAsString("time"));
                 alarm.setAlarm(id, name, calendar);
                 Log.i("Reinserción en PendingTasks: ", "Alarma de la tarea reinsertada: " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) + ":00" );
             }
@@ -198,25 +213,6 @@ public class listPendingTasksAdapter extends RecyclerView.Adapter<listPendingTas
         }
     }
 
-    private Calendar auxSetCalendar(String time){
-        Calendar calendar = Calendar.getInstance();
-        Pattern p = Pattern.compile("(([0-9]{2,2}):([0-9]{2,2}):([0-9]{2,2}))");
-        Matcher m = p.matcher(time);
-        boolean mFound = m.find();
-        Log.i("Adapter PendingTasks: ", "Hora recibida: " + time);
-        if(mFound){
-            int hour = Integer.valueOf(m.group(2));
-            int minute = Integer.valueOf(m.group(3));
-            calendar.set(Calendar.HOUR_OF_DAY, hour);
-            calendar.set(Calendar.MINUTE, minute);
-            calendar.set(Calendar.SECOND, 00);
-            Log.i("Adapter PendingTasks:", "El patrón de time HIZO MATCH : " + hour + ":" + minute + ":00");
-        } else {
-            Log.i("Adapter PendingTasks:", "El patrón de time no hizo match");
-        }
-
-        return calendar;
-    }
 
     public void auxSetListCompletedTasksAdapter( listCompletedTasksAdapter adapter){
         this.completedTasksAdapter = adapter;

@@ -20,7 +20,35 @@
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.1745" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/drawable/ic_baseline_signal_cellular_alt_24.xml" value="0.1745" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2925" />
-        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/activity_main.xml" value="0.34103260869565216" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/activity_main.xml" value="0.1762917933130699" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/bottomsheet_login_layout.xml" value="0.271875" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/cardview_profile_chooser.xml" value="0.271875" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/cardview_profile_manage.xml" value="0.271875" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/cardview_task_layout2.xml" value="0.271875" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/dialog_choose_filter.xml" value="0.271875" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/dialog_daypicker.xml" value="0.271875" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/dialog_year_picker.xml" value="0.2975630611372381" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/pantalladiadelasemana.xml" value="0.271875" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/pantallaeditartarea.xml" value="0.2975630611372381" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/pantallainfo.xml" value="0.271875" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/pantallanuevatarea.xml" value="0.1762917933130699" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/screen_manage_profiles.xml" value="0.2975630611372381" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-normal/activity_main.xml" value="0.15718157181571815" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-normal/pantallaeditartarea.xml" value="0.2975630611372381" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-normal/pantallainfo.xml" value="0.22894736842105262" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-normal/pantallanuevatarea.xml" value="0.22894736842105262" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-normal/screen_manage_profiles.xml" value="0.22894736842105262" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-small/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-small/pantallaeditartarea.xml" value="0.9382845188284519" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-small/pantallainfo.xml" value="0.9382845188284519" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-small/pantallanuevatarea.xml" value="0.9382845188284519" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-small/screen_manage_profiles.xml" value="0.9382845188284519" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-xlarge/activity_main.xml" value="0.148828125" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-xlarge/pantallaeditartarea.xml" value="0.14180929095354522" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-xlarge/pantallainfo.xml" value="0.24588815789473684" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-xlarge/pantallatareas.xml" value="0.1331293037490436" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-xlarge/screen_manage_profiles.xml" value="0.18125" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/activity_main.xml" value="0.16" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/activity_pantalla_registro.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/bottomsheet_1_layout.xml" value="0.33" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/bottomsheet_language_layout.xml" value="0.33" />
@@ -28,12 +56,12 @@
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/bottomsheet_settings_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/bottomsheet_tareas_layout.xml" value="0.25" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/cardview_profile_add.xml" value="0.33967391304347827" />
-        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/cardview_profile_chooser.xml" value="0.1" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/cardview_profile_chooser.xml" value="0.75" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/cardview_profile_manage.xml" value="0.33967391304347827" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/cardview_task_layout.xml" value="0.25" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/cardview_task_layout2.xml" value="0.25" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/dialog_chooe_filter.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/dialog_choose_filter.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/dialog_choose_filter.xml" value="1.1" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/dialog_daypicker.xml" value="0.365625" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/dialog_month_year_picker.xml" value="0.3625" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/dialog_new_profile_name.xml" value="0.33967391304347827" />
@@ -44,7 +72,7 @@
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/newaccountdialog.xml" value="0.365625" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/pantallacrearcuenta.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/pantalladiadelasemana.xml" value="0.365625" />
-        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/pantallaeditartarea.xml" value="0.30085470085470084" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/pantallaeditartarea.xml" value="0.33" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/pantallafiltroregsanteriores.xml" value="0.25" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/pantallainfo.xml" value="0.33" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout/pantallamisemana.xml" value="0.3" />

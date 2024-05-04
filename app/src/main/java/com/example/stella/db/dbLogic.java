@@ -13,26 +13,40 @@ import com.example.stella.reciclerViewsAdapters.profiles;
 import com.example.stella.reciclerViewsAdapters.taskElement;
 import com.example.stella.utils.Alarm;
 import com.example.stella.utils.settings;
+import com.example.stella.utils.timeConvertCalendar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * En dbLogic se recogen métodos los cuales son usados en todas las clases que necesiten interactuar con la base de datos.
+ */
+
 public class dbLogic {
 
     Context context;
     settings settings;
+    timeConvertCalendar timeConvertCalendar;
 
     public dbLogic(Context c){
         context = c;
         settings = new settings(c);
+        timeConvertCalendar = new timeConvertCalendar();
     }
 
     //=============================================================================
     // INSERT METHODS
     //=============================================================================
 
-    public boolean insertTask(Calendar timeCalendar, String tableName, ContentValues cv){
+    /**
+     * inserTask se usa para insertar una tarea en la base de datos. Para ello se necesita un objeto "Calendar"
+     * @param tableName
+     * @param cv
+     * @return
+     */
+
+    public boolean insertTask(String tableName, ContentValues cv){
         boolean check = false;
 
         long mid = 0;
@@ -45,9 +59,10 @@ public class dbLogic {
             Log.i(TAG, "Inserción en " + tableName + " : " + String.valueOf(mid));
             boolean alarmTime = cv.containsKey("time");
             tableName = tableName.toLowerCase();
-            if(alarmTime && tableName.equals("pendingtasks") && timeCalendar.getTimeInMillis() > 0){
+            if(alarmTime && tableName.equals("pendingtasks")){
                 int id = cv.getAsInteger("id");
                 String name = cv.getAsString("name");
+                Calendar timeCalendar = timeConvertCalendar.convertToCalendar(cv.getAsString("time"));
                 Alarm alarm = new Alarm(context);
                 alarm.setAlarm(id, name, timeCalendar);
             }
@@ -67,6 +82,12 @@ public class dbLogic {
 
         return check;
     }
+
+    /**
+     * createProfile se encarga de crear un perfil en la tabla "profiles". Tan solo se necesita un nombre
+     * @param name
+     * @return
+     */
 
     public boolean createProfile(String name){
         DbHelper dbH = new DbHelper(context);
@@ -96,8 +117,15 @@ public class dbLogic {
     // UPDATE METHODS
     //=============================================================================
 
+    /**
+     * updateTask se encarga de actualizar una tarea en la base de datos. Usa la id de la tarea, el nombre de la tabla a la que apuntar y un contentValues con los valores a actualizar
+     * @param taskId
+     * @param tableName
+     * @param cv
+     * @return
+     */
 
-    public boolean updateTask(int taskId, Calendar timeCalendar, String tableName, ContentValues cv){
+    public boolean updateTask(int taskId,  String tableName, ContentValues cv){
         DbHelper dbhelper = new DbHelper(context);
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         Alarm alarm = new Alarm(context);
@@ -110,11 +138,11 @@ public class dbLogic {
 
         String alarmTimeStr = cv.getAsString("time");
         tableName = tableName.toLowerCase();
-        if(alarmTimeStr != null && tableName.equals("pendingtasks") && timeCalendar.getTimeInMillis() > 0){
+        if(alarmTimeStr != null && tableName.equals("pendingtasks") ){
             Log.i(TAG, "updateTask: cambiando alarma.");
             int id = taskId;
             String name = cv.getAsString("name");
-            Log.i(TAG, "updateTask: EL NOMBRE: " + name);
+            Calendar timeCalendar = timeConvertCalendar.convertToCalendar(cv.getAsString("time"));
             alarm.setAlarm(id, name, timeCalendar);
         }
 
@@ -131,6 +159,13 @@ public class dbLogic {
             return false;
         }
     }
+
+    /**
+     * updateProfile se encarga de actualzar un perfil
+     * @param text
+     * @param id
+     * @return
+     */
 
     public boolean updateProfile(String text, int id){
         DbHelper dbhelper = new DbHelper(context);
@@ -160,6 +195,12 @@ public class dbLogic {
     //=============================================================================
 
 
+    /**
+     * deleteTask se encarga de eliminar una tarea. Se necesita el id de la tarea y la tabla en donde se encuentra
+     * @param taskId
+     * @param tableName
+     * @return
+     */
 
     public boolean deleteTask(int taskId, String tableName){
 
@@ -185,6 +226,12 @@ public class dbLogic {
         return true;
 
     }
+
+    /**
+     * deleteProfile se encarga de borrar un perfil
+     * @param profileId
+     * @return
+     */
 
     public boolean deleteProfile(int profileId){
         DbHelper dbhelper = new DbHelper(context);
@@ -212,6 +259,13 @@ public class dbLogic {
     //=============================================================================
 
 
+    /**
+     * checkTaskInTable se encarga de comprobar si una tarea existe en la tabla pasada por parámetro
+     * @param id
+     * @param tableName
+     * @return
+     */
+
     public boolean checkTaskInTable(int id, String tableName){
         DbHelper dbH = new DbHelper(context);
         SQLiteDatabase db = dbH.getReadableDatabase();
@@ -232,6 +286,11 @@ public class dbLogic {
 
         return check;
     }
+
+    /**
+     * getProfiles obtiene todos los perfiles de la tabla "profiles"
+     * @return
+     */
 
     public List<profiles> getProfiles(){
         DbHelper dbH = new DbHelper(context);
@@ -256,6 +315,11 @@ public class dbLogic {
 
         return list;
     }
+
+    /**
+     * getPendingTaskList obtiene todas las tareas de la tabla "pendingtasks"
+     * @return
+     */
 
     public List<taskElement> getPendingTasksList(){
         DbHelper dbHelper = new DbHelper(context);
@@ -289,6 +353,11 @@ public class dbLogic {
 
     }
 
+    /**
+     * getCompeltedTasksList obtiene todas las tareas de la tabla "completedtasks"
+     * @return
+     */
+
     public List<taskElement> getCompletedTasksList(){
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -318,6 +387,12 @@ public class dbLogic {
         return list;
 
     }
+
+    /**
+     * getWeeklyTasksList obtiene todas las tareas de la tabla "weeklytasks"
+     * @param day
+     * @return
+     */
 
     public List<taskElement> getWeeklyTasksList(String day){
         DbHelper dbHelper = new DbHelper(context);

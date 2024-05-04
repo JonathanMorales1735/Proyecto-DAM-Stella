@@ -12,10 +12,16 @@ import android.util.Log;
 
 import com.example.stella.utils.Alarm;
 import com.example.stella.db.DbHelper;
+import com.example.stella.utils.timeConvertCalendar;
 
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+/**
+ * bootBroadcastReceiver se encarga de establecer las alarmas de las tareas cuando el dispositivo se reinicia. La clase "dailyActionWorker" puede no establecer las alarmas hasta el dis
+ * siguiente, asi que esta clase cubre ese fallo.
+ */
 
 public class BootBroadcastReceiver extends BroadcastReceiver {
     @Override
@@ -26,6 +32,11 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
             Log.i("BootReceiver: ", "No ha sido posible crear dailyActionReceiver");
         }
     }
+
+    /**
+     * setAlarms es el método encargado de establecer las alarmas. Para ello recoge las tareas de la tabla "pendingtasks" en las cuales tengan una alarma establecida.
+     * @param context
+     */
 
     private void setAlarms(Context context) {
         Alarm alarm = new Alarm(context);
@@ -42,7 +53,8 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
             String name = cursor.getString(1);
             String time = cursor.getString(2);
 
-            calendar = auxSetCalendar(time);
+            timeConvertCalendar setCalendar = new timeConvertCalendar();
+            calendar = setCalendar.convertToCalendar(time);
 
             alarm.setAlarm(id, name, calendar);
             Log.i(TAG, "Alarma creada: " + id + " " + name + " " + time);
@@ -56,23 +68,7 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    private Calendar auxSetCalendar(String time) {
-        Calendar calendar = Calendar.getInstance();
-        Pattern p = Pattern.compile("(([0-9]{2,2}):([0-9]{2,2}):([0-9]{2,2}))");
-        Matcher m = p.matcher(time);
-        boolean mFound = m.find();
-        Log.i("Adapter PendingTasks: ", "Hora recibida: " + time);
-        if (mFound) {
-            int hour = Integer.valueOf(m.group(2));
-            int minute = Integer.valueOf(m.group(3));
-            calendar.set(Calendar.HOUR_OF_DAY, hour);
-            calendar.set(Calendar.MINUTE, minute);
-            calendar.set(Calendar.SECOND, 00);
-            Log.i("Adapter PendingTasks:", "El patrón de time HIZO MATCH : " + hour + ":" + minute + ":00");
-        } else {
-            Log.i("Adapter PendingTasks:", "El patrón de time no hizo match");
-        }
 
-        return calendar;
-    }
+
+
 }

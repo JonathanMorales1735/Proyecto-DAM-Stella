@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorBackground">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/textView9"
+                style="@style/taskStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/edittask" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="32dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="?attr/colorCard1"
+                android:paddingTop="100dp"
+                android:paddingBottom="100dp"
+                app:cardCornerRadius="50dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="50dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/editTextEditName"
+                            android:layout_width="match_parent"
+                            android:layout_height="37dp"
+                            android:background="?attr/colorEditText"
+                            android:ems="10"
+                            android:hint="@string/name"
+                            android:inputType="textPersonName" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="32dp" />
+
+                        <EditText
+                            android:id="@+id/editTextEditDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="37dp"
+                            android:background="?attr/colorEditText"
+                            android:ems="10"
+                            android:hint="@string/description"
+                            android:inputType="textPersonName" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="37dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|left"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView12"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/type"
+                            android:textColor="?attr/colorTextInCard1"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <Spinner
+                            android:id="@+id/spinnerTypesEdit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="?attr/colorOnPrimary" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="37dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView13"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/warning"
+                            android:textColor="?attr/colorTextInCard1"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <CheckBox
+                            android:id="@+id/editNotifyCheckBox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="37dp" />
+
+                    <LinearLayout
+                        android:id="@+id/layer_timeAndDaysEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/layer_horario"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|left"
+                            android:orientation="horizontal"
+                            android:paddingRight="40dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/textSelectedTime"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/never"
+                                    android:textColor="#CFCDCD"
+                                    android:textSize="18sp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/textView14"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/btn_reset"
+                                    style="@style/TextViewClaroClick"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="@string/reset"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/textView14"
+                                    android:layout_width="100dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/time"
+                                    android:textColor="?attr/colorTextInCard1"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </LinearLayout>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="37dp" />
+
+                        <LinearLayout
+                            android:id="@+id/layer_dias"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|left"
+                            android:orientation="horizontal"
+                            android:paddingRight="40dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/textSelectedDays"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_marginTop="3dp"
+                                    android:text="@string/never"
+                                    android:textColor="#CFCDCD"
+                                    android:textSize="18sp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/textView15"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_bias="0.0" />
+
+                                <TextView
+                                    android:id="@+id/textView15"
+                                    android:layout_width="100dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/repeat"
+                                    android:textColor="?attr/colorTextInCard1"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="32dp" />
+
+            <Button
+                android:id="@+id/btn_register2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorCard1"
+                android:onClick="editTask"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/edittask"
+                android:textColor="?attr/colorTextInCard1"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

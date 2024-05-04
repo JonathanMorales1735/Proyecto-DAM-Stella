@@ -20,6 +20,10 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Alarm es la clase encargada de la creacion de alarmas o la eliminación de estas
+ */
+
 public class Alarm {
 
     AlarmManager alarmManager;
@@ -32,6 +36,13 @@ public class Alarm {
         alarmManager = (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
         settings = new settings(context);
     }
+
+    /**
+     * setAlarm se encarga de establecer una alarma
+     * @param id
+     * @param nameTask
+     * @param timeCalendar
+     */
 
     public void setAlarm(int id, String nameTask, Calendar timeCalendar){
 
@@ -64,6 +75,11 @@ public class Alarm {
         Log.i(TAG, "Alarma creada");
     }
 
+    /**
+     * cancelAlarm se encarga de eliminar una alarma en curso
+     * @param id
+     */
+
     public void cancelAlarm(int id){
         Intent intent = new Intent(context, alarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, 0);
@@ -71,6 +87,11 @@ public class Alarm {
         alarmManager.cancel(pendingIntent);
         Log.i(TAG, "Alarma cancelada: id " + id);
     }
+
+    /**
+     * setAllAlarms se encarga de establecer las alarmas de todas las tareas que se encuentran en la tabla pendingtasks
+     * @param context
+     */
 
     public void setAllAlarms(Context context) {
         Calendar calendar;
@@ -85,8 +106,8 @@ public class Alarm {
             int id = cursor.getInt(0);
             String name = cursor.getString(1);
             String time = cursor.getString(2);
-
-            calendar = auxSetCalendar(time);
+            timeConvertCalendar timeConvert = new timeConvertCalendar();
+            calendar = timeConvert.convertToCalendar(time);
 
             setAlarm(id, name, calendar);
             Log.i(TAG, "Alarma creada: " + id + " " + name + " " + time);
@@ -99,26 +120,4 @@ public class Alarm {
             e.printStackTrace();
         }
     }
-
-    private Calendar auxSetCalendar(String time) {
-        Calendar calendar = Calendar.getInstance();
-        Pattern p = Pattern.compile("(([0-9]{2,2}):([0-9]{2,2}):([0-9]{2,2}))");
-        Matcher m = p.matcher(time);
-        boolean mFound = m.find();
-        Log.i("Adapter PendingTasks: ", "Hora recibida: " + time);
-        if (mFound) {
-            int hour = Integer.valueOf(m.group(2));
-            int minute = Integer.valueOf(m.group(3));
-            calendar.set(Calendar.HOUR_OF_DAY, hour);
-            calendar.set(Calendar.MINUTE, minute);
-            calendar.set(Calendar.SECOND, 00);
-            Log.i("Adapter PendingTasks:", "El patrón de time HIZO MATCH : " + hour + ":" + minute + ":00");
-        } else {
-            Log.i("Adapter PendingTasks:", "El patrón de time no hizo match");
-        }
-
-        return calendar;
-    }
-
-
 }

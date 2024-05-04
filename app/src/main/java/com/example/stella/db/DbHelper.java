@@ -28,8 +28,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        createtables(sqLiteDatabase, CONTEXT);
-        insertdata(sqLiteDatabase, CONTEXT);
+        createTables(sqLiteDatabase, CONTEXT);
+        insertData(sqLiteDatabase, CONTEXT);
         initialID();
     }
 
@@ -38,9 +38,14 @@ public class DbHelper extends SQLiteOpenHelper {
         //insertdata(sqLiteDatabase, CONTEXT);
     }
 
+    /**
+     * createTables se encarga de la creación de las tablas de la base de datos . Para ello hace uso de un documento en res>raw, llamado
+     * "creaciondelatablasql"
+     * @param sqldb
+     * @param context
+     */
 
-
-    private void createtables(SQLiteDatabase sqldb, Context context){
+    private void createTables(SQLiteDatabase sqldb, Context context){
 
         int resource = context.getResources().getIdentifier("creaciondetablassql", "raw", context.getPackageName());;
 
@@ -68,7 +73,14 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
-    private void insertdata(SQLiteDatabase sqldb, Context context){
+    /**
+     * insertData se encarga de la insercción en las tablas de la base de datos . Para ello hace uso de un documento en res>raw, llamado
+     * "insercciondedatossql"
+     * @param sqldb
+     * @param context
+     */
+
+    private void insertData(SQLiteDatabase sqldb, Context context){
         Log.i(TAG, "Iniciando insercción de datos");
 
 
@@ -97,7 +109,10 @@ public class DbHelper extends SQLiteOpenHelper {
         }
     }
 
-    // Al insertar datos manualmente, establezco el siguiente id que debería tener "nextID"
+    /**
+     * initialDb se usa para establecer un ID principal el cual se usara para las siguientes tareas que sean creadas. Es así debido a que la id en las tareas se introduce fuera de la DB
+     * y ya insertamos 12 tareas en "insertData"
+     */
 
     private void initialID(){
         SharedPreferences preferences = CONTEXT.getSharedPreferences("nextID", Context.MODE_PRIVATE);

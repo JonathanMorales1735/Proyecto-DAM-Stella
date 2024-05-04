@@ -13,6 +13,10 @@ import com.example.stella.R;
 
 import java.util.Calendar;
 
+/**
+ * YearPickerDialog muestra un dialog para buscar solo por años. Se utiliza en registros anteriores para buscar registros solo por años
+ */
+
 public class YearPickerDialog extends Dialog {
 
     private OnYearSelectedListener listener;

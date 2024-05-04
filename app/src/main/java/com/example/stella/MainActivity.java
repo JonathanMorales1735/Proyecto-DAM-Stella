@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -27,13 +26,13 @@ import com.example.stella.utils.loadSettings;
 import com.example.stella.workManager.scheduleDailyAction;
 import com.example.stella.db.DbHelper;
 import com.example.stella.utils.settings;
-import com.google.firebase.auth.FirebaseAuth;
 
-import java.time.LocalDate;
+/**
+ * MainActivity es la actividad de la pantalla principal. En ella se puede seleccionar un perfil, acceder a la configuracion, acceder a la administracion de perfiles y la creacion de los mismos
+ */
 
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
     private Dialog bottomDialog = null;
     CardView cardView_addNewProfile, cardView_manageProfiles;
     RecyclerView recyclerViewProfiles;
@@ -81,10 +80,15 @@ public class MainActivity extends AppCompatActivity {
         enableManageProfilesBtn();
         enableAddProfileBtn();
         if(settings.isUserActive()){
-            prueba();
+            goToTasksScreen();
         }
 
     }
+
+    /**
+     * enableAddProfileBtn habilita el boton de añadir perfil dependiendo de si se alcanzo el limite de 5 perfiles o no
+     */
+
     private void enableAddProfileBtn(){
         if(adapter.getItemCount() < 5){
             cardView_addNewProfile.setVisibility(View.VISIBLE);
@@ -93,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * enableManageProfilesBtn habilita el boton de administrar perfiles siempre que haya un perfil minimo
+     */
+
     private void enableManageProfilesBtn(){
         if(adapter.getItemCount() > 0){
             cardView_manageProfiles.setVisibility(View.VISIBLE);
@@ -100,6 +108,10 @@ public class MainActivity extends AppCompatActivity {
             cardView_manageProfiles.setVisibility(View.GONE);
         }
     }
+
+    /**
+     * changeLogoAndGearColor cambia el color del logo y el boton de configuracion dependiendo del tema de la aplicacion
+     */
 
     private void changeLogoAndGearColor(){
         int appTheme = settings.getAppTheme();
@@ -112,7 +124,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * setRecyclerViewProfiles establece un adaptador al recyclerview que contiene los perfiles
+     */
 
     private void setRecyclerViewProfiles(){
         adapter.fillProfiles();
@@ -123,6 +137,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * setDailyActionWork inicia "dailyActionWorker"
+     */
 
     private void setDailyActionWork(){
         scheduleDailyAction scheduleDailyAction = new scheduleDailyAction(this);
@@ -136,6 +153,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * onFirstRun si es la primera vez que se inicia la aplicacion, realiza una serie de acciones
+     */
+
     private void onFirstRun(){
 
         boolean mboolean = settings.isFirstRunPassed();
@@ -147,6 +168,10 @@ public class MainActivity extends AppCompatActivity {
             settings.updateFirstRunPassed();
         }
     }
+
+    /**
+     * createInitialDB crea la base de datos
+     */
 
     private void createInitialDB(){
         DbHelper dbHelper = new DbHelper(MainActivity.this);
@@ -162,6 +187,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * showBottomDialog activa el dialog que contiene las opciones de configuracion para elegir el idioma y el tema de la aplicación
+     * @param view
+     */
+
     public void showBottomDialog(View view){
         if(settingsDialog == null || !settingsDialog.isShowing()){
             settingsDialog = new settingsDialog(this);
@@ -169,17 +199,30 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * goToManageProfileScreen metodo para dirigirse hacia la pantalla de administracion de perfiles
+     * @param view
+     */
 
     public void goToManageProfileScreen(View view){
         Intent intent = new Intent(this, screenManageProfiles.class);
         startActivity(intent);
     }
 
-    public void prueba(){
+    /**
+     * goToTasksScreen metodo para dirigirse a la pantalla de tareas
+     */
+
+    public void goToTasksScreen(){
         Intent intent = new Intent(this, pantallaTareas.class);
         startActivity(intent);
         finish();
     }
+
+    /**
+     * showNewProfileDialog muestra el dialog de "createNewProfileDialog"
+     * @param view
+     */
 
     public void showNewProfileDialog(View view){
         createNewProfileDialog.show(this,   new createNewProfileDialog.OnDialogClickListener() {

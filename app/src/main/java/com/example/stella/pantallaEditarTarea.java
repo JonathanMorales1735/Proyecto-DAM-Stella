@@ -38,6 +38,10 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Esta clase muestra la pantalla en donde se editan las tareas
+ */
+
 public class pantallaEditarTarea extends AppCompatActivity {
 
     Spinner spinner;
@@ -51,7 +55,6 @@ public class pantallaEditarTarea extends AppCompatActivity {
     String table = "";
 
     List<String> dayList;
-    Calendar timeCalendar;
     int hora = 0;
     int minuto = 0;
 
@@ -75,7 +78,6 @@ public class pantallaEditarTarea extends AppCompatActivity {
         btn_reset = findViewById(R.id.btn_reset);
         layer_timeAndDaysEdit = findViewById(R.id.layer_timeAndDaysEdit);
         dayList = new ArrayList<>();
-        timeCalendar = Calendar.getInstance();
 
 
         fillTypesSpinner(spinner);
@@ -124,6 +126,11 @@ public class pantallaEditarTarea extends AppCompatActivity {
 
 
     }
+
+    /**
+     * fillAllSections rellena todas las secciones de la pantalla de editar tarea con los campos de la tarea, como el nombre, descripcion...
+     * @param intent
+     */
 
     private void fillAllSections(Intent intent){
         String auxName = intent.getStringExtra("name");
@@ -233,6 +240,10 @@ public class pantallaEditarTarea extends AppCompatActivity {
 
     }
 
+    /**
+     * showTimeAndDaysLayer verifica si el checkBox "checkNotify" esta activo. Si lo esta, muestra el layer en donde se encuentra la hora y los dias de la tarea
+     */
+
     private void showTimeAndDaysLayer(){
         if(checkNotify.isChecked()){
             layer_timeAndDaysEdit.setVisibility(View.VISIBLE);
@@ -240,6 +251,10 @@ public class pantallaEditarTarea extends AppCompatActivity {
             layer_timeAndDaysEdit.setVisibility(View.GONE);
         }
     }
+
+    /**
+     * showDayPickerDialog muestra el dialog "dayPickerDialog"
+     */
 
     private void showDayPickerDialog(){
         dayPickerDialog dialog = new dayPickerDialog(this, new dayPickerDialog.OnDaySetListener() {
@@ -257,16 +272,17 @@ public class pantallaEditarTarea extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * showTimePickerDialog muestra el dialog "timePickerDialog"
+     */
+
     private void showTimePickerDialog(){
         timePickerDialog dialog = new timePickerDialog(this, hora, minuto, true, new timePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 hora = selectedHour;
                 minuto = selectedMinute;
-                textSelectedTime.setText(String.format(Locale.getDefault(), "%02d:%02d", hora, minuto));
-                timeCalendar.set(Calendar.HOUR_OF_DAY, hora);
-                timeCalendar.set(Calendar.MINUTE, minuto);
-                timeCalendar.set(Calendar.SECOND, 00);
+                textSelectedTime.setText(String.format(Locale.getDefault(), "%02d:%02d:00", hora, minuto));
                 timeCheck = true;
             }
         });
@@ -274,11 +290,19 @@ public class pantallaEditarTarea extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * resetTime reestablece el la hora al pulsar el boton resetear
+     */
+
     public void resetTime(){
         textSelectedTime.setText(getResources().getString(R.string.never));
         timeCheck = false;
-        timeCalendar.clear();
     }
+
+    /**
+     * auxSetDaysText metodo auxiliar para mostrar los dias seleccionados en un textView
+     * @param auxList
+     */
 
     private void auxSetDaysText(List<String> auxList){
         String text = "";
@@ -298,6 +322,11 @@ public class pantallaEditarTarea extends AppCompatActivity {
 
     }
 
+    /**
+     * editTask es el metodo que edita la tarea, recoge los valores de los campos e inserta la tarea  si no se encuentra en alguna tabla o la actualiza si se encuentra
+     * @param view
+     */
+
     public void editTask(View view){
 
         if( checkNotify.isChecked() && (!timeCheck && !dayCheck)){
@@ -314,22 +343,27 @@ public class pantallaEditarTarea extends AppCompatActivity {
         boolean auxCheck = false;
         boolean check = false;
 
+        // Si se encuentra en la tabla "weeklytasks", actualiza la tarea en ella
         if(checkTaskInTable(tableWeekly)){
             auxCheck = updateTaskInWeeklyTasks();
             if(auxCheck) check = true;
         }
+        // Si se encuentra en la tabla "pendingtasks", actualiza la tarea en ella
         if(checkTaskInTable(tablePending)){
             auxCheck = updateTaskInPendingTasks();
             if(auxCheck) check = true;
         }
+        // Si se encuentra en "weeklytasks" pero no en "pendingtasks", uno de los dias seleccionados es hoy y no se encuentra en "completedTasks", la inserta en pendingtasks
         if(checkTaskInTable(tableWeekly) && !checkTaskInTable(tablePending) && auxCheckCurrentDay() && !checkTaskInTable(tableCompleted)){
             auxCheck = insertInPendingtasks();
             if(auxCheck) check = true;
         }
+        // Si no se encuentra en "weeklytasks" pero se seleccionaron dias, se inserta en weeklytasks
         if(!checkTaskInTable(tableWeekly) && dayCheck){
             auxCheck = insertInWeeklytasks();
             if(auxCheck) check = true;
         }
+        // Si esta en "completedtasks" se actualiza la tarea en ella
         if(checkTaskInTable(tableCompleted)){
             auxCheck = updateTaskInCompletedTasks();
             if(auxCheck) check = true;
@@ -338,21 +372,29 @@ public class pantallaEditarTarea extends AppCompatActivity {
         if(check) showSuccessDialog();
     }
 
+    /**
+     * clearTimeAndDaysIfNeeded se utiliza en casos especificos, resetea el tiempo y los dias seleccionados
+     */
+    // TODO: comprobar si, una tarea con una hora, al editarlo y quitarle la hora, se le quita la hora
     private void clearTimeAndDaysIfNeeded(){
         if(!checkNotify.isChecked()){
             Log.i(TAG, "Se hace el clear");
             timeCheck = false;
             dayCheck = false;
             dayList.clear();
-            timeCalendar.clear();
         }
     }
+
+    /**
+     * insertInWeeklytasks inserta la tarea en la tabla "weeklytasks"
+     * @return
+     */
 
     private boolean insertInWeeklytasks(){
         ContentValues task = getTaskForWeeklytasks();
         task.put("id", taskId);
         dbLogic dbLogic = new dbLogic(this);
-        boolean insertSuccessfully = dbLogic.insertTask(timeCalendar, "weeklytasks",task);
+        boolean insertSuccessfully = dbLogic.insertTask("weeklytasks",task);
         if(insertSuccessfully) {
             Log.i(TAG, "insertInWeeklytasks: La tarea se insertó correctamente en WEEKLYTASKS.");
             return true;
@@ -362,11 +404,16 @@ public class pantallaEditarTarea extends AppCompatActivity {
         }
     }
 
+    /**
+     * insertInPendingtasks inserta la tarea en la tabla "pendingtasks"
+     * @return
+     */
+
     private boolean insertInPendingtasks(){
         ContentValues task = getTaskForPendingCompletedTasks();
         task.put("id", taskId);
         dbLogic dbLogic = new dbLogic(this);
-        boolean insertSuccessfully = dbLogic.insertTask(timeCalendar, "pendingtasks", task);
+        boolean insertSuccessfully = dbLogic.insertTask("pendingtasks", task);
         if(insertSuccessfully) {
             Log.i(TAG, "insertInPendingtasks: La tarea se insertó correctamente en PENDINGTASKS.");
             return true;
@@ -375,6 +422,11 @@ public class pantallaEditarTarea extends AppCompatActivity {
             return false;
         }
     }
+
+    /**
+     * updateTaskInWeeklyTasks actualiza la tarea en la tabla "weeklytasks"
+     * @return
+     */
 
     private boolean updateTaskInWeeklyTasks(){
 
@@ -393,7 +445,7 @@ public class pantallaEditarTarea extends AppCompatActivity {
 
         Log.i(TAG, "updateTaskInWeeklyTasks: La lista de dias tiene días, se hará el update.");
         ContentValues task = getTaskForWeeklytasks();
-        boolean check = dbLogic.updateTask(taskId, timeCalendar, "weeklytasks", task);
+        boolean check = dbLogic.updateTask(taskId, "weeklytasks", task);
         if (check){
             return true;
         } else {
@@ -402,6 +454,10 @@ public class pantallaEditarTarea extends AppCompatActivity {
 
     }
 
+    /**
+     * updateTaskInPendingTasks actualiza la tarea en la tabla "pendingtasks"
+     * @return
+     */
 
     private boolean updateTaskInPendingTasks(){
 
@@ -420,7 +476,7 @@ public class pantallaEditarTarea extends AppCompatActivity {
         }
 
         ContentValues task = getTaskForPendingCompletedTasks();
-        boolean check = dbLogic.updateTask(taskId, timeCalendar, "pendingtasks", task);
+        boolean check = dbLogic.updateTask(taskId, "pendingtasks", task);
 
         if (check){
            return true;
@@ -431,11 +487,16 @@ public class pantallaEditarTarea extends AppCompatActivity {
 
     }
 
+    /**
+     * updateTaskInCompletedTasks actualiza la tarea en la table "completedtasks"
+     * @return
+     */
+
     private boolean updateTaskInCompletedTasks(){
 
         dbLogic dbLogic = new dbLogic(this);
         ContentValues task = getTaskForPendingCompletedTasks();
-        boolean check = dbLogic.updateTask(taskId, timeCalendar, "completedtasks", task);
+        boolean check = dbLogic.updateTask(taskId, "completedtasks", task);
         if (check){
             return true;
         } else{
@@ -443,6 +504,10 @@ public class pantallaEditarTarea extends AppCompatActivity {
         }
     }
 
+    /**
+     * getTaskForWeeklytasks obtiene la tarea de la tabla "weeklytasks"
+     * @return
+     */
 
     @NonNull
     private ContentValues getTaskForWeeklytasks(){
@@ -499,6 +564,11 @@ public class pantallaEditarTarea extends AppCompatActivity {
         return task;
     }
 
+    /**
+     * getTaskForPendingCompletedTasks obtiene la tarea para las tablas "pendingtasks" y "completedtasks"
+     * @return
+     */
+
     @NonNull
     private ContentValues getTaskForPendingCompletedTasks(){
         int taskNotify = checkNotify.isChecked() ? 1 : 0;
@@ -507,7 +577,6 @@ public class pantallaEditarTarea extends AppCompatActivity {
             taskTime = textSelectedTime.getText().toString();
         }
         String taskType = auxGetType(spinner.getSelectedItemPosition());
-        Log.i(TAG, "EL ID PROFILE PASADO ES: "+ profileId);
         ContentValues task = new ContentValues();
         task.put("name", name.getText().toString());
         task.put("description", description.getText().toString());
@@ -537,6 +606,12 @@ public class pantallaEditarTarea extends AppCompatActivity {
         return b;
     }
 
+    /**
+     * auxGetType metodo auxiliar para obtener el nombre en ingles (asi se encuentran nombrados en las tablas) del tipo seleccionado
+     * @param position
+     * @return
+     */
+
     private String auxGetType(int position){
         String type = "";
 
@@ -558,16 +633,31 @@ public class pantallaEditarTarea extends AppCompatActivity {
         return type;
     }
 
+    /**
+     * checkTaskInTable verifica si existe la tarea en la tabla pasada por parametro
+     * @param tableName
+     * @return
+     */
+
     private boolean checkTaskInTable(String tableName){
         dbLogic dbLogic = new dbLogic(this);
         boolean check = dbLogic.checkTaskInTable(taskId, tableName);
         return check;
     }
 
+    /**
+     * showSuccessDialog enseña un dialog con un mensaje de exito
+     */
+
     private void showSuccessDialog(){
         successDialog dialog = new successDialog();
         dialog.showDialog(this, 1);
     }
+
+    /**
+     * fillTypesSpinner rellena los valores del spinener con los tipos de la tarea
+     * @param spinner
+     */
 
     private void fillTypesSpinner(Spinner spinner){
         ArrayAdapter<CharSequence> adapterTheme = ArrayAdapter.createFromResource(this, R.array.types_array, android.R.layout.simple_spinner_item);

@@ -6,6 +6,10 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 
 import java.text.DecimalFormat;
 
+/**
+ * MyValueFormatter formatea valores numericos en porcentajes
+ */
+
 public class MyValueFormatter extends PercentFormatter {
     DecimalFormat mFormat;
     PieChart mPieChart;
@@ -24,10 +28,8 @@ public class MyValueFormatter extends PercentFormatter {
     @Override
     public String getPieLabel(float value, PieEntry pieEntry) {
         if (mPieChart != null && mPieChart.isUsePercentValuesEnabled()) {
-            // Converted to percent
             return getFormattedValue(value);
         } else {
-            // raw value, skip percent sign
             return mFormat.format(value);
         }
     }

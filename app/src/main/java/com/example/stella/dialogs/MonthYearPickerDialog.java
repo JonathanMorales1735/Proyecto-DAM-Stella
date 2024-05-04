@@ -12,6 +12,10 @@ import androidx.annotation.NonNull;
 
 import com.example.stella.R;
 
+/**
+ * MonthYearPickerDialog muestra un dialog en donde se puede seleccionar solo meses y años. Se usa para la busqueda de registros anteriores del usuario por mes y año.
+ */
+
 public class MonthYearPickerDialog extends Dialog {
 
     private OnMonthYearSetListener listener;
@@ -59,6 +63,11 @@ public class MonthYearPickerDialog extends Dialog {
     public interface OnMonthYearSetListener {
         void onMonthYearSet(int selectedMonth, int selectedYear);
     }
+
+    /**
+     * getMonthsArray es un método auxiliar para obtener los meses traducidos al idioma selecionado y meterlos en el array de meses del dialog.
+     * @return
+     */
 
     private String[] getMonthsArray(){
         String[] months = new String[12];

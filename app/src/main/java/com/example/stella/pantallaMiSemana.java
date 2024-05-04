@@ -22,6 +22,10 @@ import com.example.stella.utils.settings;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase que muestra la pantalla con los dias de la semana y el numero de tareas en ellos
+ */
+
 public class pantallaMiSemana extends AppCompatActivity {
 
     TextView mondayTasksAmount, tuesdayTasksAmount, wednesdayTasksAmount, thursdayTasksAmount, fridayTasksAmount, saturdayTasksAmount, sundayTasksAmount;
@@ -54,6 +58,10 @@ public class pantallaMiSemana extends AppCompatActivity {
         getAmountTasks();
     }
 
+    /**
+     * getAmountTasks obtiene el numero de tareas que hay en cada dia
+     */
+
     private void getAmountTasks(){
         DbHelper dbHelper = new DbHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -80,6 +88,11 @@ public class pantallaMiSemana extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    /**
+     * showDaySchedule lleva a la pantalla del dia en especifico seleccionado
+     * @param view
+     */
 
     public void showDaySchedule(View view){
 
