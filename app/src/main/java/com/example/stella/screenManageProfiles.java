@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import com.example.stella.reciclerViewsAdapters.listProfilesManagementAdapter;
+import com.example.stella.recyclerViewsAdapters.listProfilesManagementAdapter;
 import com.example.stella.utils.loadSettings;
 
 /**

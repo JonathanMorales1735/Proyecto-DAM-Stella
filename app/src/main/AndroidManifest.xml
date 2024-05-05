@@ -48,25 +48,25 @@
             android:name=".screenManageProfiles"
             android:exported="false" />
         <activity
-            android:name=".pantallaEditarTarea"
+            android:name=".screenEditTask"
             android:exported="false" />
         <activity
-            android:name=".pantallaRegistrosAnteriores"
+            android:name=".screenPreviousRecords"
             android:exported="false" />
         <activity
-            android:name=".pantallaDaySchedule"
+            android:name=".screenWeekSchedule"
             android:exported="false" />
         <activity
-            android:name=".pantallaMiSemana"
+            android:name=".screenMyWeek"
             android:exported="false" />
         <activity
-            android:name=".pantallaRegistros"
+            android:name=".screenRecords"
             android:exported="false" />
         <activity
-            android:name=".pantallaNuevaTarea"
+            android:name=".screenNewTask"
             android:exported="false" />
         <activity
-            android:name=".pantallaTareas"
+            android:name=".screenTasks"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

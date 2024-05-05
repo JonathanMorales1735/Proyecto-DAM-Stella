@@ -10,7 +10,7 @@ import android.widget.EditText;
 import com.example.stella.R;
 
 /**
- * createNewProfileDialog es una clase que forma un dialog y lo muestra. Este dialog se compone de un campo de texto y dos botones, aceptar y cancelar. Se usa para crear un nuevo perfil.
+ * Clase que forma un dialog, este dialog se compone de un campo de texto y dos botones, aceptar y cancelar. Se usa para crear un nuevo perfil.
  */
 
 public class createNewProfileDialog {
@@ -25,7 +25,7 @@ public class createNewProfileDialog {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = LayoutInflater.from(context);
         View dialogView = inflater.inflate(R.layout.dialog_new_profile_name, null);
-        final EditText editText = dialogView.findViewById(R.id.editText);
+        final EditText editText = dialogView.findViewById(R.id.editText_newProfileName);
 
         // Se establece el titulo y la funcion de los dos botones
         builder.setView(dialogView)

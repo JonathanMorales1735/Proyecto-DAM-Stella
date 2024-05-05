@@ -6,10 +6,10 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editText_newProfileName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Ingresa algo aquí"
-        android:maxLength="16"/>
+        android:hint="@string/name"
+        android:maxLength="16" />
 
 </LinearLayout>

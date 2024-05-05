@@ -1,4 +1,4 @@
-package com.example.stella.db;
+package com.example.stella;
 
 import static android.content.ContentValues.TAG;
 
@@ -7,8 +7,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.stella.db.DbHelper;
 import com.example.stella.recyclerViewsAdapters.profiles;
 import com.example.stella.recyclerViewsAdapters.taskElement;
 import com.example.stella.utils.Alarm;
@@ -20,28 +22,23 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * En dbLogic se recogen métodos los cuales son usados en todas las clases que necesiten interactuar con la base de datos.
+ * Esta es una clase para hacer pruebas e imita a la clase "dbLogic" en su comportamiento.
  */
 
-public class dbLogic {
+public class dbLogicTest {
 
-    Context context;
-    settings settings;
+    private static final String TAG = "dbLogicTest";
+
+    private Context context;
+    private dbTests.DbHelperForTest dbH;
+    settingsTest settings;
     timeConvertCalendar timeConvertCalendar;
-    DbHelper dbH;
 
-    public dbLogic(Context c){
+    public dbLogicTest(Context c, dbTests.DbHelperForTest dbHelper){
         context = c;
-        settings = new settings(c);
-        timeConvertCalendar = new timeConvertCalendar();
-        dbH = new DbHelper(context);
-    }
-
-    public dbLogic(Context c, DbHelper dbHelper){
-        context = c;
-        settings = new settings(c);
-        timeConvertCalendar = new timeConvertCalendar();
         dbH = dbHelper;
+        settings = new settingsTest(context);
+        timeConvertCalendar = new timeConvertCalendar();
     }
 
     //=============================================================================
@@ -49,16 +46,16 @@ public class dbLogic {
     //=============================================================================
 
     /**
-     * inserTask se usa para insertar una tarea en la base de datos. Para ello se necesita un objeto "Calendar"
+     * inserTask se usa para insertar una tarea en la base de datos
      * @param tableName
      * @param cv
      * @return
      */
 
-    public boolean insertTask(String tableName, ContentValues cv){
+    public boolean insertTask(String tableName, ContentValues cv, dbTests.DbHelperForTest dbHelper){
         long mid = 0;
 
-        SQLiteDatabase db = dbH.getWritableDatabase();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         try {
             mid = db.insertOrThrow(tableName, null, cv);
@@ -83,12 +80,9 @@ public class dbLogic {
             }
         }
 
-        if(mid != 0){
-            return true;
-        } else {
-            return false;
-        }
+        return mid != 0;
     }
+
 
     /**
      * createProfile se encarga de crear un perfil en la tabla "profiles". Tan solo se necesita un nombre
@@ -132,24 +126,8 @@ public class dbLogic {
 
     public boolean updateTask(int taskId,  String tableName, ContentValues cv){
         SQLiteDatabase db = dbH.getWritableDatabase();
-        Alarm alarm = new Alarm(context);
-
-        alarm.cancelAlarm(taskId);
-
         int updateCount = 0;
         updateCount = db.update(tableName, cv, "id = " + taskId, null);
-
-
-        String alarmTimeStr = cv.getAsString("time");
-        tableName = tableName.toLowerCase();
-        if(alarmTimeStr != null && tableName.equals("pendingtasks") ){
-            Log.i(TAG, "updateTask: cambiando alarma.");
-            int id = taskId;
-            String name = cv.getAsString("name");
-            Calendar timeCalendar = timeConvertCalendar.convertToCalendar(cv.getAsString("time"));
-            alarm.setAlarm(id, name, timeCalendar);
-        }
-
         try {
             db.close();
         } catch (SQLException e){
@@ -209,12 +187,6 @@ public class dbLogic {
 
         int rowsAffected = db.delete(tableName, "id = " + taskId, null);
         Log.i(TAG, "Delete rows affected in " + tableName + ": " + rowsAffected);
-        if(rowsAffected > 0 && !checkTaskInTable(taskId, "pendingtasks")){
-            Alarm alarm = new Alarm(context);
-            alarm.cancelAlarm(taskId);
-        } else{
-            return false;
-        }
 
         try {
             db.close();
@@ -222,7 +194,11 @@ public class dbLogic {
             e.printStackTrace();
         }
 
-        return true;
+        if(rowsAffected > 0 && !checkTaskInTable(taskId, "pendingtasks")){
+            return true;
+        } else{
+            return false;
+        }
 
     }
 

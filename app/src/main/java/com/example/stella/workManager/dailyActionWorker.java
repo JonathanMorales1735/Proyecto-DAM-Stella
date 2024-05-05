@@ -14,7 +14,7 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.example.stella.db.dbLogic;
-import com.example.stella.reciclerViewsAdapters.profiles;
+import com.example.stella.recyclerViewsAdapters.profiles;
 import com.example.stella.utils.Alarm;
 import com.example.stella.db.DbHelper;
 import com.example.stella.utils.settings;

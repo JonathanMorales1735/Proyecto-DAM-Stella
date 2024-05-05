@@ -15,6 +15,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+/**
+ * Esta clase es la encargada de formar la base de datos
+ */
+
 public class DbHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
@@ -84,7 +88,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Log.i(TAG, "Iniciando insercción de datos");
 
 
-        int resource = context.getResources().getIdentifier("insercciondedatossql", "raw", context.getPackageName());;
+        int resource = context.getResources().getIdentifier("inserciondedatossql", "raw", context.getPackageName());;
 
         InputStream insertsStream = context.getResources().openRawResource(resource);
         BufferedReader insertReader = new BufferedReader(new InputStreamReader(insertsStream));

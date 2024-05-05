@@ -26,7 +26,7 @@ public class newProfileNameDialog {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = LayoutInflater.from(context);
         View dialogView = inflater.inflate(R.layout.dialog_new_profile_name, null);
-        final EditText editText = dialogView.findViewById(R.id.editText);
+        final EditText editText = dialogView.findViewById(R.id.editText_newProfileName);
         editText.setText(originalName);
 
         // Se introduce el titulo traducido y la funcion de los botonees aceptar y cancelar

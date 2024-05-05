@@ -7,7 +7,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,7 +20,7 @@ import android.widget.Toast;
 import com.example.stella.db.dbLogic;
 import com.example.stella.dialogs.createNewProfileDialog;
 import com.example.stella.dialogs.settingsDialog;
-import com.example.stella.reciclerViewsAdapters.listProfilesAdapter;
+import com.example.stella.recyclerViewsAdapters.listProfilesAdapter;
 import com.example.stella.utils.loadSettings;
 import com.example.stella.workManager.scheduleDailyAction;
 import com.example.stella.db.DbHelper;
@@ -33,7 +32,7 @@ import com.example.stella.utils.settings;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Dialog bottomDialog = null;
+
     CardView cardView_addNewProfile, cardView_manageProfiles;
     RecyclerView recyclerViewProfiles;
     listProfilesAdapter adapter;
@@ -214,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
      */
 
     public void goToTasksScreen(){
-        Intent intent = new Intent(this, pantallaTareas.class);
+        Intent intent = new Intent(this, screenTasks.class);
         startActivity(intent);
         finish();
     }

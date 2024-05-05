@@ -9,18 +9,14 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.example.stella.R;
 import com.example.stella.db.DbHelper;
-import com.example.stella.reciclerViewsAdapters.taskElement;
+import com.example.stella.recyclerViewsAdapters.taskElement;
 
 /**
  * textInfoDialog muestra un dialog con información de una tarea, como su nombre, descripcion, hora...
@@ -44,7 +40,7 @@ public class taskInfoDialog extends Dialog {
         if(!isShowing || !this.isShowing()) {
             super.onCreate(savedInstanceState);
             requestWindowFeature(Window.FEATURE_NO_TITLE);
-            setContentView(R.layout.pantallainfo);
+            setContentView(R.layout.dialog_task_info);
 
             TextView name = findViewById(R.id.textName);
             TextView description = findViewById(R.id.textDescription);
