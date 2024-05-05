@@ -46,7 +46,7 @@ public class taskInfoDialog extends Dialog {
             TextView description = findViewById(R.id.textDescription);
             TextView type = findViewById(R.id.textType);
             TextView time = findViewById(R.id.textTime);
-
+            // Se obtiene la tarea para reflejar sus valores en los textView
             taskElement item = auxGetTaskFullInfo(taskID);
 
             int typeIdName = context.getResources().getIdentifier(item.getType(), "string", context.getPackageName());
@@ -61,7 +61,7 @@ public class taskInfoDialog extends Dialog {
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             getWindow().getAttributes().windowAnimations = R.style.DialogAnimationLeft;
             getWindow().setGravity(Gravity.LEFT);
-
+            // boton para cerrar el dialog
             ImageButton button = findViewById(R.id.btn_close);
             button.setOnClickListener(new android.view.View.OnClickListener() {
                 public void onClick(android.view.View view) {
@@ -87,15 +87,20 @@ public class taskInfoDialog extends Dialog {
         isShowing = false;
     }
 
-
+    /**
+     * Método usado para obtener el valor de todos los campos de una tarea y devolverlos en un objeto taskElement
+     * @param id
+     * @return
+     */
 
     private taskElement auxGetTaskFullInfo(int id){
+        // Se abre conexión con base de datos
         DbHelper dbHelper = new DbHelper(this.getContext());
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         taskElement task = null;
-
+        // Se ejecuta una query para obtener la tarea con id pasado por parametro
         Cursor cursor = db.rawQuery("Select * from " + tableName + " where id = " + id, null);
-
+        // Se forma el objeto con los datos obtenidos
         while(cursor.moveToNext()){
             task = new taskElement();
             task.setId(cursor.getInt(0));
@@ -106,6 +111,7 @@ public class taskInfoDialog extends Dialog {
             task.setTime(cursor.getString(5));
         }
         try{
+            // Se cierra la conexión con BD
             db.close();
             cursor.close();
         } catch (SQLException e){

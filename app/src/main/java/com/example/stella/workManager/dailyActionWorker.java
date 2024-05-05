@@ -58,15 +58,15 @@ public class dailyActionWorker extends Worker {
      */
 
     private void setDailyAction(Context context){
-        boolean mboolean = checkLastDailyAction(context);
-
+        boolean mboolean = checkLastDailyAction(context); // Se comprueba la ultima vez que se realizaron las acciones diarias
+        // Si la ultima vez no fue hoy, se realiza la accion diaria
         if(mboolean){
-            clearPendingTasks(context);
-            setWeeklyTasksInPending(context);
-            setAlarms(context);
-            setPreviousRecords(context);
-            clearCompletedTasks(context);
-            updateLastDailyActionDate(context);
+            clearPendingTasks(context); // Se limpia la tabla pendingtasks
+            setWeeklyTasksInPending(context); // Se llevan las tareas de weeklytasks que tengas valor 1 en el dia de hoy a la tabla pendingtasks
+            setAlarms(context); // Se establece las alarmas de las tareas de pendingtasks
+            setPreviousRecords(context); // Se llevan los valores "type" sumados de las tareas completadas a la tabla previousrecords
+            clearCompletedTasks(context); // Se limpia la tabla Completedtasks
+            updateLastDailyActionDate(context); // Se actualiza el ultimo día que se realizó esto
         }
     }
 
@@ -130,20 +130,24 @@ public class dailyActionWorker extends Worker {
      */
 
     private void setWeeklyTasksInPending(Context context){
+        // Se obtiene el dia de hoy pero en ingles, ya que los campos de los dias en weeklytasks estan en ingles
         Locale enLocale=new Locale("en", "EN");
         LocalDate localDate = LocalDate.now();
         String dayName=localDate.format(DateTimeFormatter.ofPattern("EEEE",enLocale));
         dayName = dayName.toLowerCase();
 
+        // se abre conexion con base de datos
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
+        // Se ejecuta una query para obtener las tareas que tengan el dia de hoy en 1
         Cursor cursor = db.rawQuery("Select id, name, description, type, notify, time, profileId from WEEKLYTASKS where " + dayName + " = 1", null);
         int mid = 0;
         Log.i(TAG, "Insertando weeklytasks en pending");
         if(cursor.getExtras().isEmpty()){
             Log.i(TAG, "No hay nada en weeklytasks");
         }
+        // Se forma un ContentValues con los datos recogidos y se insertan en la tabla pendingtasks
         while(cursor.moveToNext()){
             ContentValues cv = new ContentValues();
             cv.put("id", cursor.getInt(0));
@@ -157,6 +161,7 @@ public class dailyActionWorker extends Worker {
         }
 
         try{
+            // Se cierra la conexion con la BD
             db.close();
             cursor.close();
         } catch (SQLException e){
@@ -184,12 +189,14 @@ public class dailyActionWorker extends Worker {
      */
 
     private void setPreviousRecords(Context context){
+        // Se abre conexion con la BD
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
+        // Se obtiene el id de todos los perfiles
         List<Integer> IDsList = new ArrayList<>();
         IDsList = auxGetProfilesIDs();
 
-
+        // Se prepara una lista con todos los "type" de las tareas
         ArrayList<String> types = new ArrayList<>();
         types.add("work");
         types.add("domestic");
@@ -197,13 +204,15 @@ public class dailyActionWorker extends Worker {
         types.add("leisure");
 
         Cursor cursor;
+
+        // Se realiza la siguiente accion con cada id de cada perfil
         for(int id : IDsList){
 
             int work = 0;
             int domestic = 0;
             int study = 0;
             int leisure = 0;
-
+            // por cada type se cuenta cuantas veces existe dentro de las tareas de completedTasks
             for (String type: types){
                 String query = "Select * from completedtasks where type = '" + type + "' and profileId = " + id;
                 cursor = db.rawQuery(query, null);
@@ -220,7 +229,7 @@ public class dailyActionWorker extends Worker {
                 }
             }
 
-
+            // Se obtiene un ContentValues con la fecha de la ultima acción diaria y un recuendo de cuantas tareas con esos type existen
             String date = settings.getLastDailyAction();
 
             ContentValues cv = new ContentValues();
@@ -232,11 +241,12 @@ public class dailyActionWorker extends Worker {
             cv.put("profileId", id);
 
 
-
+            // Se inserta en la base de datos
             db.insert("PREVIOUSRECORDS", null, cv);
         }
 
         try {
+            // Se cierra la conexión
             db.close();
         } catch (SQLException e){
             e.printStackTrace();

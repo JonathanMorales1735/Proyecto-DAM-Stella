@@ -50,12 +50,13 @@ public class DbHelper extends SQLiteOpenHelper {
      */
 
     private void createTables(SQLiteDatabase sqldb, Context context){
-
+        // Se obtiene el script con la creación de las tablas
         int resource = context.getResources().getIdentifier("creaciondetablassql", "raw", context.getPackageName());;
 
         InputStream insertsStream = context.getResources().openRawResource(resource);
         BufferedReader insertReader = new BufferedReader(new InputStreamReader(insertsStream));
 
+        // Linea por linea ejecuta las query del script
         try {
             while (insertReader.ready()) {
                 String insertStmt = insertReader.readLine();
@@ -87,12 +88,12 @@ public class DbHelper extends SQLiteOpenHelper {
     private void insertData(SQLiteDatabase sqldb, Context context){
         Log.i(TAG, "Iniciando insercción de datos");
 
-
+        // Se recoge el script de la insercion de datos iniciales
         int resource = context.getResources().getIdentifier("inserciondedatossql", "raw", context.getPackageName());;
 
         InputStream insertsStream = context.getResources().openRawResource(resource);
         BufferedReader insertReader = new BufferedReader(new InputStreamReader(insertsStream));
-
+        // Linea por linea se ejecuta cada query del script
         try {
             while (insertReader.ready()) {
                 String insertStmt = insertReader.readLine();

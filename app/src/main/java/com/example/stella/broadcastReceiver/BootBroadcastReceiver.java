@@ -39,15 +39,19 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
      */
 
     private void setAlarms(Context context) {
+        // Se inicializa el objeto Alarm y Calendar
         Alarm alarm = new Alarm(context);
         Calendar calendar;
 
+        // Obtenemos una conexión a la base de datos
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
+        // Ejecutamos una query en la base de datos para obtener las tareas donde tengan una hora
         Cursor cursor = db.rawQuery("Select id, name, time from pendingtasks where time is not null", null);
         Log.i(TAG, "Creando nuevas alarmas.");
 
+        // Establecemos una alarma para todas las tareas recogidas en el cursor
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String name = cursor.getString(1);
@@ -60,6 +64,7 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
             Log.i(TAG, "Alarma creada: " + id + " " + name + " " + time);
         }
 
+        // Cerramos conexión con la base de datos
         try {
             db.close();
             cursor.close();

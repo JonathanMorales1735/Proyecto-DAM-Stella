@@ -148,9 +148,6 @@ public class screenPreviousRecords extends AppCompatActivity {
         YearPickerDialog dialog = new YearPickerDialog(this, new YearPickerDialog.OnYearSelectedListener() {
             @Override
             public void onYearSelected(int selectedYear) {
-                // Aquí puedes hacer lo que quieras con el año seleccionado
-                // Por ejemplo, mostrarlo en un TextView
-
                 txt_date.setText(String.valueOf(selectedYear));
                 year = String.valueOf(selectedYear);
                 year =  String.format("%02d", selectedYear);
@@ -167,9 +164,6 @@ public class screenPreviousRecords extends AppCompatActivity {
         MonthYearPickerDialog dialog = new MonthYearPickerDialog(this, new MonthYearPickerDialog.OnMonthYearSetListener() {
             @Override
             public void onMonthYearSet(int selectedMonth, int selectedYear) {
-                // Aquí puedes hacer lo que quieras con el mes y el año seleccionados
-                // Por ejemplo, mostrarlos en un TextView
-
                 String monthYearText = String.format("%02d/%02d", selectedMonth + 1, selectedYear);
                 txt_date.setText(monthYearText);
                 year = String.valueOf(selectedYear);
@@ -204,7 +198,6 @@ public class screenPreviousRecords extends AppCompatActivity {
         int domestic = 0;
         int study = 0;
         int leisure = 0;
-        //String[] types ={"work", "domestic", "study", "leisure"};
         ArrayList<String> types = new ArrayList<>();
         types.add("work");
         types.add("domestic");
@@ -261,7 +254,7 @@ public class screenPreviousRecords extends AppCompatActivity {
 
         // Una vez recogidos los datos, se introducen en una lista si tienen un valor mayor que 0
 
-        //ArrayList<PieEntry> enters = new ArrayList<>();
+
 
 
         if(work > 0){
@@ -287,19 +280,7 @@ public class screenPreviousRecords extends AppCompatActivity {
 
         // Intoducimos la lista en un objeto PieDataSet, PieData y se configura el objeto PieChart (summary) para mostrar todos los datos en una gráfica.
 
-        /**PieDataSet pieDataSet = new PieDataSet(enters, "");
-        pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-        pieDataSet.setValueTextSize(20);
 
-        PieData pieData = new PieData(pieDataSet);
-        pieData.setValueFormatter(new MyValueFormatter(new DecimalFormat("####.##"), summary));
-        summary.setUsePercentValues(true);
-        summary.setData(pieData);
-        summary.getLegend().setTextSize(20);
-        summary.getDescription().setEnabled(false);
-        summary.animateY(1000);
-
-        summary.setEntryLabelTextSize(20f);*/
         pieDataSet.notifyDataSetChanged();
         pieData.notifyDataChanged();
         summary.notifyDataSetChanged();

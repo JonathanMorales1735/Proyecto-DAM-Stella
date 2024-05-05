@@ -116,7 +116,7 @@ public class settingsDialog extends Dialog {
     private void setSettings(String language, String theme){
 
 
-        // Setting language
+        // Se obtiene el idioma pasado por parametro y se guarda en settings
         String nameSimplified = "";
         String spanish = getContext().getResources().getString(R.string.spanish);
         String english = getContext().getResources().getString(R.string.english);
@@ -130,7 +130,7 @@ public class settingsDialog extends Dialog {
 
 
 
-        // Setting theme
+        // Se obtiene el tema de la app pasado por parámetro y se guarda en settings
         String light = getContext().getResources().getString(R.string.theme_Light);
         String dark = getContext().getResources().getString(R.string.theme_Dark);
         String ocher = getContext().getResources().getString(R.string.theme_Ocher);
@@ -167,6 +167,7 @@ public class settingsDialog extends Dialog {
     }
 
     private void setLocale(String lang) {
+        // Se establece el idioma en los recursos
         Locale myLocale = new Locale(lang);
         Resources res = getContext().getResources();
         DisplayMetrics dm = res.getDisplayMetrics();

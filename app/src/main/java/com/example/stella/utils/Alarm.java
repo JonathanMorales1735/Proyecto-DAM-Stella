@@ -45,19 +45,22 @@ public class Alarm {
      */
 
     public void setAlarm(int id, String nameTask, Calendar timeCalendar){
-
+        // Se obtiene un objeto Calendar para ver el la hora actual
         Calendar auxCalendar = Calendar.getInstance();
+        // Se obtiene l nombre del perfil para reflejarlo en la notificación
         String nameProfile = settings.getCurrentProfileName();
 
         int hour = timeCalendar.get(Calendar.HOUR_OF_DAY);
         int minute = timeCalendar.get(Calendar.MINUTE);
         int currentHour = auxCalendar.get(Calendar.HOUR_OF_DAY);
         int currentMinute = auxCalendar.get(Calendar.MINUTE);
+        // Se comprueba si la hora insertada en el Calendar pasado por parametro es menor que la hora actual. Si es menor no se establece una alarma para hoy
         if((hour <= currentHour) && (minute <= currentMinute)){
             Log.i("Alarm: " , "La hora establecida de la tarea es menor a la actual");
             return;
         }
 
+        // se prepara el intent para la notificación que se muestra al activarse la alarma
         Intent intent = new Intent(context, alarmReceiver.class);
         intent.putExtra("id", id);
         intent.putExtra("nameTask", nameTask);
@@ -95,13 +98,13 @@ public class Alarm {
 
     public void setAllAlarms(Context context) {
         Calendar calendar;
-
+        // Se obtiene conexion con la base datos
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-
+        // Se ejecuta una query para buscar todas las tareas que tienen un valor en el campo time
         Cursor cursor = db.rawQuery("Select id, name, time from pendingtasks where time is not null", null);
         Log.i(TAG, "Creando nuevas alarmas.");
-
+        // Se establecen las alarmas de todas las tareas encontradas en el cursor
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String name = cursor.getString(1);
@@ -114,6 +117,7 @@ public class Alarm {
         }
 
         try {
+            // Se cierra la conexión con la BD
             db.close();
             cursor.close();
         } catch (SQLException e) {

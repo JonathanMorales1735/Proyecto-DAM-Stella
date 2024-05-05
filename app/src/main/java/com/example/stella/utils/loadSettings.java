@@ -36,7 +36,7 @@ public class loadSettings {
 
     private void chargeTheme(Activity activity){
         int theme = settings.getAppTheme();
-
+        // Se establece un tema en la app dependiendo de la configuración guardada en settings
         if (theme == 0) {
             activity.setTheme(R.style.Theme_Stella); // Tema claro
         } else if (theme == 1) {
@@ -56,7 +56,7 @@ public class loadSettings {
     }
 
     /**
-     * chargeLanguage se encarga de cargar el lenguaje quye eligió el usuario
+     * chargeLanguage se encarga de cargar el lenguaje que eligió el usuario
      */
 
     private void chargeLanguage(){

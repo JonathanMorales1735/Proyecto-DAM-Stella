@@ -61,13 +61,13 @@ public class MainActivity extends AppCompatActivity {
         dbLogic = new dbLogic(this);
         settings = new settings(this);
 
-        createInitialDB();
-        setDailyActionWork();
-        onFirstRun();
-        setRecyclerViewProfiles();
-        enableManageProfilesBtn();
-        enableAddProfileBtn();
-        changeLogoAndGearColor();
+        createInitialDB(); // Se crea la base de datos por primera vez
+        setDailyActionWork(); // Se inicia, si no lo está, dailyActionWorker
+        onFirstRun(); // Se realizan ciertas acciones la primera vez que se enciende la app
+        setRecyclerViewProfiles();  // Se prepara el recyclerview de los perfiles para listarlos
+        enableManageProfilesBtn(); // Se hace visible o no el "boton" para administrar los perfiles
+        enableAddProfileBtn(); // Se hace visible o no el "boton" para crear los perfiles
+        changeLogoAndGearColor(); // Se cambia el color del logo y el boton de las opciones dependiendo del tema de la app
 
     }
 

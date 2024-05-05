@@ -33,12 +33,15 @@ public class adaptersLogic {
      */
 
     public void deleteTaskInWeeklyTasks(int id){
+        // Se borra la tarea en la tabla weeklytasks
         boolean deleteSuccessfully = dbLogic.deleteTask(id, "weeklytasks");
+        // Se verifica si tuvo exito
         if(deleteSuccessfully){
             Log.i(TAG, "Deleted task successfully in WEEKLYTASKS with id " + id);
         } else{
             Log.i(TAG, "Couldn't delete task in WEEKLYTASKS with id " + id);
         }
+        // Si esta en pendiente se elimina tambien
         boolean checkTaskInPendingTasks = dbLogic.checkTaskInTable(id, "pendingtasks");
         if(checkTaskInPendingTasks){
             Log.i(TAG, "Task with id " + id + " is in PENDINGTASKS as well. Proceeding to its elimination");
@@ -70,12 +73,13 @@ public class adaptersLogic {
      */
 
     public taskElement getTaskFullInfo(int id, String tableName){
+        // Se obtiene conexión con base de datos
         DbHelper dbHelper = new DbHelper(c);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         taskElement task = null;
-
+        // Se ejecuta una query para obtener todos los datos de una tarea
         Cursor cursor = db.rawQuery("Select id, name, description, type, notify, time, profileId from " + tableName +" where id = " + id, null);
-
+        // Se forma el objeto con los datos recogidos en el cursor
         while(cursor.moveToNext()){
             task = new taskElement();
             task.setId(cursor.getInt(0));
@@ -87,6 +91,7 @@ public class adaptersLogic {
             task.setProfileId(cursor.getInt(6));
         }
         try{
+            // Se cierra la conexión
             db.close();
             cursor.close();
         } catch (SQLException e){

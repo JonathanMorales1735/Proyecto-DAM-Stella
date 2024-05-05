@@ -30,25 +30,6 @@ public class scheduleDailyAction {
 
 
     public void scheduleWork() {
-       /** // Calcula el tiempo de la próxima ejecución después de las 00:00 am
-        Calendar currentTime = Calendar.getInstance();
-        Calendar nextMidnight = Calendar.getInstance();
-        nextMidnight.set(Calendar.HOUR_OF_DAY, 0);
-        nextMidnight.set(Calendar.MINUTE, 0);
-        nextMidnight.set(Calendar.SECOND, 0);
-
-            nextMidnight.add(Calendar.DATE, 1);
-
-
-        long delay = nextMidnight.getTimeInMillis() - currentTime.getTimeInMillis();
-
-        // BORRAR MAS ADELANTE
-
-        long horas = delay / (1000 * 60 * 60);
-        long minutos = (delay / (1000 * 60)) % 60;
-        long segundos = (delay / 1000) % 60;
-
-        Log.i("ContentValues", "Tiempo hasta las 12: HORAS: " + horas + ", MINUTOS: " + minutos + ", SEGUNDOS: " + segundos);*/
 
         // Construye la solicitud de trabajo periódico con el intervalo calculado
         PeriodicWorkRequest periodicWorkRequest =
