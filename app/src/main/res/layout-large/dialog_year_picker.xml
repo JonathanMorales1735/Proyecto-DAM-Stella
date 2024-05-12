@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:backgroundTint="?attr/colorCard1"
-        android:text="Select"
+        android:text="@string/apply"
         android:textColor="?attr/colorTextInCard1"
         android:textStyle="bold" />
 

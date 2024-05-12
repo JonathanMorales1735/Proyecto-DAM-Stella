@@ -27,6 +27,7 @@
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/cardview_task_layout2.xml" value="0.271875" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/dialog_choose_filter.xml" value="0.271875" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/dialog_daypicker.xml" value="0.271875" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/dialog_month_year_picker.xml" value="0.14709569577935647" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/dialog_new_profile_name.xml" value="0.2975630611372381" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/dialog_year_picker.xml" value="0.2975630611372381" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/help_file.xml" value="0.1" />
@@ -38,7 +39,9 @@
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/screen_new_task.xml" value="0.3009833262077811" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-large/screen_previous_records.xml" value="0.14542415378186377" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-normal/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-normal/dialog_month_year_picker.xml" value="0.11376858435681965" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-normal/dialog_new_profile_name.xml" value="0.22894736842105262" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-normal/dialog_year_picker.xml" value="0.11376858435681965" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-normal/help_file.xml" value="0.11376858435681965" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-normal/pantallaeditartarea.xml" value="0.2975630611372381" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-normal/pantallainfo.xml" value="0.22894736842105262" />
@@ -54,7 +57,9 @@
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-small/screen_manage_profiles.xml" value="0.9382845188284519" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-small/screen_previous_records.xml" value="0.6198198198198198" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-xlarge/activity_main.xml" value="0.148828125" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-xlarge/dialog_month_year_picker.xml" value="0.1" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-xlarge/dialog_new_profile_name.xml" value="0.17863036303630364" />
+        <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-xlarge/dialog_year_picker.xml" value="0.1" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-xlarge/help_file.xml" value="0.1" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-xlarge/pantallaeditartarea.xml" value="0.14180929095354522" />
         <entry key="..\:/Users/DiMaN/AndroidStudioProjects/Stella/app/src/main/res/layout-xlarge/pantallainfo.xml" value="0.24588815789473684" />
