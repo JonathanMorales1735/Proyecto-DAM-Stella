@@ -45,6 +45,9 @@
         android:theme="@style/Theme.Stella"
         tools:targetApi="31">
         <activity
+            android:name=".helpFile"
+            android:exported="false" />
+        <activity
             android:name=".screenManageProfiles"
             android:exported="false" />
         <activity

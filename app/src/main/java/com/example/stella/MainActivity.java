@@ -7,12 +7,16 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -26,6 +30,8 @@ import com.example.stella.workManager.scheduleDailyAction;
 import com.example.stella.db.DbHelper;
 import com.example.stella.utils.settings;
 
+import java.io.File;
+
 /**
  * MainActivity es la actividad de la pantalla principal. En ella se puede seleccionar un perfil, acceder a la configuracion, acceder a la administracion de perfiles y la creacion de los mismos
  */
@@ -37,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerViewProfiles;
     listProfilesAdapter adapter;
     ImageView logo;
+    Button btn_help;
     ImageButton btn_optionsGear;
     com.example.stella.utils.loadSettings loadSettings;
     settingsDialog settingsDialog = null;
@@ -52,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         logo = findViewById(R.id.image_logo);
         btn_optionsGear = findViewById(R.id.btn_optionsGear);
+        btn_help = findViewById(R.id.btn_help);
 
         recyclerViewProfiles = findViewById(R.id.recycler_profiles);
         adapter = new listProfilesAdapter(this, this);
@@ -82,6 +90,17 @@ public class MainActivity extends AppCompatActivity {
             goToTasksScreen();
         }
 
+    }
+
+    /**
+     * Método para mostrar el pdf de ayuda en línea
+     * @param view
+     */
+
+    public void showHelpFile(View view){
+        Intent intent = new Intent(this, helpFile.class);
+        startActivity(intent);
+        finish();
     }
 
     /**
